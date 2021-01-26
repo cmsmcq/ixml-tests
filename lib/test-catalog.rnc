@@ -1,0 +1,178 @@
+default namespace = "https://github.com/cmsmcq/ixml-tests"
+namespace unqualified = ""
+
+grammar {
+
+	# RNC grammar for test catalog.
+	#
+	# Revisions:
+	# 2021-01-25 : CMSMcQ : sketch this out by hand.
+        #
+	# To do:
+	# - add app-info (for insertion of arbitrary XML)
+	# - add documentation links? 
+	# - make description contents use div or paragraph-level HTML
+	# - supply types for tokenized attributes?
+	#
+
+	
+
+	start = test-catalog
+
+
+	test-catalog = element test-catalog {
+	    attribute name { text },
+	    attribute release-date { xsd:date },
+	    
+	    (metadata*
+	    &
+	    (test-set | test-set-ref)*)
+	}
+
+# Metadata
+
+        metadata = description | app-info | doc
+
+        description = element description {
+	  p*
+	}
+
+        app-info = element app-info {
+	  external-atts,
+	  any-element*
+	}
+
+        doc = element doc {
+	  attribute href { xsd:anyURI }
+	}
+	
+
+# test-set
+
+        test-set = element test-set {
+	    external-atts,
+	    attribute name { text },
+	    (metadata*
+	    &
+	    (created,
+	    modified*,
+	    (ixml-grammar | vxml-grammar
+	    | ixml-grammar-ref | vxml-grammar-ref)*,
+	    grammar-test?,
+	    (test-set | test-set-ref | test-case)*))
+	}
+
+	test-set-ref = element test-set-ref {
+	    external-atts,
+	    attribute href { xsd:anyURI }
+	}
+
+	ixml-grammar = element ixml-grammar {
+	    external-atts,
+	    text
+	}
+	
+	ixml-grammar-ref = element ixml-grammar-ref {
+	    external-atts,
+	    attribute href { xsd:anyURI }
+	}
+	
+	vxml-grammar = element vxml-grammar {
+	    external-atts,
+	    text
+	}
+	
+	vxml-grammar-ref = element vxml-grammar-ref {
+	    external-atts,
+	    attribute href { xsd:anyURI }
+	}
+	
+	grammar-test = element grammar-test {
+	    external-atts,
+	    (metadata*
+	    &
+	    (created, modified*, result))
+	}
+
+
+# test-case
+
+        test-case = element test-case {
+	    external-atts,
+	    (metadata*
+	    &
+	    (created, modified*,
+	    (test-string | test-string-ref),
+	    result)
+	    )
+	}
+	
+	test-string = element test-string {
+	    external-atts,
+	    text
+	}
+
+	test-string-ref = element test-string-ref {
+	    external-atts,
+	    attribute href { xsd:anyURI }
+	}
+	
+        result = element result {
+	    external-atts,
+	    assertion
+	}
+
+
+# Test assertions
+
+        assertion = assert-xml-ref
+	          | assert-xml
+	          | assert-not-a-sentence
+
+        assert-xml-ref = element assert-xml-ref {
+	    external-atts,
+	    attribute href { xsd:anyURI }
+	}
+        assert-xml = element assert-xml {
+	    external-atts,
+	    any-element+
+	}
+        assert-not-a-sentence = element assert-not-a-sentence {
+	    external-atts,
+	    metadata*
+	}
+
+# Common constructs
+
+        who-when = attribute by { text },
+	    	   attribute on { xsd:date }
+
+        created = element created {
+	    who-when
+	}
+        modified = element modified {
+	    who-when,
+	    attribute change { text }
+	}
+
+	p = element p { phrases }
+	
+	phrases = (text | emph | code)*
+
+	emph = element emph { phrases }
+
+        code = element code { text }
+
+	anything = (any-element | any-attribute | text)* 
+	any-element = element * { anything }
+	any-attribute = attribute * { text }
+
+        external-atts = nsq-att*
+
+	nsq-att = attribute (* - unqualified:*) { text }
+
+# Maintenance:
+# To add a new kind of step, first add the name to 'step', then define an element with
+# the appropriate parameters.
+
+}
