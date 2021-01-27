@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../lib/testcat-html.xsl"?>
+<test-catalog xmlns="https://github.com/cmsmcq/ixml-tests"
+              xmlns:gt="http://blackmesatech.com/2020/grammartools"
+              name="arith.ixml.xml"
+              release-date="2021-01-27"
+              gt:date="2021-01-27T13:26:51.812655-07:00">
+   <description>
+     <p>This test catalog gathers together pointers to various
+     test sets for the language defined by arith.ixml.xml.</p>
+     <p>The grammar is a straightforward grammar for arithmetic
+     expressions with numbers, variable references, and
+     arithmetic operators.  It is unusual in allowing three
+     different kinds of parentheses:  round parens, square
+     brackets, and braces.</p>
+     <p>It is also unusual (unintentionally) in the inconsistency with
+     which it allows or forbids whitespace.  The issue becomes
+     visible when inspecting some of the simplest negative
+     test cases.</p>
+   </description>
+   <app-info>
+     <ixml-grammar>
+{ Grammar for simple arithmetic expressions, for testing of test-case
+  generation and grammar-manipulation tools.
+
+  Revisions:
+  2020-12-30 : CMSMcQ : made grammar
+}
+expr: s*, term+addop.
+term:  factor+mulop.
+factor:  num; var; '(', expr, ')'; '[', expr, ']'; '{', expr, '}'.
+num:  digit+, ('.', digit*)?.
+var:  ['a'-'z'].
+addop: s*, ["+-"], s*.
+mulop: s*, ["*/×÷"], s*.
+digit: ['0'-'9'].
+s: #20; #9; #a.       
+     </ixml-grammar>
+   </app-info>
+   <description>
+     
+     <p>Test polarity:  positive, negative (varies by test set).</p>
+     <p>Test selection:  varies by test set.</p>
+   </description>
+
+
+   <description>
+     <p>The first test set was generated directly from the
+     grammar and contains positive tests covering all
+     grammatical constructs.</p>
+   </description>  
+   <test-set-ref href="arith.test-catalog.pos.xml"/>
+
+
+   <description>
+     <p>The other test sets were generated from a O3 superset regular
+     approximation of the language defined by grammar arith.ixml.xml.
+     The O3 superset keeps track of brackets up to depth 3, and then
+     no longer requires them to match up properly.</p>
+     <p>There are four different ways of generating tests, each
+     attempting to meet a different coverage criterion.</p>
+   </description>
+
+   <description>
+     <p>In state-visited coverage, each state in the FSA appears in at
+     least one test.  (Actually, one is created from each state; the
+     set is not minmimal and may include duplicates.)</p>
+   </description>   
+   <test-set-ref href="arith.O3.test-catalog.state.neg.xml"/>
+
+   <description>
+     <p>In state-final coverage, each state in the last
+     state visited in one test.</p>
+   </description>   
+   <test-set-ref href="arith.O3.test-catalog.state-final.neg.xml"/>
+   
+
+   <description>
+     <p>In arc coverage, each arc in the FSA is traversed in at least
+     one test.  (Actually, one test is created from each arc; the set
+     is not minmimal and may include duplicates.)</p>
+   </description>   
+   <test-set-ref href="arith.O3.test-catalog.arc.neg.xml"/>
+
+   <description>
+     <p>In arc-final coverage, each arc in the FSA appears as the last
+     arc traverse in one test.</p>
+   </description>
+   <test-set-ref href="arith.O3.test-catalog.arc-final.neg.xml"/>
+     
+
+</test-catalog>
