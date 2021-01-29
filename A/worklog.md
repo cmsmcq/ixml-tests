@@ -164,5 +164,19 @@ I am remembering that my working without pseudo-terminals was not just an attemp
 
 Maybe now, armed with the knowledge that determinizing my manuall constructed FSA for ixml's O0 superset has thus far taken 15 hours and 818 MB, I will be re-motivated to look again and try to find a solution.
 
+## 2021-01-29
 
+The determinizer failed this morning (or so it appeared -- I now wonder whether it had actually failed or had just emitted a message on stderr) with about 800 MB of data written.
+
+I have been unable to sustain the conviction that all non-sentences fall clearly into one or the other of the two categories identified last night, and even less able to make progress with the conjecture that if that is the case, it must be possible to generate errors by focusing on one level at a time.  Too often when one replaces some string derived by nonterminal *N* by a string not derived by it, the result is nevertheless a legitimate sentence.  The example I cited to SP in the December meeting was something like `S: A?.  A: ('x'; 'y').`  The empty string is not in *L(A)*, but using it in place of 'x' in the sentence 'x' does not produce a non-sentence, just a sentence with a different derivation.
+
+There may be conditions under which an FSA with pseudo-terminals can be determinized and worked with essentially as if it were an FSA over characters, but so far I have not found them.
+
+It may also be possible to make progress by taking into account the follow-set of the states in the last-set of (the FSA for) *L(N*<sub>1</sub>*)* and the first-set of *L(N*<sub>2</sub>*)*, in trying to work with the sequence *N*<sub>1</sub> *N*<sub>2</sub>.  This has some relation (it is probably a case of) the kind of horizontal ambiguity described by that Danish paper, Braband et al., on ambiguity detection.  Nightmare example:  turning *name*, "." into *name* to make an example of a non-rule, and then expanding *name* to `abc.`, which is a perfectly legal name.  The string `abc.def` is a perfectly legal name, and also a perfectly legal end of one rule and beginning of the next.  A following comma or semicolon determines the first reading, a following colon or equals-sign determines the second.
+
+It may be possible to make reliably negative examples by avoiding such ambiguities, but that essentially rules out a lot of interesting edge cases.
+
+So perhaps progress lies in first eliminating all such ambiguities (assuming a way can be found to do that -- not guaranteed) and then in systematically detecting them and pounding on them with test cases.  For any two tokens X and Y in a RHS, such that follow(X) includes Y, look for whether there is any squishiness in the boundary between X and Y (assuming a way can be found to say what that means, exactly).
+
+Perhaps it's time for some hand work to see what things look like in practice.
 
