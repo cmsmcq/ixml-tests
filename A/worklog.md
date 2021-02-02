@@ -396,5 +396,17 @@ Maybe not.  Consider the following plan.  Suppose that our FSA *F* has some numb
 
 A refinement:  if there is only one *i*/*o* pair that lacks the utb property, we can eliminate the problem by eliminating either *i* or *o* (or both), and leaving other arcs untouched.  If the source of *i* has the utb property, eliminating *i* should preserve it, because *i* will be replaced by an arc labeled (*L(i)* *L(o)*), which should work fine.  Eliminating *o*, on the other hand, is likely to complicate things for the source of *i*.  On the other hand, in an FSA with the Gluschkov property, eliminating *i* will eliminate the state, so the 'refinement' doesn't seem to buy us much in that case.
 
+Note that the utb condition is not the only relevant property; the outgoing arcs from each state must also be disjoint.
 
+After this morning's work, the state of play with respect to pseudo-terminals appears to be:
+
+* If the FSA satisfies the utb condition and the disjoint-arcs condition, we can create negative test cases from it. (= We can generate strings in the complement of its language.)
+
+* If the FSA doesn't satisfy the utb condition, but only a few states fail it, we may be able to make an FSA that's not too much larger that does satisfy the utb condition.
+
+* If the FSA doesn't satisfy the disjoint-arcs condition, we can make it do so by the usual operations (arcs labeled a\b, a*b, b\a), though this may explode the number of states.
+
+* Making negative test cases involves calculating unions and complements and intersections for various languages and the set of strings which make a negative test case is state-specific.
+
+* We can define a coverage measure that allows us to generate a set of negative test cases for each pseudo-terminal independently of all others, and inject each one just once, in a suitable location (if any), instead of once in every place the pseudo-terminal appears.  This will reduce apparent repetitiveness in the test suite.
 
