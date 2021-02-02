@@ -243,3 +243,56 @@ If each language in Π included some sentences not included in any other languag
 We might be able to generate test cases from A in a two-step process:  (1) Pretend that Π is uniquely tokenizable, determinize the FSA on that basis, and take care, when instantiating test-case recipes, to choose strings which match only one arc of those leaving a given state.  Then (2) for each state, identify overlaps among arcs and systematically generate test cases from the intersections of the languages on the arcs.  But I have not been able to convince myself that that will work.
 
 All in all -- working with FSAs whose transitions are on pseudo-terminals remains elusive.  Very frustrating.
+
+## 2021-02-01:  Rethinking determinization
+
+The existing determinizer works with a queue of states to be constructed  in G' (each corresponding to some set of states in the input grammar G) and a set of states in G' that have been constructed.  It starts with the queue containing just the start state of G', which corresponds to {*q*<sub>0</sub>}, where *q*<sub>0</sub> is the start state of G and ends when the queue is empty.
+
+For each item in the queue, requesting construction of a new state *q* to be constructed from the set of old states {*o*<sub>1</sub>, ..., *o*<sub>*n*</sub>}:
+
+* The initial set of arcs for *q* is the union of the arcs of all the old states *o*<sub>*i*</sub>.
+
+* The revised set of arcs for *q* eliminates all partial overlap between arcs; all arcs in the revised set either have the same terminal symbol or disjoint terminal symbols.  If the initial set of arcs contains the arcs (*a*, *q*), (*b*, *r*), where *a* and *b* are terminal symbols and *q* and *r* are states in G, and if *a* and *b* overlap, then the revised set of arcs will have the arcs (*a* \ *b*, *q*), (*a* intersect *b*, *q*), (*a* intersect *b*, *r*), (*b* \ *a*, *r*).  If either of the differences is the empty set, that arc is omitted.
+
+* The third set of arcs for *q* combines arcs with the same terminal and makes sets of the target states, to make a deterministic set of arcs going to states in G'.  So in the case of initial arcs (*a*, *q*), (*b*, *r*), the third set of arcs will have 
+(*a* \ *b*, {*q*}), (*a* intersect *b*, {*q*, *r*}), (*b* \ *a*, {*r*}).
+
+* The new state *q* will have a name constructed from the names of the corresponding old states.  Its arcs will be the third set of arcs just constructed.
+
+* The new state *q* is checked for references to new states that need constructing; those found are added to the queue.
+
+
+Unfortunately, I no longer remember whether the problem was that we ran out of heap space, or stack space.
+
+An extreme way to reduce the amount of stack space would be to eliminate the queue and run the process in multiple passes.
+
+I note to begin with that we can define a state as deterministic if no two of its arcs have the terminals which match the same or overlapping sets of strings.  If every state in the FSA is deterministic, the FSA is deterministic.  
+
+* We can save some work if we begin by checking each state to see if it is determistic.  If it is, we can leave it alone.
+
+Then, for each pass over the grammar:
+
+* If all states are deterministic, we are done and this is the last pass. Stop.
+
+* Otherwise, pick a nondeterministic state.
+
+* Make it deterministic:  From its arcs construct a set of deterministic arcs (first eliminate overlap, then merge arcs with identical terminals, more or less as described above, except that if an arc has only one target state, we leave that state name alone, so in the example used above the set of arcs will be (*a* \ *b*, *q*), (*a* intersect *b*, {*q*, *r*}), (*b* \ *a*, *r*).  Note that *q* and *r* will already exist in the input and won't need to be constructed.
+
+* For each new state required, construct a rule for that new state.  Its name will be constructed from the names of the old states to which it corresponds, and its arcs will be those of those old states.  Add the new rule(s) to the end of the grammar.
+
+* Note that this process will make some states in G unreachable, so periodically we should remove unreachable states.
+
+If we do only one state per pass, both the heap cost and the stack cost should be low; indeed, we will have completely eliminated the recursive calls to the queue manager.  On the negative side, the number of passes is likely to be prohibitive.  So in practice, I wonder if a generational approach would work: using an accumulator or a right-sibling traversal across rules (to keep track of states already constructed), deal with all rules in the input grammar.  If they are already deterministic, leave them alone.  If they are not deterministic, make them so (and add rules for the new states generated in doing so).  I don't know how many generations will be required, but each of them will involve fewer new states than are handled by the existing algorithm, so the main risks I foresee are (a) a tedious number of generations, and (b) excessive growth in the size of the XML over the generations.
+
+To reduce the size of the XML, without abandoning the use of ixml regular grammars as a natural representation of the FSA, I can think of two things which may make a modest difference:
+
+* Instead of expanding pseudo-terminals before building the O0 FSA, build the 'small' O0 FSA with pseudo-terminals.  For each pseudo-terminal, build an FSA, determinize it, *and minimize it*.  Then make the 'big' O0 FSA by plugging the minimal FSAs for the pseudo-terminals in at the appropriate places.
+
+* Instead of building full inclusion elements when necessary, introduce a `gt:inclusion` element which just carries a *gt:ranges* attribute.  It can be expanded to a normal ixml inclusion whenever desired, but in the case of inclusions with lots of ranges, it will save all the child elements.
+
+In a multi-pass scenario, I can also imagine that it might be feasible to work with pseudo-terminals.  I am thinking it might help to augment the ixml vocabulary with a new kind of terminal symbol that allows expressions involving difference and intersection, and find a way to normalize those expressions.  Since intersection, union, and difference correspond to conjunction, disjunction, and negation, it seems plausible that the combinations that arise can all be reduced to either conjunctive or disjunctive normal form.  After each pass, the new languages arising can be given names, and an FSA for them can be built, determinized, and minimized.  (And if we want we can calculate a regular expression.)  From the FSA we will know whether the language is the empty set, in which case the arc can be deleted.  Or if we wish, we can work through the entire process to get a deterministic pseudo-regular grammar, at which point we can gather up all the new pseudo-terminals and work out whether they are empty or not.
+
+The point of the normalization is mostly just to avoid calculating the same language under multiple names.  The resulting deterministic FSA with pseudo-terminals will have more pseudo-terminals than the NFSA we started with, but I venture to guess that it will still be a lot smaller than the character FSA, and the CNF or DNF expressions will still be meaningful to the user.  (Their atoms will, after all, be nonterminals in the original grammar.)
+
+The same rules that allow simplification of disjunctive and conjunctive normal forms in sentential logic should allow simplification of their analogues here.
+
