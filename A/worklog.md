@@ -236,7 +236,7 @@ I believe that if Π is uniquely tokenizable, then we can determinize A without 
 
 * If any π in Π  is nullable, then the start-state of the Mealy machine (call it *q*<sub>0</sub> is also a final state, and the arc from *q*<sub>0</sub> to *q*<sub>0</sub> can be traversed at will without consuming any input symbols.  So if the nonterminal *S* in the grammar for ixml is a pseudo-terminal (and it should be), then the set of pseudo-terminals won't be uniquely tokenizable.
 
-* If any π in Π has a cycle involving both a first state and a final state, then any word in *L(π)* is the prefix of infinitely many other words in the language, and Π won't be uniquely determinizable.  (*S* again, but also *name*.)
+* If any π in Π has a cycle involving both a first state and a final state, then any word in *L(π)* Is the prefix of infinitely many other words in the language, and Π won't be uniquely determinizable.  (*S* again, but also *name*.)
 
 If each language in Π included some sentences not included in any other language in Π, we could reduce each language to that core and make a modified set of pseudo-terminals that were disjoint.  But that would not suffice to guarantee unique tokenizability, and it's not given in any case.
 
@@ -305,5 +305,96 @@ In any state, the language on any incoming arc (say, L(p-S) or L(name)) may have
 That is, if we wish to be able to make negative test cases by tracing a path in the FSA, and then replacing the label *N* on some arc in the path with an appropriate new label, and then deriving a string from the modified path, then the set of strings from which we want to draw is not *~N*, but a subset of *~N*.  Specifically, if the source state of this arc labeled *N* is *q*, with incoming arcs labeled *Li1*, *Li2*, ... and outgoing arc labeled *Lo1*, *Lo2*, ..., then the label on the error-producing arc needs to be the equivalent of *~N* \ (*cx(Li1)* union *cx(Li2)* union ... union *sx(Lo1)* union *sx(Lo2)* union ...), where *cx(L)* is the concatenation of *continuations(L)* and _Sigma_*, the language consisting of the continuations of *L* plus any further string, and similarly *sx(L)* is the concatenation of *L* and any strings in *Sigma*.  If all the languages involved are regular, then this subset of *L(N)* will also be regular, and we can create an FSA for it, from which we can generate test cases tailored to insertion after state *q*.
 
 Since I have had trouble getting graphviz to draw a diagram of the O0 FSA for ixml that is simple and regular enough to read easily, I am probably going to need to work from the regular grammars.  That will be easier, I think, if each state is labeled with the corresponding items in the original grammar.  So making ixml-annotate-gluschkov supply the items to which each state corresponds would probably be helpful.
+
+## 2021-02-02:  unique tokenizability
+
+This morning I realized that the test mentioned a few days ago is probably stronger than necessary.  That is, it's a sufficient but not a necessary condition.
+
+> I think we may call Π *uniquely tokenizable* if every string in Π* has a unique path through the Mealy machine *M*<sub>Π*</sub>.
+
+It amounts to saying that for any two pseudo-terminals π<sub>1</sub> and π<sub>2</sub>, we can always find a unique boundary between them, i.e. the grammar
+
+> S: π<sub>1</sub>, π<sub>1</sub>.
+
+is unambiguous.  In reality, it suffices if this holds for all such pairs that can in fact be adjacent in a walk through the FSA.  I think that boils down to something like this:
+
+>  For each state *q* in the FSA,
+>  for each incoming arc *i* whose target is *q*,
+>  for each outgoing arc *o* whose source is *q*,
+>  the concatenation of *i* and *o* is unambiguous
+>  (i.e. for every string *s* which matches *i* *o*,
+>  there is only one partition of *s* into *t* and *u*
+>  such that *s* = *t* *u*, *t* in *L(i)*, and *u* in *L(o)*).
+
+Or in Alloy notation (assuming suitable definitions of the unquantified identifiers):
+
+    for q: Q | for in:  arcs.Q | for out: Q.arcs | unambiguous(concat(in, out))
+
+Let us say an ordered pair if pseudo-terminals satisfies the unique-token-boundary (= utb) condition iff it has the property described above for *i* and *o*.  (Equivalently, we say it possesses the utb property.)
+
+Let us say a state satisfies the unique-token-boundary condition if every pair (*i*, *o*) with *i* drawn from the labels on incoming arcs and *o* drawn from the labels on outgoing arcs satisfies the utb condition.
+
+This seems to make it possible to define a set of sufficient conditions for generating negative test cases from an FSA *F* using pseudo-terminals:  *F* can be used if
+
+* No pseudo-terminal in *F* accepts the null string.
+
+* Each state in *F* satisfies the utb condition.
+
+Given such an *F*, I think we can create reliably negative test cases with the following process:
+
+* Choosing a state *q* with incoming arcs *i*<sub>1</sub>, *i*<sub>2</sub>, ..., and outgoing arcs *o*<sub>1</sub>, *o*<sub>2</sub> ...
+
+* Choose a string *s*<sub>1</sub> which starts at the start state and ends in state *q*.
+
+* Choose a string *s*<sub>2</sub> drawn from ~(*L(o*<sub>1</sub>*)* union *L(o*<sub>2</sub>*)* union ...).
+
+* If every pair (*i*<sub>1</sub>, *s*<sub>2</sub>), (*i*<sub>2</sub>, *s*<sub>2</sub>), ... concatenating the language on an incoming arc with *s*<sub>2</sub> satisfies the utb condition, then any string beginning with (*s*<sub>1</sub> *s*<sub>2</sub> will be a negative test case (or:  a sentence in the complement of the language described by the FSA)
+
+This is unlikely to be a necessary condition, but it should be a sufficient one.
+
+Note also that a sufficient (but not necessary) condition for the utb property is that if we examine the FSAs for *i* and *o* (or *i* and *s*<sub>2</sub>), the languages on the arcs in follow(last(*i*)) are disjoint from the languages in first(*o*).
+
+For example:  consider the hand-created RTN for to O0 subset of ixml, with 26 states.
+
+* ixml_0 is the start state and has no  incoming arcs.
+
+* For ixml_1, *S* is incoming and *mark* is outgoing.  The utb criterion is satisfied. 
+
+* For rule_1, *mark* is incoming and *S* is outgoing.  Again, the utb criterion is satisfied.
+
+And so on.  Actually, this is too simple, since *S* is nullable in ixml.  If we replace every arc on *S* with an arc on *p-S* and an epsilon arc, it's very slightly more complicated in the first couple of states.  The regular grammar now starts:
+
+    ixml_0 = p-S, ixml_1; mark, rule_1 ; name, rule_3.
+    ixml_1 = mark, rule_1 ; name, rule_3.
+    rule_1 = p-S, rule_2 ; name, rule_3. 
+    rule_2 = name, rule_3.
+    rule_3 = p-S, rule_4; ["=:"], rule_5. 
+    rule_4 = ["=:"], rule_5.
+    rule_5 = p-S, rule_6; terminal, factor_1 ; nonterminal, factor_2 ; "(", factor_3 ; [";|"], alts_2 ; ".", rule_8 ; ")", factor_6 . 
+    rule_6 = terminal, factor_1 ; nonterminal, factor_2 ; "(", factor_3 ; [";|"], alts_2 ; ".", rule_8 ; ")", factor_6 . 
+    rule_8 = p-S, rule_9 ; mark, rule_1 ; name, rule_3 ; {nil} .
+    rule_9 = mark, rule_1 ; name, rule_3 ; {nil} .
+	...
+
+* For ixml_1, *S* is incoming and *mark* and *name* are outgoing.  The utb criterion is satisfied. 
+
+* For rule_1, *mark* is incoming and *S* and *name* are outgoing.  We have utb.
+
+* For rule_2, *S* is incoming and *name* is outgoing.  We have utb.
+
+* For rule_3, *name* is incoming and the outgoing arcs are labeled *S* and `[":="]`.  We have utb.
+
+And so on.
+
+Since the FSA we are working from is created by simplifying a Gluschkov automaton (eliminating epsilon rules, but not merging any states), it is noticeable that each state has a single incoming language.  That is not something we want to count on in the general case, but it does make it easier to see that each state possesses the utb property.
+
+In an FSA of only 26 states, it is straightforward to check all states, especially when they are as straightforward as these are. (But then, that is the point of trying to work with pseudo-terminals instead of characters:  the FSA has 26 states, not 929.  So even when the FSA feels big, it should be possible to feel good about checking it, because the alternative will be a character-based FSA which is a lot bigger.)
+
+What is not clear to me is what can be done when the criteria are not met.  Any nullable pseudo-terminal *P* can be recast as (*p-P*; empty), so the first criterion is easy.  But if we have some *i*/*o* pairs which don't satisfy the utb criterion, what should we do?  If we avoid making negative test cases for such pairs, we will have reliably negative tests, but there will be a hole in our coverage.  Are we going to have to expand the entire FSA?
+
+Maybe not.  Consider the following plan.  Suppose that our FSA *F* has some number of non-utb states.  Identify some non-utb state *q* and eliminate it in the usual way:  for each *i*/*o* pair of its incoming and outgoing arcs, make a pseudo-terminal language by concatenating *L(i)* and *L(o)*, and run an arc from the source of *i* to the target of *o* labeled with that language.  (I notice that I am from time to time casually using *i* and *o* sometimes to denote the arcs and sometimes the language labeling them.  I'll try to be more careful, but I hope that if I slip up, the metonymy won't confuse things.)  When all the arc pairs have been processed in this way, we can delete *q* and all of its incoming and outgoing arcs, since they are now redundant.  We have created no new states, and we have eliminated one non-utb state.  If we keep this up we will eventually have no non-utb states, though of course we may have more pseudo-terminal languages than we want to deal with.  If the non-utb parts of *F* are relatively isolated, this can give us an FSA of workable size (in states and numbers of pseudo-terminal languages).  If the non-utb parts of *F* are very widespread, it is probably better to move to the character-based FSA.
+
+A refinement:  if there is only one *i*/*o* pair that lacks the utb property, we can eliminate the problem by eliminating either *i* or *o* (or both), and leaving other arcs untouched.  If the source of *i* has the utb property, eliminating *i* should preserve it, because *i* will be replaced by an arc labeled (*L(i)* *L(o)*), which should work fine.  Eliminating *o*, on the other hand, is likely to complicate things for the source of *i*.  On the other hand, in an FSA with the Gluschkov property, eliminating *i* will eliminate the state, so the 'refinement' doesn't seem to buy us much in that case.
+
 
 
