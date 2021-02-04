@@ -410,3 +410,12 @@ After this morning's work, the state of play with respect to pseudo-terminals ap
 
 * We can define a coverage measure that allows us to generate a set of negative test cases for each pseudo-terminal independently of all others, and inject each one just once, in a suitable location (if any), instead of once in every place the pseudo-terminal appears.  This will reduce apparent repetitiveness in the test suite.
 
+## 2021-02-04 Question:  what is needed in order to generate negative test cases reliably from an FSA?
+
+Part of the point of pseudo-regular grammars is that they are smaller.  Maybe that's the entire point.
+
+In a character-based FSA, we make it deterministic in order to generate sentences from its complement.
+
+What does it mean for an FSA with arbitrary regular languages and not just single-string single-character languages as labels of its arcs to be deterministic?
+
+When is such an FSA deterministic enough to allow reliable generation of negative test cases with a plausible coverage story?
