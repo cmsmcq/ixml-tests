@@ -64,7 +64,7 @@ s: #20; #9; #a.
    <description>
      <p>In state-visited coverage, each state in the FSA appears in at
      least one test.  (Actually, one is created from each state; the
-     set is not minmimal and may include duplicates.)</p>
+     set is not minimal and may include duplicates.)</p>
    </description>   
    <test-set-ref href="arith.O3.test-catalog.state.neg.xml"/>
 
@@ -78,13 +78,13 @@ s: #20; #9; #a.
    <description>
      <p>In arc coverage, each arc in the FSA is traversed in at least
      one test.  (Actually, one test is created from each arc; the set
-     is not minmimal and may include duplicates.)</p>
+     is not minimal and may include duplicates.)</p>
    </description>   
    <test-set-ref href="arith.O3.test-catalog.arc.neg.xml"/>
 
    <description>
      <p>In arc-final coverage, each arc in the FSA appears as the last
-     arc traverse in one test.</p>
+     arc traversed in one test.</p>
    </description>
    <test-set-ref href="arith.O3.test-catalog.arc-final.neg.xml"/>
      
