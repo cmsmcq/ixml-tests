@@ -23,7 +23,7 @@ grammar {
 	test-catalog = element test-catalog {
 	    attribute name { text },
 	    attribute release-date { xsd:date },
-	    
+	    external-atts,
 	    (metadata*
 	    &
 	    (test-set | test-set-ref)*)
@@ -34,6 +34,7 @@ grammar {
         metadata = description | app-info | doc
 
         description = element description {
+	  external-atts,
 	  p*
 	}
 
@@ -43,6 +44,7 @@ grammar {
 	}
 
         doc = element doc {
+	  external-atts,
 	  attribute href { xsd:anyURI }
 	}
 	
@@ -67,6 +69,7 @@ grammar {
 	    attribute href { xsd:anyURI }
 	}
 
+	# ixml-grammar:  grammar in invisible-XML form
 	ixml-grammar = element ixml-grammar {
 	    external-atts,
 	    text
@@ -76,7 +79,10 @@ grammar {
 	    external-atts,
 	    attribute href { xsd:anyURI }
 	}
-	
+
+	# vxml-grammar:  grammar in visible-XML form
+	# (either a parsed ixml grammar, translated into
+	# XML, or something created in XML)
 	vxml-grammar = element vxml-grammar {
 	    external-atts,
 	    text

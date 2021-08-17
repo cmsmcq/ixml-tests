@@ -62,7 +62,7 @@
 	  div.test-set {}
 	  div.metadata { width: 100%; background-color: #DDD; }
 	  div.app-info { color: brown; }
-	  div.ixml-source, div.vxml-source { padding: 0.5em; border: 1px solid navy;}
+	  div.ixml-source, div.vxml-source { padding: 0.5em; border: 1px solid navy; white-space: pre;}
 	  div.ast { padding: 0.5em; border: 1px solid navy;}
 	  div.vxml { padding: 0.5em; padding-left: 0;}
 	  div.grammar-test { margin-top: 1em; }
@@ -92,9 +92,12 @@
     <h2 class="test-set">
       <xsl:text>Test set: </xsl:text>
       <xsl:value-of select="@name"/>
+      <xsl:text> (</xsl:text>
+      <xsl:value-of select="count(descendant::cat:test-case)"/>
+      <xsl:text> tests)</xsl:text>
     </h2>
     <xsl:apply-templates/>
-  </xsl:template>
+  </xsl:template>  
   
   <xsl:template match="cat:test-set/cat:test-set">
     <h3 class="sub test-set">
@@ -103,6 +106,30 @@
     </h3>
     <xsl:apply-templates/>
   </xsl:template>
+
+  
+  <xsl:template match="cat:test-set-ref">
+    <xsl:element name="div">
+      <xsl:attribute name="class">
+	<xsl:text>block</xsl:text>
+      </xsl:attribute>
+      <xsl:element name="span">
+	<xsl:attribute name="class">
+	  <xsl:text>label</xsl:text>
+	</xsl:attribute>
+	<xsl:text>Test set: </xsl:text>
+      </xsl:element>
+      <xsl:element name="a">
+	<xsl:attribute name="class">
+	  <xsl:text>inline xref</xsl:text>
+	</xsl:attribute>
+	<xsl:attribute name="href">
+	  <xsl:value-of select="@href"/>
+	</xsl:attribute>
+	<xsl:value-of select="@href"/>      
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>  
   
   <xsl:template match="cat:ixml-grammar">
     <xsl:element name="div">
@@ -183,6 +210,7 @@
 	  <xsl:text>label</xsl:text>
 	</xsl:attribute>
 	<xsl:text>Test case </xsl:text>
+	<xsl:number select="test-case"/>
       </xsl:element>
       <xsl:apply-templates/>
     </xsl:element>
@@ -321,10 +349,30 @@
     </xsl:element>
   </xsl:template>
   
+  <xsl:template match="cat:raw-parse-tree">
+    <xsl:element name="div">
+      <xsl:attribute name="class">
+	<xsl:text>block vxml</xsl:text>
+      </xsl:attribute>
+      <xsl:element name="b">
+	<xsl:attribute name="class">
+	  <xsl:text>label</xsl:text>
+	</xsl:attribute>
+	<xsl:text>Raw parse: </xsl:text>
+      </xsl:element>
+      <xsl:element name="div">
+	<xsl:attribute name="class">
+	  <xsl:text>block raw-parse</xsl:text>
+	</xsl:attribute>
+	<xsl:apply-templates mode="showxml"/>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="cat:app-info/cat:raw-parse-tree-ref">
     <xsl:element name="div">
       <xsl:attribute name="class">
-	<xsl:text>block test-string</xsl:text>
+	<xsl:text>block</xsl:text>
       </xsl:attribute>
       <xsl:element name="span">
 	<xsl:attribute name="class">

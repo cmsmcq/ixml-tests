@@ -3,7 +3,7 @@ Test suite(s) for ixml
 
 This project contains collections of tests for invisible XML, together
 with supporting materials.  For more on invisible XML, see
-https://invisiblexml.org and material linked from there.
+[https://invisiblexml.org](https://invisiblexml.org) and material linked from there.
 
 The subdirectory organization is fairly simple:
 
