@@ -26,7 +26,7 @@ include:
 
     * Tests for a simple grammar of [arithmetic expressions](tests-straw/arith/arith.md) 
 
-    * Tests for several artificially [small grammars](tests-straw/gxxx/gxxxx.md) 
+    * Tests for several artificially [small grammars](tests-straw/gxxx/gxxx.md) 
 
     * Tests for [invisible XML](tests-straw/ixml/ixml.md) itself
 
