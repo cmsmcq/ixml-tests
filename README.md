@@ -9,13 +9,22 @@ The subdirectory organization is fairly simple:
 
 * The A (admin) directory contains work plans and similar stuff.
 
-* The doc directory contains documentation and technical papers.
+  * A [work log](A/worklog.md) 
+  * A [work plan](A/workplan.md) 
+
+* The doc directory contains documentation and technical papers,
+including:
+
+  * A catalog sketch (in [XML](doc/catalog-sketch.xml) or [HTML](doc/catalog-sketch.html)]
 
 * The lib directory contains schemas and other ancillary materials.
 
 * The tests-straw directory contains a proof-of-concept test suite for
 ixml parsing functionality, with catalog and test cases and results
-(some as separate files, some in the catalog).  
+(some as separate files, some in the catalog).  At the moment, these
+include:
+
+    * Test for a simple grammar of [arithmetic expressions](test-straw/arith/arith.md)
 
 Further test suites may be added later in further tests-* directories.
 
