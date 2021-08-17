@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<test-catalog xmlns:gt="http://blackmesatech.com/2020/grammartools"
+<?xml-stylesheet type="text/xsl" href="../../lib/testcat-html.xsl"?>
+<test-catalog xmlns="https://github.com/cmsmcq/ixml-tests"
+	      xmlns:gt="http://blackmesatech.com/2020/grammartools"
               gt:date="2021-01-26T09:21:27.863348-07:00">
    <description>
       <p>This test catalog describes tests for the language defined by g010.ixml.xml.</p>

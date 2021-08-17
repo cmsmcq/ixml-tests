@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="../src/ixml-html.xsl"?>
+<?xml-stylesheet type="text/xsl" href="../../lib/ixml-html.xsl"?>
 <ixml>
    <comment> g011:  a small ixml grammar:  011
 
@@ -7,10 +7,11 @@
 
   This one is an FSA with 0 nonfinal states, 1 final state, 1 arc.
 
-  L is the set containing the empty string and 'a' and nothing else.
+  L is the set containing sequences of zero or more 'a' characters and nothing else.
   
 </comment>
    <comment> Revisions:
+  2021-08-17 : CMSMcQ : correct characterization of language (may have been right once)
   2021-01-17 : CMSMcQ : made ixml 
 </comment>
    <rule name="S">:  <comment>nil</comment>
