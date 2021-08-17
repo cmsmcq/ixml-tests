@@ -24,7 +24,11 @@ ixml parsing functionality, with catalog and test cases and results
 (some as separate files, some in the catalog).  At the moment, these
 include:
 
-    * Test for a simple grammar of [arithmetic expressions](test-straw/arith/arith.md)
+    * Tests for a simple grammar of [arithmetic expressions](tests-straw/arith/arith.md) 
+
+    * Tests for several artificially [small grammars](tests-straw/gxxx/gxxxx.md) 
+
+    * Tests for [invisible XML](tests-straw/ixml/ixml.md) itself
 
 Further test suites may be added later in further tests-* directories.
 
