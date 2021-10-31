@@ -109,9 +109,12 @@ grammar {
 	# vxml-grammar:  grammar in visible-XML form
 	# (either a parsed ixml grammar, translated into
 	# XML, or something created in XML)
+	#
+	# N.B. we do not require a legal ixml grammar:
+	# it may be a negative test case.
 	vxml-grammar = element vxml-grammar {
 	    external-atts,
-	    text
+	    any-element
 	}
 	
 	vxml-grammar-ref = element vxml-grammar-ref {
