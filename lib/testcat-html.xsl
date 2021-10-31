@@ -65,7 +65,8 @@
 	  div.ixml-source, div.vxml-source { padding: 0.5em; border: 1px solid navy; white-space: pre;}
 	  div.ast { padding: 0.5em; border: 1px solid navy;}
 	  div.vxml { padding: 0.5em; padding-left: 0;}
-	  div.grammar-test { margin-top: 1em; }
+	  div.block.vxml-ref span.label { font-weight: bold; }
+	  div.grammar-test { margin-top: 1.5em; padding: 0.5em; border-top: 1px dotted navy;}
 	  h2.test-set { margin-top: 3em; width: 100%; border-bottom: 1px solid black; }
 	  h3.test-set { margin-top: 1em; width: 100%; margin-left: 10%; border-bottom: 1px solid black; }
 	  span.label { font-weight: normal; }
@@ -303,14 +304,25 @@
   </xsl:template>
     
   <xsl:template match="cat:assert-xml-ref">
-    <xsl:element name="a">
+    <xsl:element name="div">
       <xsl:attribute name="class">
-	<xsl:text>inline xref</xsl:text>
+	<xsl:text>block result ast-ref</xsl:text>
       </xsl:attribute>
-      <xsl:attribute name="href">
-	<xsl:value-of select="@href"/>
-      </xsl:attribute>
-      <xsl:value-of select="@href"/>      
+      <xsl:element name="span">
+	<xsl:attribute name="class">
+	  <xsl:text>label</xsl:text>
+	</xsl:attribute>
+	<xsl:text>Result: </xsl:text>
+      </xsl:element>
+      <xsl:element name="a">
+	<xsl:attribute name="class">
+	  <xsl:text>inline xref</xsl:text>
+	</xsl:attribute>
+	<xsl:attribute name="href">
+	  <xsl:value-of select="@href"/>
+	</xsl:attribute>
+	<xsl:value-of select="@href"/>      
+      </xsl:element>
     </xsl:element>
   </xsl:template>
     

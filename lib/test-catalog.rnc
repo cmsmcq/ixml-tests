@@ -6,6 +6,10 @@ grammar {
 	# RNC grammar for test catalog.
 	#
 	# Revisions:
+	# 2021-10-31 : CMSMcQ : commit some changes:  @name on test-case,
+	#                       allow at most one grammar for each test
+	#                       set (grammars may be inherited from ancestor
+	#                       test sets).
 	# 2021-01-25 : CMSMcQ : sketch this out by hand.
         #
 	# To do:
@@ -52,17 +56,39 @@ grammar {
 # test-set
 
         test-set = element test-set {
-	    external-atts,
 	    attribute name { text },
+	    external-atts,
 	    (metadata*
 	    &
 	    (created,
 	    modified*,
 	    (ixml-grammar | vxml-grammar
-	    | ixml-grammar-ref | vxml-grammar-ref)*,
+	    | ixml-grammar-ref | vxml-grammar-ref)?,
 	    grammar-test?,
 	    (test-set | test-set-ref | test-case)*))
 	}
+        # Q. Why does test-set allow multiple grammars?
+        # A. To avoid repetition.  If we want to run
+	# tests both with an internal grammar, and
+	# an external grammar, it's pointless to duplicate
+	# the test set.  See tests-straw/gxxx for examples.
+	#
+	# The implicit assertion is that all grammars
+	# given are equivalent.  A test run might
+	# choose a convenient grammar (vxml over ixml)
+	# or might run on all grammars.
+	#
+	# Counter-argument:  this complicates reporting
+	# unnecessarily.  See test0.xml for an example
+	# in which ixml-grammar and ixml-grammar-ref
+	# are given different test cases.
+	#
+	# Counter-argument wins.  A test-set uses one grammar.  If
+	# grammar. If none is specified, we get the grammar from the
+	# ancestor.  If no ancestor specifies a grammar, we are
+	# sunk.
+
+        # name attribute should be required, is it?
 
 	test-set-ref = element test-set-ref {
 	    external-atts,
@@ -104,6 +130,7 @@ grammar {
 # test-case
 
         test-case = element test-case {
+	    attribute name { text }, 
 	    external-atts,
 	    (metadata*
 	    &
@@ -112,6 +139,7 @@ grammar {
 	    result)
 	    )
 	}
+	# Need to require a name attribute.
 	
 	test-string = element test-string {
 	    external-atts,

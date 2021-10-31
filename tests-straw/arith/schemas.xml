@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <uri resource="arith.test-catalog.all.xml" uri="../../lib/test-catalog.rnc"/>
+  <uri resource="arith.test-catalog.pos.xml" uri="../../lib/test-catalog.rnc"/>
+  <uri resource="arith.O3.test-catalog.state.neg.xml" uri="../../lib/test-catalog.rnc"/>
+  <uri resource="arith.O3.test-catalog.state-final.neg.xml" uri="../../lib/test-catalog.rnc"/>
+  <uri resource="arith.O3.test-catalog.arc.neg.xml" uri="../../lib/test-catalog.rnc"/>
+  <uri resource="arith.O3.test-catalog.arc-final.neg.xml" uri="../../lib/test-catalog.rnc"/>
+
+</locatingRules>
