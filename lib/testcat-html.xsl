@@ -5,7 +5,7 @@
 		xmlns:cat="https://github.com/cmsmcq/ixml-tests"
 		>
 
-  <!--* Quick stylesheet for ixml grammars *-->
+  <!--* Quick stylesheet for test catalogs *-->
   <xsl:output method="html"
 	      indent="yes"/>
 

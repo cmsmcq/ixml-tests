@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="https://github.com/cmsmcq/ixml-tests" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!--
+    RNC grammar for test catalog.
+    
+    Revisions:
+    2021-10-31 : CMSMcQ : commit some changes:  @name on test-case,
+                          allow at most one grammar for each test
+                          set (grammars may be inherited from ancestor
+                          test sets).
+    2021-01-25 : CMSMcQ : sketch this out by hand.
+    
+    To do:
+    - add app-info (for insertion of arbitrary XML)
+    - add documentation links? 
+    - make description contents use div or paragraph-level HTML
+    - supply types for tokenized attributes?
+    
+  -->
+  <start>
+    <ref name="test-catalog"/>
+  </start>
+  <define name="test-catalog">
+    <element name="test-catalog">
+      <attribute name="name"/>
+      <attribute name="release-date">
+        <data type="date"/>
+      </attribute>
+      <ref name="external-atts"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="metadata"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <choice>
+            <ref name="test-set"/>
+            <ref name="test-set-ref"/>
+          </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <!-- Metadata -->
+  <define name="metadata">
+    <choice>
+      <ref name="description"/>
+      <ref name="app-info"/>
+      <ref name="doc"/>
+    </choice>
+  </define>
+  <define name="description">
+    <element name="description">
+      <ref name="external-atts"/>
+      <zeroOrMore>
+        <ref name="p"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="app-info">
+    <element name="app-info">
+      <ref name="external-atts"/>
+      <zeroOrMore>
+        <ref name="any-element"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="doc">
+    <element name="doc">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <!-- test-set -->
+  <define name="test-set">
+    <element name="test-set">
+      <attribute name="name"/>
+      <ref name="external-atts"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="metadata"/>
+        </zeroOrMore>
+        <group>
+          <ref name="created"/>
+          <zeroOrMore>
+            <ref name="modified"/>
+          </zeroOrMore>
+          <optional>
+            <choice>
+              <ref name="ixml-grammar"/>
+              <ref name="vxml-grammar"/>
+              <ref name="ixml-grammar-ref"/>
+              <ref name="vxml-grammar-ref"/>
+            </choice>
+          </optional>
+          <optional>
+            <ref name="grammar-test"/>
+          </optional>
+          <zeroOrMore>
+            <choice>
+              <ref name="test-set"/>
+              <ref name="test-set-ref"/>
+              <ref name="test-case"/>
+            </choice>
+          </zeroOrMore>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <!--
+    Q. Why does test-set allow multiple grammars?
+    A. To avoid repetition.  If we want to run
+    tests both with an internal grammar, and
+    an external grammar, it's pointless to duplicate
+    the test set.  See tests-straw/gxxx for examples.
+    
+    The implicit assertion is that all grammars
+    given are equivalent.  A test run might
+    choose a convenient grammar (vxml over ixml)
+    or might run on all grammars.
+    
+    Counter-argument:  this complicates reporting
+    unnecessarily.  See test0.xml for an example
+    in which ixml-grammar and ixml-grammar-ref
+    are given different test cases.
+    
+    Counter-argument wins.  A test-set uses one grammar.  If
+    grammar. If none is specified, we get the grammar from the
+    ancestor.  If no ancestor specifies a grammar, we are
+    sunk.
+  -->
+  <!-- name attribute should be required, is it? -->
+  <define name="test-set-ref">
+    <element name="test-set-ref">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <!-- ixml-grammar:  grammar in invisible-XML form -->
+  <define name="ixml-grammar">
+    <element name="ixml-grammar">
+      <ref name="external-atts"/>
+      <text/>
+    </element>
+  </define>
+  <define name="ixml-grammar-ref">
+    <element name="ixml-grammar-ref">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <!--
+    vxml-grammar:  grammar in visible-XML form
+    (either a parsed ixml grammar, translated into
+    XML, or something created in XML)
+    
+    N.B. we do not require a legal ixml grammar:
+    it may be a negative test case.
+  -->
+  <define name="vxml-grammar">
+    <element name="vxml-grammar">
+      <ref name="external-atts"/>
+      <ref name="any-element"/>
+    </element>
+  </define>
+  <define name="vxml-grammar-ref">
+    <element name="vxml-grammar-ref">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="grammar-test">
+    <element name="grammar-test">
+      <ref name="external-atts"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="metadata"/>
+        </zeroOrMore>
+        <group>
+          <ref name="created"/>
+          <zeroOrMore>
+            <ref name="modified"/>
+          </zeroOrMore>
+          <ref name="result"/>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <!-- test-case -->
+  <define name="test-case">
+    <element name="test-case">
+      <attribute name="name"/>
+      <ref name="external-atts"/>
+      <interleave>
+        <zeroOrMore>
+          <ref name="metadata"/>
+        </zeroOrMore>
+        <group>
+          <ref name="created"/>
+          <zeroOrMore>
+            <ref name="modified"/>
+          </zeroOrMore>
+          <choice>
+            <ref name="test-string"/>
+            <ref name="test-string-ref"/>
+          </choice>
+          <ref name="result"/>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <!-- Need to require a name attribute. -->
+  <define name="test-string">
+    <element name="test-string">
+      <ref name="external-atts"/>
+      <text/>
+    </element>
+  </define>
+  <define name="test-string-ref">
+    <element name="test-string-ref">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="result">
+    <element name="result">
+      <ref name="external-atts"/>
+      <ref name="assertion"/>
+    </element>
+  </define>
+  <!-- Test assertions -->
+  <define name="assertion">
+    <choice>
+      <ref name="assert-xml-ref"/>
+      <ref name="assert-xml"/>
+      <ref name="assert-not-a-sentence"/>
+    </choice>
+  </define>
+  <define name="assert-xml-ref">
+    <element name="assert-xml-ref">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="assert-xml">
+    <element name="assert-xml">
+      <ref name="external-atts"/>
+      <oneOrMore>
+        <ref name="any-element"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="assert-not-a-sentence">
+    <element name="assert-not-a-sentence">
+      <ref name="external-atts"/>
+      <zeroOrMore>
+        <ref name="metadata"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- Common constructs -->
+  <define name="who-when">
+    <attribute name="by"/>
+    <attribute name="on">
+      <data type="date"/>
+    </attribute>
+  </define>
+  <define name="created">
+    <element name="created">
+      <ref name="who-when"/>
+    </element>
+  </define>
+  <define name="modified">
+    <element name="modified">
+      <ref name="who-when"/>
+      <attribute name="change"/>
+    </element>
+  </define>
+  <define name="p">
+    <element name="p">
+      <ref name="phrases"/>
+    </element>
+  </define>
+  <define name="phrases">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="emph"/>
+        <ref name="code"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="emph">
+    <element name="emph">
+      <ref name="phrases"/>
+    </element>
+  </define>
+  <define name="code">
+    <element name="code">
+      <text/>
+    </element>
+  </define>
+  <define name="anything">
+    <zeroOrMore>
+      <choice>
+        <ref name="any-element"/>
+        <ref name="any-attribute"/>
+        <text/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="any-element">
+    <element>
+      <anyName/>
+      <ref name="anything"/>
+    </element>
+  </define>
+  <define name="any-attribute">
+    <attribute>
+      <anyName/>
+    </attribute>
+  </define>
+  <define name="external-atts">
+    <zeroOrMore>
+      <ref name="nsq-att"/>
+    </zeroOrMore>
+  </define>
+  <define name="nsq-att">
+    <attribute>
+      <anyName>
+        <except>
+          <nsName ns=""/>
+        </except>
+      </anyName>
+    </attribute>
+  </define>
+  <!--
+    Maintenance:
+    To add a new kind of step, first add the name to 'step', then define an element with
+    the appropriate parameters.
+  -->
+</grammar>

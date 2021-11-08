@@ -1,0 +1,720 @@
+<?xml-stylesheet type="text/xsl" href="../lib/tsd-to-html.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+     xmlns:rng="http://relaxng.org/ns/structure/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+	<title>XML elements for ixml test catalogs</title>
+	<author>C. M. Sperberg-McQueen</author>
+      </titleStmt>
+      <publicationStmt>
+	<authority>Black Mesa Technologies LLC</authority>
+	<date>2021</date>
+      </publicationStmt>
+      <sourceDesc>
+	<p>No source; created in electronic form.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <titlePage>
+	<docTitle>
+	  <titlePart>XML elements for ixml test catalogs</titlePart>
+	</docTitle>
+	<docAuthor>C. M. Sperberg-McQueen</docAuthor>
+	<docDate>7 November 2021</docDate>
+      </titlePage>
+    </front>
+    <body>
+      <div xml:id="intro">
+	<head>Introduction</head>
+	<p>This document lists the elements in an XML vocabulary for
+	ixml test catalogs and test-result reports, giving a short
+	description of each.  (Fulller description and discussion
+	may be added later if felt to be needed; for now this is
+	mostly an alphabetical reference list to explain what the
+	elements are intended to mean and how they are to be used.)</p>
+	<p>The vocabulary described was developed by C. M. Sperberg-McQueen
+	as a proposal for the invisible-XML Community Group at the
+	World Wide Web Consortium, but it has not yet been considered
+	by the group, still less adopted, and it has no official status
+	of any kind.</p>
+	<p>The vocabulary describes two different types of document:
+	<list>
+	  <item>
+	    <p>Test catalogs describe a potentially complex set of
+	    test cases for an invisible XML processor; they can
+	    be organized internally into multiple sets of test cases,
+	    and test sets can nest.</p>
+	    <p>Each test set may specify an ixml grammar in either
+	    ixml or XML form, together with a set of test cases and
+	    optionally nested test sets.  An optional
+	    <gi>grammar-test</gi> elememt signals that the grammar
+	    itself should be regarded as a test case and identifies
+	    the expected result of processing the grammar.</p>
+	    <p>Each test case in a test set supplies input to be
+	    parsed against the grammar for the test set, and
+	    specifies a result.</p>
+	    <p>Grammars and test-case input can be given inline
+	    or in separate files.  The expected results can also
+	    be given inline or externally.</p>
+	  </item>
+	  <item>
+	    <p>Test reports describe the results of running a
+	    given processor against the tests in a test catalog.</p>
+	    <p>A metadata section provides information about the
+	    test catalog used and the processor tested.  Then,
+	    for each test set and test case, the result produced
+	    by the processor is reported and whether it is or is not
+	    the result expected in the test catalog.</p>
+	  </item>
+	</list></p>
+	<p>A sample test catalog is given in the <code>doc</code>
+	directory of the ixml-tests Git repository (where this
+	document is also to be found).
+	</p>
+      </div>
+      
+      <div xml:id="issues">
+	<head>Known issues</head>
+	<p>Among the shortcomings of the current state of the
+	test catalog schema are these.</p>
+	<p xml:id="ambiguity"><label>Treatment of ambiguous
+	sentences.</label> An ambiguous sentence has more than one
+	parse tree; the current model for <gi>result</gi> allows only
+	one to be specified.  Since the choice of which tree to return
+	is implementation-dependent (or possibly
+	implementation-defined), a correct implementation may easily
+	produce a parse tree which is correct but does not match the
+	parse tree specified in the test case.</p>
+	<p>Possible remediations:
+	<list>
+	  <item>
+	    <p>Allow multiple parse trees with the meaning being that
+	    if the processor produces any of them, it passes that
+	    test.  Drawback: in some cases the set of correct parse
+	    trees cannot be listed in a finite enumeration.</p>
+	  </item>
+	  <item>
+	    <p>Allow an assertion about the result, expressed in
+	    XPath.  This is the approach taken in the QT test suite
+	    and in XSpec. Drawback: unless the assertion is very
+	    thorough, the test case will not fully specify the
+	    required test result, allowing incorrect results to pass
+	    the test.</p>
+	  </item>
+	  <item>
+	    <p>Allow a set of assertions about the result, expressed
+	    in XPath.  To pass the test, a processor's result must
+	    satisfy all assertions.  Drawback: as before, though it's
+	    easier to be thorough.</p> 
+	  </item>	  
+	  <item>
+	    <p>Allow an and/or tree of assertions about the result,
+	    expressed in XPath.  To pass the test, a processor's
+	    result must satisfy all children of an <gi>and</gi> and at
+	    least one child of an <gi>or</gi>.  Drawback: logical
+	    conjunction and disjunction are already built in to XPath
+	    so it's not really necessary to provide a new set of
+	    machinery for the purpose.</p>
+	  </item>
+	</list>
+	</p>
+      </div>
+      
+      <div xml:id="elements">
+	<head>Element reference list</head>
+	
+	<elementSpec ident="app-info">
+	  <gloss>application information</gloss>
+	  <desc>includes information needed by any
+	  application which is to process the
+	  test catalog; this is an extension mechanism
+	  to allow the inclusion of arbitrary XML
+	  elements in the catalog.  May occur
+	  wherever metadata is allowed:
+	  as a child of <gi>test-catalog</gi>,
+	  <gi>test-set</gi>,
+	  <gi>test-case</gi>, etc.</desc>
+	  <exemplum>
+	    <p>The process by which a test case is generated may
+	    produce, as a side effect, a <soCalled>raw parse
+	    tree</soCalled> in which all nonterminals are
+	    present.  This can be helpful in diagnosing
+	    problems in an ixml parser, so it may be thought
+	    useful to record the raw parse tree, even though
+	    there is no standard place for it in the schema.
+	    The following example shows a raw parse tree
+	    embedded in a test case.</p>
+	    <eg><![CDATA[
+      <test-case xml:id="S-1" name="S1">
+         <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
+         <test-string/>
+         <result>
+            <assert-xml>
+               <S/>
+            </assert-xml>
+         </result>
+         <app-info>
+            <raw-parse-tree xmlns="">
+               <S/>
+            </raw-parse-tree>
+         </app-info>
+      </test-case>]]></eg>
+	  </exemplum>
+	</elementSpec>
+	
+	<elementSpec ident="assert-not-a-sentence">
+	  <desc>signals that the test input is not
+	  a sentence in the language described by the
+	  grammar indicated; correct behavior in this
+	  case is to report that the input cannot be
+	  parsed using the grammar and optionally
+	  describe the nature of the problem.</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	    <p>The spec does not require a particular
+	    way of signaling failure to parse the input,
+	    so each processor may require a different
+	    setup.</p>
+	    <p>This element can contain any elements of the
+	    <code>metadata</code> class (so: <gi>description</gi>,
+	    <gi>app-info</gi>, <gi>doc</gi>), which leads to a lack of
+	    parallelism with <gi>assert-xml</gi> and
+	    <gi>assert-xml-ref</gi>.  Remove?</p>
+	  </remarks>
+	</elementSpec>
+
+	<elementSpec ident="assert-xml">
+	  <desc>signals that the test input is a sentence in the
+	  language described by the grammar indicated and contains the
+	  prescribed XML representation of one parse of the
+	  sentence.</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	    <p>For ambiguous sentences, more than one parse is
+	    correct, and a conforming processor is not guaranteed to
+	    produce the one indicated.  Some adjustment in the schema
+	    is required to handle this situation; see list of <ref
+	    target="#ambiguity">known problems</ref>.</p>
+	  </remarks>
+	</elementSpec>
+
+	<elementSpec ident="assert-xml-ref">
+	  <desc>signals that the test input is a sentence in the
+	  language described by the grammar indicated and give a URI
+	  for the prescribed XML representation of one parse of the
+	  sentence.</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	    <p>The treatment of ambiguous test cases is a <ref
+	    target="#ambiguity">known problem</ref>.</p>
+	  </remarks>
+	</elementSpec>
+
+	<elementSpec ident="code">
+	  <desc>marks inline code fragments in prose.</desc>
+	  <remarks>
+	    <p>Typical typographic treatment is to display in a
+	    monospaced font.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="created">
+	  <desc>a metadata element containing information about
+	  the creation of a test catalog, test set, or test case.</desc>
+	  <attList>
+	    <attDef ident="who">
+	      <desc>specifies who created the item.</desc>
+	    </attDef>
+	    <attDef ident="when">
+	      <desc>specifies the date the item was created.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>Perhaps should be optional on individual test cases and
+	    grammar tests.  The current design is based on the idea
+	    that once a set of tests is created, further tests are
+	    often added to it, and that individual tests often have
+	    very different revision histories.  When trying to
+	    answer questions that arise as a result, it's helpful if
+	    every test case has a complete revision history.</p>
+	    <p>When tests are generated automatically or in bulk, it's
+	    easy enough to specify a creation date for each test case;
+	    when test cases are created by hand, it gets tedious.  For
+	    now, I'm keeping it.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="description">
+	  <desc>contains a sequence of paragraphs containing a
+	  natural-language description of a test catalog, test set, or
+	  test case.</desc>
+	</elementSpec>
+	
+	<elementSpec ident="doc">
+	  <desc>refers to external documentation for the test catalog,
+	  test set, or test case, if there is any.</desc>
+	  <attList>
+	    <attDef ident="href">
+	      <desc>contains a URI at which the external documentation
+	      can be found.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>If a test case exhibits a particularly tricky situation
+	    which has been extensively discussed or analysed by
+	    the community group (or anyone else), for example, it's
+	    helpful to be able to provide pointers instead of having
+	    to reproduce the discussion inside the test catalog,
+	    or omitting it entirely.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="emph">
+	  <desc>marks emphasized text in prose.</desc>
+	  <remarks>
+	    <p>This element is intended to mark rhetorical emphasis or
+	    stress, not arbitrary special typographic treatment.  (If
+	    we turn out to need markup for arbitrary typographic
+	    treatment, we'll want to introduce <gi>hi</gi> for
+	    typographic highlighting, or <gi>seg</gi> or <gi>span</gi>
+	    with a <att>style</att> or <att>rendering</att>
+	    element.)</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="grammar-test">
+	  <desc>indicates that the grammar associated with a given
+	  test set should be treated as a test case as an instance of
+	  the ixml grammar for ixml grammars; contains a
+	  <gi>result</gi> element indicating expected result of the
+	  test.</desc>
+	  <remarks>
+	    <p>A child of <gi>test-set</gi>.</p>
+	    <p>In the simple case, the grammar is given in an
+	    <gi>ixml-grammar</gi> element or pointed to with an
+	    <gi>ixml-grammar-ref</gi> element; in this case the
+	    grammar should be parsed with the grammar for ixml and the
+	    result compared with the expected result.  If the grammar
+	    given is in XML, the processor should check it for
+	    validity as an ixml grammar elements indicating the
+	    expected results.</p>
+	    <p>Note, however, that at the time this is written the
+	    ixml spec does not describe in detail what requirements
+	    must be met by a grammar in XML form.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="ixml-grammar">
+	  <desc>contains a grammar in ixml form.</desc>
+	  <exemplum>
+	    <p>The following example shows an ixml grammar for
+	    arithmetic expressions.
+	    </p>
+	    <eg><![CDATA[     <ixml-grammar>
+{ Grammar for simple arithmetic expressions, for testing of test-case
+  generation and grammar-manipulation tools.
+
+  Revisions:
+  2020-12-30 : CMSMcQ : made grammar
+}
+expr: s*, term+addop.
+term:  factor+mulop.
+factor:  num; var; '(', expr, ')'; '[', expr, ']'; '{', expr, '}'.
+num:  digit+, ('.', digit*)?.
+var:  ['a'-'z'].
+addop: s*, ["+-"], s*.
+mulop: s*, ["*/×÷"], s*.
+digit: ['0'-'9'].
+s: #20; #9; #a.       
+     </ixml-grammar>
+]]></eg>
+	  </exemplum>
+	  <remarks>
+	    <p>Appears as a child of <gi>test-set</gi> and gives
+	    the grammar for the test cases of the set.</p>
+	    <p>The grammar for a test set may be given in any of
+	    several ways:
+	    <list>
+	      <item>
+		<p>in ixml form inline, using an <gi>ixml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>		
+		<p>in ixml form in an external resource, using an
+		<gi>ixml-grammar-ref</gi> element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form inline, using the <gi>vxml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form in an external resource, using the
+		<gi>vxml-grammar-ref</gi> element.</p>
+	      </item>
+	    </list>
+	    Here, <mentioned>vxml</mentioned> is short for
+	    <gloss>visible XML</gloss>, as distinct from
+	    <gloss>invisible XML</gloss>.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="ixml-grammar-ref">
+	  <gloss>reference to an external grammar in ixml form</gloss>
+	  <desc>points to an external resource containing
+	  an ixml grammar.</desc>
+	  <attList>
+	    <attDef ident="href">
+	      <desc>contains a URI at which the external grammar
+	      can be found.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>Appears as a child of <gi>test-set</gi> and gives
+	    the grammar for the test cases of the set.</p>
+	    <p>The grammar for a test set may be given in any of
+	    several ways:
+	    <list>
+	      <item>
+		<p>in ixml form inline, using an <gi>ixml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>		
+		<p>in ixml form in an external resource, using an
+		<gi>ixml-grammar-ref</gi> element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form inline, using the <gi>vxml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form in an external resource, using the
+		<gi>vxml-grammar-ref</gi> element.</p>
+	      </item>
+	    </list>
+	    Here, <mentioned>vxml</mentioned> is short for
+	    <gloss>visible XML</gloss>, as distinct from
+	    <gloss>invisible XML</gloss>.</p>
+	  </remarks>
+	</elementSpec>
+	<elementSpec ident="modified">
+	  <desc>contains an entry in the change log for a test case
+	  or test set describing a modification.</desc>
+	  <attList>
+	    <attDef ident="change">
+	      <desc>describes the change.</desc>
+	    </attDef>
+	    <attDef ident="who">
+	      <desc>specifies who made the change.</desc>
+	    </attDef>
+	    <attDef ident="when">
+	      <desc>specifies the date the change was made.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p></p>
+	  </remarks>
+	</elementSpec>
+	<elementSpec ident="p">
+	  <desc>a paragraph of natural-language prose.</desc>
+	  <remarks>
+	    <p>A very small number of phrase-level elements
+	    are provided for the markup of the prose; if the
+	    set proves inconveniently small, it can easily be
+	    grown.</p>
+	  </remarks>
+	</elementSpec>
+	<elementSpec ident="result">
+	  <desc>specifies the expected result of a test,
+	  using the <gi>assert-xml</gi>, <gi>assert-xml-ref</gi>
+	  or the <gi>assert-not-a-sentence</gi> elements
+	  depending on what is to be asserted and how.</desc>
+	  <remarks>
+	    <p>The current design does not deal well with
+	    test cases for which multiple correct results are
+	    possible; see <ref target="#ambiguity">above</ref>.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-case">
+	  <desc>contains input and expected result for one test
+	  case.</desc>
+	  <attList>
+	    <attDef ident="name" usage="req">
+	      <desc>a name by which the test case can be referred
+	      to; should be unique within the test set</desc>
+	    </attDef>
+	  </attList>
+	  <exemplum>
+	    <p>The following example shows a test case for the grammar
+	    <code>S: {nil}.</code> (not shown, because it's specified
+	    earlier in the catalog).  The input is the empty string,
+	    as specified here by the <gi>test-string</gi> element.
+	    The expected output is an empty <gi>S</gi> element, as
+	    specified here by the <gi>assert-xml</gi> element within
+	    <gi>result</gi>.</p>
+	    <eg><![CDATA[      <test-case xml:id="S-1" name="S1">
+         <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
+         <test-string/>
+         <result>
+            <assert-xml>
+               <S/>
+            </assert-xml>
+         </result>
+      </test-case>]]></eg>
+	  </exemplum>
+	  <remarks>
+	    <p>A processor being tested should parse the specified
+	    input using the grammar supplied by a containing
+	    <gi>test-set</gi> element.  The processor passes the test
+	    if the processor's output matches the expected result
+	    (specified in the <gi>result</gi> element).</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-catalog">
+	  <desc>contains a collection of test cases organized into one
+	  or more test sets and released at the same time.</desc>
+	  <content>
+	    <rng:interleave>
+	      <rng:zeroOrMore>
+		<rng:ref name="metadata"/>
+              </rng:zeroOrMore>
+	      <rng:zeroOrMore>
+		<rng:choice>
+		  <rng:ref name="test-set"/>
+		  <rng:ref name="test-set-ref"/>
+		</rng:choice>
+	      </rng:zeroOrMore>
+	    </rng:interleave>
+	  </content>
+	  <attList>
+	    <attDef ident="name" usage="req">
+	      <desc>a name by which the collection of tests can be
+	      referred to</desc>
+	    </attDef>
+	    <attDef ident="release-date" usage="req">
+	      <desc>date of the test suite described by this
+	      catalog; more specifically, date of its release
+	      or official publication</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>When a suite of related tests is published, it may
+	    happen that there are different test-catalog files (and
+	    <gi>test-catalog</gi> elements) for different groups of
+	    tests within the larger collection.  It is a good idea for
+	    there to be one test catalog that includes all of the
+	    others, so as to provide a single point of entry for
+	    processing the entire collection of tests.  The
+	    <gi>test-set-ref</gi> element is used to include other
+	    test-catalog files.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-set">
+	  <desc>a set of test cases, nested test sets, or both.</desc>
+	  <attList>
+	    <attDef ident="name" usage="req">
+	      <desc>a name by which the test set can be referred
+	      to; should be unique within the test catalog</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>In the simple case, a test set specifies a grammar and
+	    a set of input strings to be parsed using that grammar.
+	    There are several ways to specify the grammar (ixml or
+	    XML, inline or external), and there can be any number of
+	    test cases for that grammar.</p>
+	    <p>The <gi>grammar-test</gi> element can be used to
+	    specify that the grammar itself is to be treated as a test
+	    case and parsed or checked against the grammar for ixml
+	    grammars.  In this case, the test set may contain no
+	    test cases.</p>
+	    <p>Test sets can be nested to reflect any desired
+	    structure for the test suite.  Nested test sets can take
+	    the form of child <gi>test-set</gi> elements or of child
+	    <gi>test-set-ref</gi> elements, which give the URI of a
+	    subordinate test set.  (In practice the test set reference
+	    is usually to an XML document rooted in
+	    <gi>test-catalog</gi>, rather than <gi>test-set</gi>, but
+	    the effect is the same: all test sets in the external
+	    resource are logically subordinate to the parent of the
+	    <gi>test-set-ref</gi> element.)</p>
+	    <p>When test sets are nested, the child test set can
+	    inherit or override the grammar specified by its parent.
+	    For this reason, the specification of a grammar is
+	    optional.  The only requirement is that for every test
+	    case, at least one of the enclosing test sets must specify
+	    a grammar; the first one found, when ascending from the
+	    test case, is the one used.</p>
+	  </remarks>
+	  
+	</elementSpec>
+	
+	<elementSpec ident="test-set-ref">
+	  <gloss>reference to an external test set</gloss>
+	  <desc>points to an external resource with a set of test
+	  cases.</desc>
+	  <attList>
+	    <attDef ident="href">
+	      <desc>contains a URI at which the external test set
+	      can be found.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>Despite the name of the element, the usual target of a
+	    <gi>test-set-ref</gi> element will be a document rooted in
+	    a <gi>test-catalog</gi> element.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-string">
+	  <desc>contains a string to be used as input in a test
+	  case.</desc>
+	  <remarks>
+	    <p>If the string is long or otherwise inconvenient
+	    to include literally in the test catalog,
+	    the <gi>test-string-ref</gi> element may be
+	    used instead.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-string-ref">
+	  <desc>points to a string to be used as input in a test
+	  case.</desc>
+	
+	  <attList>
+	    <attDef ident="href">
+	      <desc>contains a URI at which the external input
+	      can be found.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>If the string is short and simple, it may be more
+	    convenient to include it directly in the test catalog;
+	    when this is so, the <gi>test-string</gi> element may be
+	    used instead of the <gi>test-string-ref</gi> element.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="vxml-grammar">
+	  <gloss>reference to grammar in visible-XML form</gloss>
+	  <desc>contains a grammar in XML form.</desc>
+	  <remarks>
+	    <p>Note that the schema for test catalogs does not
+	    constrain the XML used in the content of this element; in
+	    cases where the purpose of the test is to check the
+	    behavior of a processor when given XML input which is not
+	    a valid XML representation of an ixml grammar, the XML
+	    content of the <gi>vxml-grammar</gi> element will not in
+	    fact conform to the schema for the XML form of ixml
+	    grammars.</p>
+
+	    <p>The grammar for a test set may be given in any of
+	    several ways:
+	    <list>
+	      <item>
+		<p>in ixml form inline, using an <gi>ixml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>		
+		<p>in ixml form in an external resource, using an
+		<gi>ixml-grammar-ref</gi> element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form inline, using the <gi>vxml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form in an external resource, using the
+		<gi>vxml-grammar-ref</gi> element.</p>
+	      </item>
+	    </list>
+	    Here, <mentioned>vxml</mentioned> is short for
+	    <gloss>visible XML</gloss>, as distinct from
+	    <gloss>invisible XML</gloss>.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="vxml-grammar-ref">
+	  <gloss>reference to grammar in visible-XML form</gloss>
+	  <desc>points to a grammar in XML form.</desc>
+	  <attList>
+	    <attDef ident="href">
+	      <desc>contains a URI at which the external grammar
+	      can be found.</desc>
+	    </attDef>
+	  </attList>
+	  <remarks>	  
+	    <p>The grammar for a test set may be given in any of
+	    several ways:
+	    <list>
+	      <item>
+		<p>in ixml form inline, using an <gi>ixml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>		
+		<p>in ixml form in an external resource, using an
+		<gi>ixml-grammar-ref</gi> element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form inline, using the <gi>vxml-grammar</gi>
+		element, or</p>
+	      </item>
+	      <item>
+		<p>in XML form in an external resource, using the
+		<gi>vxml-grammar-ref</gi> element.</p>
+	      </item>
+	    </list>
+	    Here, <mentioned>vxml</mentioned> is short for
+	    <gloss>visible XML</gloss>, as distinct from
+	    <gloss>invisible XML</gloss>.</p>
+	  </remarks>
+	</elementSpec>
+
+	<!--
+	<elementSpec ident="description">
+	  <gloss>test catalog</gloss>
+	  <desc>description here</desc>
+	  <content>
+	    <rng:interleave>
+	      <rng:zeroOrMore>
+		<rng:ref name="metadata"/>
+              </rng:zeroOrMore>
+	      <rng:zeroOrMore>
+		<rng:choice>
+		  <rng:ref name="test-set"/>
+		  <rng:ref name="test-set-ref"/>
+		</rng:choice>
+	      </rng:zeroOrMore>
+	    </rng:interleave>
+	  </content>
+	  <attList>
+	    <attDef ident="type" usage="opt">
+	      <gloss>ggg</gloss>
+	      <desc>the language of the code</desc>
+	      <datatype>
+		<dataRef key="teidata.enumerated"/>
+	      </datatype>
+	    </attDef>
+	  </attList>
+	  <exemplum>
+	    <p>
+	    </p>
+	    <eg><![CDATA[]]></eg>
+	    <p>
+	    </p>
+	  </exemplum>
+	  <remarks>
+	    <p>
+	    </p>
+	  </remarks>
+	</elementSpec>
+	-->
+      </div>
+    </body>
+  </text>
+</TEI>

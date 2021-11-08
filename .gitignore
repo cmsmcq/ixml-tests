@@ -8,3 +8,4 @@ temp.*
 tmp.*
 zz*
 Makefile
+/lib/schemas.xml
