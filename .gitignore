@@ -9,3 +9,4 @@ tmp.*
 zz*
 Makefile
 /lib/schemas.xml
+lib/qt-test-results.xsd
