@@ -256,6 +256,27 @@
     </xsl:element>
   </xsl:template>
     
+  <xsl:template match="tei:hi | tei:emph">
+    <xsl:element name="em" namespace="{$nsxhtml}">
+      <xsl:attribute name="class">
+	<xsl:value-of select="name()"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+    
+  <xsl:template match="tei:hi/tei:emph">
+    <xsl:element name="em" namespace="{$nsxhtml}">
+      <xsl:attribute name="class">
+	<xsl:value-of select="name()"/>
+      </xsl:attribute>
+      <xsl:attribute name="style">
+	<xsl:text>font-weight: bold;</xsl:text>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+    
   <xsl:template match="tei:gi | tei:att | tei:code">
     <xsl:element name="span" namespace="{$nsxhtml}">
       <xsl:attribute name="class">
@@ -286,6 +307,27 @@
 	<xsl:value-of select="name()"/>
       </xsl:attribute>
       <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+
+  <!--* quoted material *-->
+  <xsl:template match="tei:q">
+    <xsl:element name="span" namespace="{$nsxhtml}">
+      <xsl:attribute name="class">
+	<xsl:value-of select="name()"/>
+      </xsl:attribute>
+      <xsl:choose>
+	<xsl:when test="count(ancestor::tei:q) mod 2 = 0">
+	  <xsl:text>&#x201C;</xsl:text>
+	  <xsl:apply-templates/>
+	  <xsl:text>&#x201D;</xsl:text>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:text>&#x2018;</xsl:text>
+	  <xsl:apply-templates/>
+	  <xsl:text>&#x2019;</xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:element>
   </xsl:template>
   

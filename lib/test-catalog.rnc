@@ -6,36 +6,53 @@ grammar {
 	# RNC grammar for test catalog.
 	#
 	# Revisions:
-	# 2021-10-31 : CMSMcQ : commit some changes:  @name on test-case,
+	# 2021-11-11 : CMSMcQ : Revamp result to allow multiple results
+	#                       and include assert-not-a-grammar.
+	#                       Rewrite some comments.
+	# 2021-10-31 : CMSMcQ : Commit some changes:  @name on test-case,
 	#                       allow at most one grammar for each test
 	#                       set (grammars may be inherited from ancestor
 	#                       test sets).
-	# 2021-01-25 : CMSMcQ : sketch this out by hand.
+	# 2021-01-25 : CMSMcQ : Sketch this out by hand.
         #
 	# To do:
-	# - add app-info (for insertion of arbitrary XML)
-	# - add documentation links? 
-	# - make description contents use div or paragraph-level HTML
+	# - rewrite test-set to allow test cases only if a grammar is
+	#   specified on the test-set or some ancestor.
+	# - allow description to be (p+ | xhtml:div+) HTML
 	# - supply types for tokenized attributes?
 	#
 
-	
+# Notational convention:  definitions starting in uppercase (e.g.
+# Metadata, Grammar-spec are for content-model expressions.
+# Definitions starting in lowercase (e.g. test-catalog) are for
+# individual elements, usually with the same name as the element.
+#
+# (Exception:  element test-set has two definitions, test-set-0
+# and test-set-1.)
 
 	start = test-catalog
 
+# test-catalog
 
+	# A test catalog is a collection of test sets, with common
+	# metadata.
 	test-catalog = element test-catalog {
 	    attribute name { text },
 	    attribute release-date { xsd:date },
 	    external-atts,
-	    (metadata*
+	    (Metadata
 	    &
-	    (test-set | test-set-ref)*)
+	    (test-set-0 | test-set-ref)*)
 	}
 
 # Metadata
 
-        metadata = description | app-info | doc
+        # At various levels we allow metadata:
+	# prose descriptions, pointers to external
+	# documentation, or arbitrary XML elements
+	# ('application-specific information').
+	
+        Metadata = (description | app-info | doc)*
 
         description = element description {
 	  external-atts,
@@ -55,40 +72,67 @@ grammar {
 
 # test-set
 
-        test-set = element test-set {
+        # A test set is a collection of tests (or possibly subordinate
+	# test sets, or both) with common metadata and a common
+	# grammar.
+
+        # We keep track of whether an ancestor has specified a grammar
+	# by having two nonterminals for test sets:  test-set-0 is used
+	# when no ancestor has specified a grammar, test-set-1 when
+	# at least one grammar has been specified.
+
+        # If no ancestor has specified a grammar, test cases are allowed
+	# in this test set only if this test set does specify a grammar.
+	# Use test-set-0 or -1 to pass the news along.
+	
+        test-set-0 = element test-set {
 	    attribute name { text },
 	    external-atts,
-	    (metadata*
+	    (Metadata
 	    &
-	    (created,
-	    modified*,
-	    (ixml-grammar | vxml-grammar
-	    | ixml-grammar-ref | vxml-grammar-ref)?,
-	    grammar-test?,
-	    (test-set | test-set-ref | test-case)*))
+	    (History,
+	    ( (test-set-0 | test-set-ref)*
+	    | (Grammar-spec, (test-set-1 | test-set-ref | test-case)*) )))
 	}
-        # Q. Why does test-set allow multiple grammars?
-        # A. To avoid repetition.  If we want to run
-	# tests both with an internal grammar, and
-	# an external grammar, it's pointless to duplicate
-	# the test set.  See tests-straw/gxxx for examples.
-	#
-	# The implicit assertion is that all grammars
-	# given are equivalent.  A test run might
-	# choose a convenient grammar (vxml over ixml)
-	# or might run on all grammars.
-	#
-	# Counter-argument:  this complicates reporting
-	# unnecessarily.  See test0.xml for an example
-	# in which ixml-grammar and ixml-grammar-ref
-	# are given different test cases.
-	#
-	# Counter-argument wins.  A test-set uses one grammar.  If
-	# grammar. If none is specified, we get the grammar from the
-	# ancestor.  If no ancestor specifies a grammar, we are
-	# sunk.
 
-        # name attribute should be required, is it?
+        # If an ancestor has specified a grammar, test cases are allows
+	# in this test set even if there is no grammar at this level.
+	
+        test-set-1 = element test-set {
+	    attribute name { text },
+	    external-atts,
+	    (Metadata
+	    &
+	    (History,
+	    Grammar-spec?,
+	    (test-set-1 | test-set-ref | test-case)*))
+	}
+
+        # Grammars can be in invisible XML or in visible XML.
+	# They can be inline or external.  They can be marked
+	# as a grammar test or not.
+	
+	Grammar-spec = ((ixml-grammar
+	    | vxml-grammar
+	    | ixml-grammar-ref
+	    | vxml-grammar-ref),
+	    grammar-test?)
+
+        # Q. Why is the grammar optional?
+	# A. Because in a nested test set we may want to inherit the
+	#    grammar from the parent test set.  In a top-level test
+	#    set with no direct test-case children, we may just be
+	#    pointing to multiple test sets which each provide their
+	#    own grammar.  By the time we reach a test case we must
+	#    have at least one grammar, but we don't need on at every
+	#    level.
+        # Q. Why can't there be multiple grammars?
+        # A. First, it's error prone:  it would work only if all of them
+	#    were guaranteed equivalent.  We don't want to have to check
+	#    that, and we don't want the mess that will result if it
+	#    turns out not to be true.  Second, it complicates reporting
+	#    unnecessarily.  It's simpler when one test case is one
+	#    grammar + input + result triple.
 
 	test-set-ref = element test-set-ref {
 	    external-atts,
@@ -106,12 +150,14 @@ grammar {
 	    attribute href { xsd:anyURI }
 	}
 
-	# vxml-grammar:  grammar in visible-XML form
-	# (either a parsed ixml grammar, translated into
-	# XML, or something created in XML)
+	# vxml-grammar:  grammar in visible-XML form (either a parsed
+	# ixml grammar, translated into XML, or something created in
+	# XML)
 	#
-	# N.B. we do not require a legal ixml grammar:
-	# it may be a negative test case.
+	# N.B. It is tempting to embed a schema for ixml grammars here
+	# to enforce the correct XML form.  But we do not require a
+	# legal ixml grammar, because it may be a negative test case.
+	
 	vxml-grammar = element vxml-grammar {
 	    external-atts,
 	    any-element
@@ -121,28 +167,30 @@ grammar {
 	    external-atts,
 	    attribute href { xsd:anyURI }
 	}
+
+	# grammar-test:  signals that this grammar should be checked
+	# and either accepted or declined as a grammar.
 	
 	grammar-test = element grammar-test {
 	    external-atts,
-	    (metadata*
-	    &
-	    (created, modified*, result))
+	    (Metadata & (History, result))
 	}
 
 
 # test-case
 
+        # test-case:  describes one test case, with metadata, history,
+	# and expected result.
+	
         test-case = element test-case {
 	    attribute name { text }, 
 	    external-atts,
-	    (metadata*
-	    &
-	    (created, modified*,
-	    (test-string | test-string-ref),
-	    result)
-	    )
+	    (Metadata & (History, Test-string, result))
 	}
-	# Need to require a name attribute.
+
+        # Test-string:  in-line or external
+
+        Test-string = (test-string | test-string-ref)
 	
 	test-string = element test-string {
 	    external-atts,
@@ -153,18 +201,44 @@ grammar {
 	    external-atts,
 	    attribute href { xsd:anyURI }
 	}
-	
+
+# result
+
+        # result: specifies the expected result of a test;
+	# contains an assertion of some kind.
         result = element result {
 	    external-atts,
-	    assertion
+	    Assertion
 	}
 
 
 # Test assertions
 
-        assertion = assert-xml-ref
-	          | assert-xml
-	          | assert-not-a-sentence
+        # Several kinds of result are possible.
+	# - In the common case we will have one expected XML result.  We
+	#   specify it with assert-xml or assert-xml-ref (inline or
+	#   external).
+	# - For ambiguous sentences, we may and should specify several 
+	#   XML results, any of which is acceptable.  So the XML
+	#   assertions can repeat, with an implicit OR as their meaning.
+	# - In the case of infinite ambiguity, we can and should specify
+	#   a finite subset of the expected results, which we add to as
+	#   needed.
+	# - If the input is not be a sentence in the language defined
+	#   by the grammar, we use assert-not-a-sentence.
+	# - If the grammar specified is not a conforming ixml grammar, 
+	#   then, we use assert-not-a-grammar.
+	#
+	# Logically speaking, in the case of a grammar-test, there is no
+	# useful distinction between assert-not-a-sentence and
+	# assert-not-a-grammar.  Casuists can argue over which makes
+	# more sense, but in practice they should be treated as
+	# equivalent.  They are usefully different only for normal
+	# test cases.
+
+        Assertion = ((assert-xml-ref | assert-xml)+
+	            | assert-not-a-sentence
+	            | assert-not-a-grammar)
 
         assert-xml-ref = element assert-xml-ref {
 	    external-atts,
@@ -176,22 +250,32 @@ grammar {
 	}
         assert-not-a-sentence = element assert-not-a-sentence {
 	    external-atts,
-	    metadata*
+	    Metadata
+	}
+        assert-not-a-grammar = element assert-not-a-grammar {
+	    external-atts,
+	    Metadata
 	}
 
 # Common constructs
 
+        # History:  creation and modification history
+	History = (created, modified*)
+	
         who-when = attribute by { text },
 	    	   attribute on { xsd:date }
 
         created = element created {
 	    who-when
 	}
+	
         modified = element modified {
 	    who-when,
 	    attribute change { text }
 	}
 
+        # Elements for simple prose.
+	
 	p = element p { phrases }
 	
 	phrases = (text | emph | code)*
@@ -200,6 +284,8 @@ grammar {
 
         code = element code { text }
 
+        # Arbitrary XML
+
 	anything = (any-element | any-attribute | text)* 
 	any-element = element * { anything }
 	any-attribute = attribute * { text }
@@ -207,9 +293,5 @@ grammar {
         external-atts = nsq-att*
 
 	nsq-att = attribute (* - unqualified:*) { text }
-
-# Maintenance:
-# To add a new kind of step, first add the name to 'step', then define an element with
-# the appropriate parameters.
 
 }

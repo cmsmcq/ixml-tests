@@ -4,22 +4,39 @@
     RNC grammar for test catalog.
     
     Revisions:
-    2021-10-31 : CMSMcQ : commit some changes:  @name on test-case,
+    2021-11-11 : CMSMcQ : Revamp result to allow multiple results
+                          and include assert-not-a-grammar.
+                          Rewrite some comments.
+    2021-10-31 : CMSMcQ : Commit some changes:  @name on test-case,
                           allow at most one grammar for each test
                           set (grammars may be inherited from ancestor
                           test sets).
-    2021-01-25 : CMSMcQ : sketch this out by hand.
+    2021-01-25 : CMSMcQ : Sketch this out by hand.
     
     To do:
-    - add app-info (for insertion of arbitrary XML)
-    - add documentation links? 
-    - make description contents use div or paragraph-level HTML
+    - rewrite test-set to allow test cases only if a grammar is
+      specified on the test-set or some ancestor.
+    - allow description to be (p+ | xhtml:div+) HTML
     - supply types for tokenized attributes?
     
+  -->
+  <!--
+    Notational convention:  definitions starting in uppercase (e.g.
+    Metadata, Grammar-spec are for content-model expressions.
+    Definitions starting in lowercase (e.g. test-catalog) are for
+    individual elements, usually with the same name as the element.
+    
+    (Exception:  element test-set has two definitions, test-set-0
+    and test-set-1.)
   -->
   <start>
     <ref name="test-catalog"/>
   </start>
+  <!-- test-catalog -->
+  <!--
+    A test catalog is a collection of test sets, with common
+    metadata.
+  -->
   <define name="test-catalog">
     <element name="test-catalog">
       <attribute name="name"/>
@@ -28,12 +45,10 @@
       </attribute>
       <ref name="external-atts"/>
       <interleave>
-        <zeroOrMore>
-          <ref name="metadata"/>
-        </zeroOrMore>
+        <ref name="Metadata"/>
         <zeroOrMore>
           <choice>
-            <ref name="test-set"/>
+            <ref name="test-set-0"/>
             <ref name="test-set-ref"/>
           </choice>
         </zeroOrMore>
@@ -41,12 +56,20 @@
     </element>
   </define>
   <!-- Metadata -->
-  <define name="metadata">
-    <choice>
-      <ref name="description"/>
-      <ref name="app-info"/>
-      <ref name="doc"/>
-    </choice>
+  <!--
+    At various levels we allow metadata:
+    prose descriptions, pointers to external
+    documentation, or arbitrary XML elements
+    ('application-specific information').
+  -->
+  <define name="Metadata">
+    <zeroOrMore>
+      <choice>
+        <ref name="description"/>
+        <ref name="app-info"/>
+        <ref name="doc"/>
+      </choice>
+    </zeroOrMore>
   </define>
   <define name="description">
     <element name="description">
@@ -73,33 +96,70 @@
     </element>
   </define>
   <!-- test-set -->
-  <define name="test-set">
+  <!--
+    A test set is a collection of tests (or possibly subordinate
+    test sets, or both) with common metadata and a common
+    grammar.
+  -->
+  <!--
+    We keep track of whether an ancestor has specified a grammar
+    by having two nonterminals for test sets:  test-set-0 is used
+    when no ancestor has specified a grammar, test-set-1 when
+    at least one grammar has been specified.
+  -->
+  <!--
+    If no ancestor has specified a grammar, test cases are allowed
+    in this test set only if this test set does specify a grammar.
+    Use test-set-0 or -1 to pass the news along.
+  -->
+  <define name="test-set-0">
     <element name="test-set">
       <attribute name="name"/>
       <ref name="external-atts"/>
       <interleave>
-        <zeroOrMore>
-          <ref name="metadata"/>
-        </zeroOrMore>
+        <ref name="Metadata"/>
         <group>
-          <ref name="created"/>
-          <zeroOrMore>
-            <ref name="modified"/>
-          </zeroOrMore>
+          <ref name="History"/>
+          <choice>
+            <zeroOrMore>
+              <choice>
+                <ref name="test-set-0"/>
+                <ref name="test-set-ref"/>
+              </choice>
+            </zeroOrMore>
+            <group>
+              <ref name="Grammar-spec"/>
+              <zeroOrMore>
+                <choice>
+                  <ref name="test-set-1"/>
+                  <ref name="test-set-ref"/>
+                  <ref name="test-case"/>
+                </choice>
+              </zeroOrMore>
+            </group>
+          </choice>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <!--
+    If an ancestor has specified a grammar, test cases are allows
+    in this test set even if there is no grammar at this level.
+  -->
+  <define name="test-set-1">
+    <element name="test-set">
+      <attribute name="name"/>
+      <ref name="external-atts"/>
+      <interleave>
+        <ref name="Metadata"/>
+        <group>
+          <ref name="History"/>
           <optional>
-            <choice>
-              <ref name="ixml-grammar"/>
-              <ref name="vxml-grammar"/>
-              <ref name="ixml-grammar-ref"/>
-              <ref name="vxml-grammar-ref"/>
-            </choice>
-          </optional>
-          <optional>
-            <ref name="grammar-test"/>
+            <ref name="Grammar-spec"/>
           </optional>
           <zeroOrMore>
             <choice>
-              <ref name="test-set"/>
+              <ref name="test-set-1"/>
               <ref name="test-set-ref"/>
               <ref name="test-case"/>
             </choice>
@@ -109,28 +169,38 @@
     </element>
   </define>
   <!--
-    Q. Why does test-set allow multiple grammars?
-    A. To avoid repetition.  If we want to run
-    tests both with an internal grammar, and
-    an external grammar, it's pointless to duplicate
-    the test set.  See tests-straw/gxxx for examples.
-    
-    The implicit assertion is that all grammars
-    given are equivalent.  A test run might
-    choose a convenient grammar (vxml over ixml)
-    or might run on all grammars.
-    
-    Counter-argument:  this complicates reporting
-    unnecessarily.  See test0.xml for an example
-    in which ixml-grammar and ixml-grammar-ref
-    are given different test cases.
-    
-    Counter-argument wins.  A test-set uses one grammar.  If
-    grammar. If none is specified, we get the grammar from the
-    ancestor.  If no ancestor specifies a grammar, we are
-    sunk.
+    Grammars can be in invisible XML or in visible XML.
+    They can be inline or external.  They can be marked
+    as a grammar test or not.
   -->
-  <!-- name attribute should be required, is it? -->
+  <define name="Grammar-spec">
+    <choice>
+      <ref name="ixml-grammar"/>
+      <ref name="vxml-grammar"/>
+      <ref name="ixml-grammar-ref"/>
+      <ref name="vxml-grammar-ref"/>
+    </choice>
+    <optional>
+      <ref name="grammar-test"/>
+    </optional>
+  </define>
+  <!--
+    Q. Why is the grammar optional?
+    A. Because in a nested test set we may want to inherit the
+       grammar from the parent test set.  In a top-level test
+       set with no direct test-case children, we may just be
+       pointing to multiple test sets which each provide their
+       own grammar.  By the time we reach a test case we must
+       have at least one grammar, but we don't need on at every
+       level.
+    Q. Why can't there be multiple grammars?
+    A. First, it's error prone:  it would work only if all of them
+       were guaranteed equivalent.  We don't want to have to check
+       that, and we don't want the mess that will result if it
+       turns out not to be true.  Second, it complicates reporting
+       unnecessarily.  It's simpler when one test case is one
+       grammar + input + result triple.
+  -->
   <define name="test-set-ref">
     <element name="test-set-ref">
       <ref name="external-atts"/>
@@ -155,12 +225,13 @@
     </element>
   </define>
   <!--
-    vxml-grammar:  grammar in visible-XML form
-    (either a parsed ixml grammar, translated into
-    XML, or something created in XML)
+    vxml-grammar:  grammar in visible-XML form (either a parsed
+    ixml grammar, translated into XML, or something created in
+    XML)
     
-    N.B. we do not require a legal ixml grammar:
-    it may be a negative test case.
+    N.B. It is tempting to embed a schema for ixml grammars here
+    to enforce the correct XML form.  But we do not require a
+    legal ixml grammar, because it may be a negative test case.
   -->
   <define name="vxml-grammar">
     <element name="vxml-grammar">
@@ -176,47 +247,48 @@
       </attribute>
     </element>
   </define>
+  <!--
+    grammar-test:  signals that this grammar should be checked
+    and either accepted or declined as a grammar.
+  -->
   <define name="grammar-test">
     <element name="grammar-test">
       <ref name="external-atts"/>
       <interleave>
-        <zeroOrMore>
-          <ref name="metadata"/>
-        </zeroOrMore>
+        <ref name="Metadata"/>
         <group>
-          <ref name="created"/>
-          <zeroOrMore>
-            <ref name="modified"/>
-          </zeroOrMore>
+          <ref name="History"/>
           <ref name="result"/>
         </group>
       </interleave>
     </element>
   </define>
   <!-- test-case -->
+  <!--
+    test-case:  describes one test case, with metadata, history,
+    and expected result.
+  -->
   <define name="test-case">
     <element name="test-case">
       <attribute name="name"/>
       <ref name="external-atts"/>
       <interleave>
-        <zeroOrMore>
-          <ref name="metadata"/>
-        </zeroOrMore>
+        <ref name="Metadata"/>
         <group>
-          <ref name="created"/>
-          <zeroOrMore>
-            <ref name="modified"/>
-          </zeroOrMore>
-          <choice>
-            <ref name="test-string"/>
-            <ref name="test-string-ref"/>
-          </choice>
+          <ref name="History"/>
+          <ref name="Test-string"/>
           <ref name="result"/>
         </group>
       </interleave>
     </element>
   </define>
-  <!-- Need to require a name attribute. -->
+  <!-- Test-string:  in-line or external -->
+  <define name="Test-string">
+    <choice>
+      <ref name="test-string"/>
+      <ref name="test-string-ref"/>
+    </choice>
+  </define>
   <define name="test-string">
     <element name="test-string">
       <ref name="external-atts"/>
@@ -231,18 +303,51 @@
       </attribute>
     </element>
   </define>
+  <!-- result -->
+  <!--
+    result: specifies the expected result of a test;
+    contains an assertion of some kind.
+  -->
   <define name="result">
     <element name="result">
       <ref name="external-atts"/>
-      <ref name="assertion"/>
+      <ref name="Assertion"/>
     </element>
   </define>
   <!-- Test assertions -->
-  <define name="assertion">
+  <!--
+    Several kinds of result are possible.
+    - In the common case we will have one expected XML result.  We
+      specify it with assert-xml or assert-xml-ref (inline or
+      external).
+    - For ambiguous sentences, we may and should specify several 
+      XML results, any of which is acceptable.  So the XML
+      assertions can repeat, with an implicit OR as their meaning.
+    - In the case of infinite ambiguity, we can and should specify
+      a finite subset of the expected results, which we add to as
+      needed.
+    - If the input is not be a sentence in the language defined
+      by the grammar, we use assert-not-a-sentence.
+    - If the grammar specified is not a conforming ixml grammar, 
+      then, we use assert-not-a-grammar.
+    
+    Logically speaking, in the case of a grammar-test, there is no
+    useful distinction between assert-not-a-sentence and
+    assert-not-a-grammar.  Casuists can argue over which makes
+    more sense, but in practice they should be treated as
+    equivalent.  They are usefully different only for normal
+    test cases.
+  -->
+  <define name="Assertion">
     <choice>
-      <ref name="assert-xml-ref"/>
-      <ref name="assert-xml"/>
+      <oneOrMore>
+        <choice>
+          <ref name="assert-xml-ref"/>
+          <ref name="assert-xml"/>
+        </choice>
+      </oneOrMore>
       <ref name="assert-not-a-sentence"/>
+      <ref name="assert-not-a-grammar"/>
     </choice>
   </define>
   <define name="assert-xml-ref">
@@ -264,12 +369,23 @@
   <define name="assert-not-a-sentence">
     <element name="assert-not-a-sentence">
       <ref name="external-atts"/>
-      <zeroOrMore>
-        <ref name="metadata"/>
-      </zeroOrMore>
+      <ref name="Metadata"/>
+    </element>
+  </define>
+  <define name="assert-not-a-grammar">
+    <element name="assert-not-a-grammar">
+      <ref name="external-atts"/>
+      <ref name="Metadata"/>
     </element>
   </define>
   <!-- Common constructs -->
+  <!-- History:  creation and modification history -->
+  <define name="History">
+    <ref name="created"/>
+    <zeroOrMore>
+      <ref name="modified"/>
+    </zeroOrMore>
+  </define>
   <define name="who-when">
     <attribute name="by"/>
     <attribute name="on">
@@ -287,6 +403,7 @@
       <attribute name="change"/>
     </element>
   </define>
+  <!-- Elements for simple prose. -->
   <define name="p">
     <element name="p">
       <ref name="phrases"/>
@@ -311,6 +428,7 @@
       <text/>
     </element>
   </define>
+  <!-- Arbitrary XML -->
   <define name="anything">
     <zeroOrMore>
       <choice>
@@ -345,9 +463,4 @@
       </anyName>
     </attribute>
   </define>
-  <!--
-    Maintenance:
-    To add a new kind of step, first add the name to 'step', then define an element with
-    the appropriate parameters.
-  -->
 </grammar>
