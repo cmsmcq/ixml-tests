@@ -18,7 +18,8 @@
       
       <vxml-grammar-ref href="arith.ixml.xml"/>
       
-      <test-case xml:id="expr-1">
+      <test-case xml:id="expr-1" name="expr-1">
+
          <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
          <test-string>1</test-string>
          <result>
@@ -50,7 +51,8 @@
             </raw-parse-tree>
          </app-info>
       </test-case>
-      <test-case xml:id="expr-1">
+      <test-case xml:id="expr-2" name="expr-2">
+	
         <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
 	<description>
 	  <p>This second test case illustrates a curious feature of

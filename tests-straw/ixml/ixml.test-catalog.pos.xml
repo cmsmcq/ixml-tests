@@ -43,19 +43,20 @@
          <tc:test-string-ref href="external/ixml-3.ixml"/>
          <tc:result>
             <tc:assert-xml>
-               <ixml>
-                  <rule name="𐝀𐠊">:<alt>
-                        <repeat0>
-                           <exclusion tmark="^">~[<literal tmark="-" dstring="𐀁!"/>]</exclusion>*<sep>
-                              <literal hex="0">
-                                 <comment>
-                                    <comment> ~</comment>
-                                 </comment>
-                              </literal>
-                           </sep>
-                        </repeat0>,<nonterminal name="𑓇𑙄"/>,<nonterminal name="𑪝𑱀"/>
-                     </alt>.</rule>
-               </ixml>
+              <ixml
+		  ><rule name="𐝀𐠊">:<alt
+		  ><repeat0
+		  ><exclusion tmark="^"
+		  >~[<literal tmark="-" dstring="𐀁!"/>]</exclusion
+		  >*<sep><literal hex="0"
+		  ><comment><comment> ~</comment></comment
+		  ></literal></sep
+		  ></repeat0
+		  >,<nonterminal name="𑓇𑙄"
+		  />,<nonterminal name="𑪝𑱀"
+		  /></alt
+		  >.</rule
+		  ></ixml>
             </tc:assert-xml>
          </tc:result>
          <tc:app-info>
@@ -83,23 +84,38 @@
          <tc:test-string-ref href="external/ixml-6.ixml"/>
          <tc:result>
             <tc:assert-xml>
-               <ixml>
-                  <rule mark="^" name="𓀀𖫭">:<alt>
-                        <repeat1>
-                           <inclusion tmark="-">[<range from="&#34;" to="(">-</range>]</inclusion>+<sep>
-                              <literal hex="a">
-                                 <comment>
-                                    <comment>| </comment>
-                                 </comment>
-                              </literal>
-                           </sep>
-                        </repeat1>,<nonterminal name="𞹋𞹗"/>,<nonterminal name="𞹾𞺩"/>
-                     </alt>|<alt/>;<alt/>.</rule>
-                  <rule name="Ͷ">:<comment/>
-                     <alt/>.</rule>
-                  <rule name="ۥ">:<comment/>
-                     <alt/>.</rule>
-               </ixml>
+              <ixml
+		  ><rule mark="^" name="𓀀𖫭"
+			 >:<alt
+			 ><repeat1
+			 ><inclusion tmark="-"
+			 >[<range from="&#34;" to="("
+			 >-</range
+			 >]</inclusion
+			 >+<sep
+			 ><literal hex="a"
+			 ><comment
+			 ><comment
+			 >| </comment
+			 ></comment
+			 ></literal
+			 ></sep
+			 ></repeat1
+			 >,<nonterminal name="𞹋𞹗"
+			 />,<nonterminal name="𞹾𞺩"
+			 /></alt
+			 >|<alt
+			 />;<alt
+			 />.</rule
+			 ><rule name="Ͷ"
+			 >:<comment
+			 /><alt
+			 />.</rule
+			 ><rule name="ۥ"
+			 >:<comment
+			 /><alt
+			 />.</rule
+			 ></ixml>
             </tc:assert-xml>
          </tc:result>
          <tc:app-info>
@@ -119,36 +135,64 @@
          <tc:test-string-ref href="external/ixml-8.ixml"/>
          <tc:result>
             <tc:assert-xml>
-               <ixml>
-                  <comment>𐀲</comment>
-                  <rule name="𝑔𝒥𝓅𝔞">
-                     <comment>𐀲</comment>
-                     <comment></comment>:<comment></comment>
-                     <alt>
-                        <repeat1>
-                           <inclusion>[<comment>|</comment>
-                              <comment>|</comment>
-                              <range from="#a~" to="&#34;">-<comment>𐀲</comment>
-                                 <comment>퟿</comment>
-                                 <comment>|</comment>
-                              </range>]</inclusion>+</repeat1>,<comment> </comment>
-                        <nonterminal name="ΌҊ"/>,<option>
-                           <literal hex="a">
-                              <comment>
-                                 <comment> &#x81;</comment>
-                              </comment>
-                           </literal>?<comment>&#x81;<comment/>
-                              <comment>&#x81;</comment>
-                           </comment>
-                        </option>
-                     </alt>|<comment>𐀱</comment>
-                     <alt/>|<comment>퟿</comment>
-                     <alt>
-                        <nonterminal name="ૹପ"/>
-                     </alt>.<comment>𐀱</comment>
-                     <comment>&#x81;</comment>
-                  </rule>
-               </ixml>
+              <ixml
+		  ><comment
+		       >𐀲</comment
+		       ><rule name="𝑔𝒥𝓅𝔞"
+		       ><comment
+		       >𐀲</comment
+		       ><comment
+		       ></comment
+		       >:<comment
+		       ></comment
+		       ><alt
+		       ><repeat1
+		       ><inclusion
+		       >[<comment
+		       >|</comment
+		       ><comment
+		       >|</comment
+		       ><range from="#a~" to="&#34;"
+		       >-<comment
+		       >𐀲</comment
+		       ><comment
+		       >퟿</comment
+		       ><comment
+		       >|</comment
+		       ></range
+		       >]</inclusion
+		       >+</repeat1
+		       >,<comment
+		       > </comment
+		       ><nonterminal name="ΌҊ"
+		       />,<option
+		       ><literal hex="a"
+		       ><comment
+		       ><comment
+		       > &#x81;</comment
+		       ></comment
+		       ></literal
+		       >?<comment
+		       >&#x81;<comment
+		       /><comment
+		       >&#x81;</comment
+		       ></comment
+		       ></option
+		       ></alt
+		       >|<comment
+		       >𐀱</comment
+		       ><alt
+		       />|<comment
+		       >퟿</comment
+		       ><alt
+		       ><nonterminal name="ૹପ"
+		       /></alt
+		       >.<comment
+		       >𐀱</comment
+		       ><comment
+		       >&#x81;</comment
+		       ></rule
+		       ></ixml>
             </tc:assert-xml>
          </tc:result>
          <tc:app-info>
@@ -160,23 +204,37 @@
          <tc:test-string-ref href="external/ixml-9.ixml"/>
          <tc:result>
             <tc:assert-xml>
-               <ixml>
-                  <rule mark="-" name="ಎಽ">:<alt>
-                        <repeat0>
-                           <exclusion>~[<class code="aa"/>;<literal tmark="-" sstring="�"/>|<literal tmark="-" sstring="+"/>]</exclusion>*<sep>
-                              <literal hex="A">
-                                 <comment>
-                                    <comment>𐀁|</comment>
-                                 </comment>
-                              </literal>
-                           </sep>
-                        </repeat0>,<nonterminal name="ᝬៜ"/>,<nonterminal name="ᨠᮃ"/>
-                     </alt>.</rule>
-                  <rule name="Ḁ">:<comment/>
-                     <alt/>.</rule>
-                  <rule name="ⁱ">:<comment/>
-                     <alt/>.</rule>
-               </ixml>
+              <ixml
+		  ><rule mark="-" name="ಎಽ"
+			 >:<alt
+			 ><repeat0
+			 ><exclusion
+			 >~[<class code="aa"
+			 />;<literal tmark="-" sstring="�"
+			 />|<literal tmark="-" sstring="+"
+			 />]</exclusion
+			 >*<sep
+			 ><literal hex="A"
+			 ><comment
+			 ><comment
+			 >𐀁|</comment
+			 ></comment
+			 ></literal
+			 ></sep
+			 ></repeat0
+			 >,<nonterminal name="ᝬៜ"
+			 />,<nonterminal name="ᨠᮃ"
+			 /></alt
+			 >.</rule
+			 ><rule name="Ḁ"
+			 >:<comment
+			 /><alt
+			 />.</rule
+			 ><rule name="ⁱ"
+			 >:<comment
+			 /><alt
+			 />.</rule
+			 ></ixml>
             </tc:assert-xml>
          </tc:result>
          <tc:app-info>
