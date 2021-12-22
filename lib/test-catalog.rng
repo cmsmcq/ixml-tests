@@ -4,6 +4,8 @@
     RNC grammar for test catalog.
     
     Revisions:
+    2021-12-22 : CMSMcQ : Make 'created' optional on individual tests;
+                          notionally, let it be inherited from test set.
     2021-11-11 : CMSMcQ : Revamp result to allow multiple results
                           and include assert-not-a-grammar.
                           Rewrite some comments.
@@ -257,7 +259,9 @@
       <interleave>
         <ref name="Metadata"/>
         <group>
-          <ref name="History"/>
+          <optional>
+            <ref name="History"/>
+          </optional>
           <ref name="result"/>
         </group>
       </interleave>
@@ -275,7 +279,9 @@
       <interleave>
         <ref name="Metadata"/>
         <group>
-          <ref name="History"/>
+          <optional>
+            <ref name="History"/>
+          </optional>
           <ref name="Test-string"/>
           <ref name="result"/>
         </group>

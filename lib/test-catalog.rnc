@@ -6,6 +6,8 @@ grammar {
 	# RNC grammar for test catalog.
 	#
 	# Revisions:
+	# 2021-12-22 : CMSMcQ : Make 'created' optional on individual tests;
+	#                       notionally, let it be inherited from test set.
 	# 2021-11-11 : CMSMcQ : Revamp result to allow multiple results
 	#                       and include assert-not-a-grammar.
 	#                       Rewrite some comments.
@@ -173,7 +175,7 @@ grammar {
 	
 	grammar-test = element grammar-test {
 	    external-atts,
-	    (Metadata & (History, result))
+	    (Metadata & (History?, result))
 	}
 
 
@@ -185,7 +187,7 @@ grammar {
         test-case = element test-case {
 	    attribute name { text }, 
 	    external-atts,
-	    (Metadata & (History, Test-string, result))
+	    (Metadata & (History?, Test-string, result))
 	}
 
         # Test-string:  in-line or external
