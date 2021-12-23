@@ -15,6 +15,21 @@
 	<p>No source; created in electronic form.</p>
       </sourceDesc>
     </fileDesc>
+    <revisionDesc>
+      <list>
+	<item>
+	  <p>2021-12-22 : CMSMcQ : copy edits.</p>
+	</item>
+	<item>
+	  <p>2021-11-11 : CMSMcQ : substantial copy edits
+	  and revision.</p>
+	</item>
+	<item>
+	  <p>2021-11-07 : CMSMcQ : first version of this
+	  tag set description.</p>
+	</item>
+      </list>
+    </revisionDesc>
   </teiHeader>
   <text>
     <front>
@@ -23,7 +38,7 @@
 	  <titlePart>XML elements for ixml test catalogs</titlePart>
 	</docTitle>
 	<docAuthor>C. M. Sperberg-McQueen</docAuthor>
-	<docDate>7 November 2021, rev. 11 November 2021</docDate>
+	<docDate>7 November 2021, last rev. 22 December 2021</docDate>
       </titlePage>
     </front>
     <body>
@@ -31,10 +46,10 @@
 	<head>Introduction</head>
 	<p>This document lists the elements in an XML vocabulary for
 	ixml test catalogs and test-result reports, giving a short
-	description of each.  (Fulller description and discussion
+	description of each.  Fulller description and discussion
 	may be added later if felt to be needed; for now this is
 	mostly an alphabetical reference list to explain what the
-	elements are intended to mean and how they are to be used.)</p>
+	elements are intended to mean and how they are to be used.</p>
 	<p>The vocabulary described was developed by C. M. Sperberg-McQueen
 	as a proposal for the invisible-XML Community Group at the
 	World Wide Web Consortium, but it has not yet been considered
@@ -98,12 +113,12 @@
 	soon, but it's not here yet.</p>
 	<p xml:id="ambiguity"><label>Awkward treatment of ambiguous
 	sentences.</label> An ambiguous sentence has more than one
-	parse tree; the current model for <gi>result</gi> allows only
-	one to be specified.  Since the choice of which tree to return
-	is implementation-dependent (or possibly
-	implementation-defined), a correct implementation may easily
-	produce a parse tree which is correct but does not match the
-	parse tree specified in the test case.</p>
+	parse tree, and the choice of which tree to return is
+	implementation-dependent (or possibly implementation-defined),
+	so that a correct implementation may easily produce a parse
+	tree which is correct but does not match the parse tree
+	specified in the test case.</p>
+	
 	<p>The current approach is to allow multiple parse trees, with
 	the meaning being that if the processor produces any of them,
 	it passes that test.  If the processor returns a parse forest
@@ -114,7 +129,7 @@
 	sentences have an infinite number of parse trees.</p>
 	<p>For practical purposes, however, we can expect there to be
 	a finite number of processors using any given test suite, each
-	of which returns a finite number of trees.  If a processor
+	of which will return a finite number of trees.  If a processor
 	fails a test on an ambiguous grammar, then the tree returned
 	by the processor should be checked manually and added to the
 	specified result.  Unless a processor returns a different
@@ -149,12 +164,13 @@
 	As the examples of the QT3 test suite and XSpec show, all of
 	these involve building additional machinery both into the
 	vocabulary for the test catalog and also into the test
-	harness.  (An XPath assertion must be evaluated in a dynamic
+	harness.  An XPath assertion must be evaluated in a dynamic
 	context and must say something about the result returned, so
 	we now end up having to build a dynamic context and bind the
 	result to some well known variable like <code>$result</code>,
 	so that the assertion can say something useful about the
-	result.)  The current approach has the comparative advantage
+	result.</p>
+	<p>The current approach has the comparative advantage
 	that it does not require an XPath evaluator: one could in
 	principle handle the comparison of test results to the
 	expected output by writing out temporary files and calling a
@@ -308,17 +324,14 @@
 	    </attDef>
 	  </attList>
 	  <remarks>
-	    <p>Perhaps should be optional on individual test cases and
-	    grammar tests.  The current design is based on the idea
-	    that once a set of tests is created, further tests are
-	    often added to it, and that individual tests often have
-	    very different revision histories.  When trying to
-	    answer questions that arise as a result, it's helpful if
-	    every test case has a complete revision history.</p>
-	    <p>When tests are generated automatically or in bulk, it's
-	    easy enough to specify a creation date for each test case;
-	    when test cases are created by hand, it gets tedious.  For
-	    now, I'm keeping it.</p>
+	    <p>The element is allowed but optional on individual test
+	    cases and grammar tests.  If no creation date is given for
+	    an individual test case, it is assumed to have been
+	    created at the same time as the test set as a whole; if it
+	    was added later, it can (and ideally should) have its date
+	    of creation and revision history noted.  When a test suite
+	    is changed over time, it can be helpful if every test case
+	    has a complete revision history.</p>
 	  </remarks>
 	</elementSpec>
 	

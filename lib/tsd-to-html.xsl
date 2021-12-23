@@ -70,7 +70,7 @@
 	  <xsl:text>    margin: 0 1em;&#xA;</xsl:text>
 	  <xsl:text>    color: red;&#xA;</xsl:text>
 	  <xsl:text>}&#xA;</xsl:text>
-	  <xsl:text>span.gi, span.att {&#xA;</xsl:text>
+	  <xsl:text>a.gi, span.gi, a.att, span.att {&#xA;</xsl:text>
 	  <xsl:text>    font-family: monospace;&#xA;</xsl:text>
 	  <xsl:text>    color: blue;&#xA;</xsl:text>
 	  <xsl:text>}&#xA;</xsl:text>
@@ -84,10 +84,18 @@
 	  <xsl:text>div.front {&#xA;</xsl:text>
 	  <xsl:text>    text-align: center;&#xA;</xsl:text>
 	  <xsl:text>    padding: 2em;;&#xA;</xsl:text>
+	  <xsl:text>    padding-bottom: 0em;;&#xA;</xsl:text>
 	  <xsl:text>    border-bottom: 1px solid black;&#xA;</xsl:text>
+	  <xsl:text>    margin-bottom: 2em;;&#xA;</xsl:text>
 	  <xsl:text>}&#xA;</xsl:text>
 	  <xsl:text>div.docAuthor {&#xA;</xsl:text>
 	  <xsl:text>    font-size: larger;&#xA;</xsl:text>
+	  <xsl:text>}&#xA;</xsl:text>
+	  <xsl:text>div.toc {&#xA;</xsl:text>
+	  <xsl:text>    text-align: left;&#xA;</xsl:text>
+	  <xsl:text>    margin-top: 2em;;&#xA;</xsl:text>
+	  <xsl:text>    padding-top: 0.5em;;&#xA;</xsl:text>
+	  <xsl:text>    border-top: 1px solid black;&#xA;</xsl:text>
 	  <xsl:text>}&#xA;</xsl:text>
 	  
 	  <xsl:text>div.elementSpec {&#xA;</xsl:text>
@@ -147,6 +155,8 @@
   <xsl:template match="tei:teiHeader"/>
 
   <xsl:template match="tei:div[not(parent::tei:div)]/tei:head">
+    <!-- This appears to have been written for multiple depths,
+	 and later restricted to top-level divs.   Why? -->
     <xsl:variable name="depth" select="count(ancestor::tei:div)"/>
     <xsl:choose>
       <xsl:when test="$depth = 1">
@@ -172,6 +182,54 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="tei:body" mode="toc">
+    <xsl:element name="div" namespace="{$nsxhtml}">
+      <xsl:attribute name="class">
+	<xsl:text>toc</xsl:text>
+      </xsl:attribute>
+      <xsl:element name="ul" namespace="{$nsxhtml}">
+	<xsl:apply-templates select="tei:div" mode="toc"/>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="tei:div" mode="toc">
+    <xsl:element name="li" namespace="{$nsxhtml}">
+      <xsl:element name="a" namespace="{$nsxhtml}">
+	<xsl:attribute name="class">
+	  <xsl:text>tocptr</xsl:text>
+	</xsl:attribute>
+	<xsl:attribute name="href">
+	  <xsl:text>#</xsl:text>
+	  <xsl:call-template name="make-id"/>
+	</xsl:attribute>
+	<xsl:apply-templates select="tei:head/node()"/>
+	<xsl:if test="descendant::tei:elementSpec">
+	  <xsl:element name="ul" namespace="{$nsxhtml}">
+	    <xsl:apply-templates select="descendant::tei:elementSpec" mode="toc"/>
+	  </xsl:element>
+	</xsl:if>
+      </xsl:element>
+    </xsl:element>
+
+  </xsl:template>
+  
+  <xsl:template match="tei:elementSpec" mode="toc">
+    <xsl:element name="li" namespace="{$nsxhtml}">
+      <xsl:element name="a" namespace="{$nsxhtml}">
+	<xsl:attribute name="class">
+	  <xsl:text>tocptr</xsl:text>
+	</xsl:attribute>
+	<xsl:attribute name="href">
+	  <xsl:text>#elem-</xsl:text>
+	  <xsl:value-of select="@ident"/>
+	</xsl:attribute>
+	<xsl:value-of select="@ident"/>
+      </xsl:element>
+    </xsl:element>
+
+  </xsl:template>  
+
   <!--* 2.1b Front matter *-->
   
   <xsl:template match="tei:front
@@ -182,6 +240,9 @@
       </xsl:attribute>
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates/>
+      <xsl:if test="self::tei:front">
+	<xsl:apply-templates mode="toc" select="../tei:body"/>
+      </xsl:if>
     </xsl:element>
   </xsl:template>
   
@@ -277,8 +338,48 @@
     </xsl:element>
   </xsl:template>
     
-  <xsl:template match="tei:gi | tei:att | tei:code">
-    <xsl:element name="span" namespace="{$nsxhtml}">
+  <xsl:template match="tei:gi | tei:att">
+    <xsl:variable name="gi">
+      <xsl:choose>
+	<xsl:when test="self::tei:gi
+			and (string(.) =
+			//tei:elementSpec/@ident)">
+	  <xsl:text>a</xsl:text>
+	</xsl:when>
+	<xsl:when test="self::tei:att
+			and (string(.) =
+			//tei:attDef/@ident)">
+	  <xsl:text>a</xsl:text>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:text>span</xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:element name="{$gi}" namespace="{$nsxhtml}">
+      <xsl:attribute name="class">
+	<xsl:value-of select="name()"/>
+      </xsl:attribute>
+      <xsl:choose>
+	<xsl:when test="self::tei:gi and ($gi = 'a')">
+	  <xsl:attribute name="href">
+	    <xsl:text>#elem-</xsl:text>
+	    <xsl:value-of select="normalize-space(.)"/>
+	  </xsl:attribute>
+	</xsl:when>
+	<xsl:when test="self::tei:att and ($gi = 'a')">
+	  <xsl:attribute name="href">
+	    <xsl:text>#att-</xsl:text>
+	    <xsl:value-of select="normalize-space(.)"/>
+	  </xsl:attribute>
+	</xsl:when>
+      </xsl:choose>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+    
+  <xsl:template match="tei:code">
+    <xsl:element name="code" namespace="{$nsxhtml}">
       <xsl:attribute name="class">
 	<xsl:value-of select="name()"/>
       </xsl:attribute>
@@ -358,6 +459,9 @@
     <xsl:element name="div" namespace="{$nsxhtml}">
       <xsl:attribute name="class">
 	<xsl:value-of select="name()"/>
+      </xsl:attribute>
+      <xsl:attribute name="id">
+	<xsl:value-of select="concat('elem-', @ident)"/>
       </xsl:attribute>
       <xsl:element name="h3" namespace="{$nsxhtml}">
 	<xsl:attribute name="class">spec-label element</xsl:attribute>
@@ -445,6 +549,9 @@
       <xsl:attribute name="class">
 	<xsl:value-of select="name()"/>
       </xsl:attribute>
+      <xsl:attribute name="id">
+	<xsl:value-of select="concat('att-', @ident)"/>
+      </xsl:attribute>
       <xsl:element name="p" namespace="{$nsxhtml}">	
 	<xsl:element name="span" namespace="{$nsxhtml}">
 	  <xsl:attribute name="class">attname</xsl:attribute>
@@ -454,6 +561,22 @@
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
-  
+
+  <xsl:template name="make-id">
+    <xsl:choose>
+      <xsl:when test="@xml:id">
+	<xsl:value-of select="@xml:id"/>
+      </xsl:when>
+      <xsl:when test="self::elementSpec">
+	<xsl:value-of select="concat('elem-', @ident)"/>
+      </xsl:when>
+      <xsl:when test="self::attDef">
+	<xsl:value-of select="concat('att-', @ident)"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="generate-id()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
 </xsl:stylesheet>
