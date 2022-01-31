@@ -134,6 +134,22 @@
     </span>
   </xsl:template>
   
+  <xsl:template match="alt[not(*)]">
+    <span class="alt">
+      <span class="comment">
+	<span class="comdelim">{</span>
+	<span class="comment-body">
+	  <xsl:text>* empty *</xsl:text>
+	</span>      
+	<span class="comdelim">}</span>
+      </span>
+      <xsl:if test="following-sibling::*[1]/self::alt">
+	<!-- <span class="altdelim"> | </span> -->
+	<span class="altdelim">; </span>
+      </xsl:if>
+    </span>
+  </xsl:template>
+  
   <xsl:template match="alts">
     <span class="alts">
       <span class="altsdelim">(</span>
@@ -229,6 +245,12 @@
   </xsl:template>
 
   <xsl:template match="@*" priority="1"/>
+  
+  <xsl:template match="@string" priority="10">
+    <xsl:text>"</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>"</xsl:text>
+  </xsl:template>
   
   <xsl:template match="@dstring" priority="10">
     <xsl:text>"</xsl:text>
