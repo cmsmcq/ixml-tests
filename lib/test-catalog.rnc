@@ -78,6 +78,8 @@ grammar {
 	# test sets, or both) with common metadata and a common
 	# grammar.
 
+        # Test cases are allowed only after a grammar is specified.
+	
         # We keep track of whether an ancestor has specified a grammar
 	# by having two nonterminals for test sets:  test-set-0 is used
 	# when no ancestor has specified a grammar, test-set-1 when
@@ -96,8 +98,8 @@ grammar {
 	    ( (test-set-0 | test-set-ref)*
 	    | (Grammar-spec, (test-set-1 | test-set-ref | test-case)*) )))
 	}
-
-        # If an ancestor has specified a grammar, test cases are allows
+	
+        # If an ancestor has specified a grammar, test cases are allowed
 	# in this test set even if there is no grammar at this level.
 	
         test-set-1 = element test-set {

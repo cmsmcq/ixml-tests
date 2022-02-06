@@ -15,7 +15,7 @@ browser on Github.
 
 	* A set of 7638 [arc-complete negative](arith.O3.test-catalog.arc.neg.xml) test cases. 
 
-	* A set of2886 [arc-final negative](arith.O3.test-catalog.arc-final.neg.xml) test cases.
+	* A set of 2886 [arc-final negative](arith.O3.test-catalog.arc-final.neg.xml) test cases.
 
 	* A set of 1020 [state-complete negative](arith.O3.test-catalog.state.neg.xml) test cases.
 

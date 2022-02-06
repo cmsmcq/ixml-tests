@@ -46,7 +46,7 @@
 	<head>Introduction</head>
 	<p>This document lists the elements in an XML vocabulary for
 	ixml test catalogs and test-result reports, giving a short
-	description of each.  Fulller description and discussion
+	description of each.  Fuller description and discussion
 	may be added later if felt to be needed; for now this is
 	mostly an alphabetical reference list to explain what the
 	elements are intended to mean and how they are to be used.</p>
@@ -65,7 +65,7 @@
 	    <p>Each test set may specify an ixml grammar in either
 	    ixml or XML form, together with a set of test cases and
 	    optionally nested test sets.  An optional
-	    <gi>grammar-test</gi> elememt signals that the grammar
+	    <gi>grammar-test</gi> element signals that the grammar
 	    itself should be regarded as a test case and identifies
 	    the expected result of processing the grammar.</p>
 	    <p>Each test case in a test set supplies input to be
@@ -225,7 +225,7 @@
 	<elementSpec ident="assert-not-a-grammar">
 	  <desc>signals that the grammar specified is not a conforming
 	  ixml grammar (and thus cannot be used to parse the test
-	  intput).  Correct behavior in this case is to report that
+	  input).  Correct behavior in this case is to report that
 	  the input cannot be parsed using the grammar and optionally
 	  describe the nature of the problem.</desc>
 	  <remarks>
