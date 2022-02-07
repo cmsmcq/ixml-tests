@@ -215,6 +215,7 @@ grammar {
 	}
 
 	grammar-result = element grammar-result {
+	    attribute result { result-type }, 
 	    external-atts,
 	    (Metadata & (result-report?))
 	}

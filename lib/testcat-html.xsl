@@ -67,11 +67,17 @@
 	  div.vxml { padding: 0.5em; padding-left: 0;}
 	  div.block.vxml-ref span.label { font-weight: bold; }
 	  div.grammar-test { margin-top: 1.5em; padding: 0.5em; border-top: 1px dotted navy;}
+	  div.normal-test { margin-top: 1.5em; padding: 0.5em; border-top: 1px dotted navy;}
 	  h2.test-set { margin-top: 3em; width: 100%; border-bottom: 1px solid black; }
 	  h3.test-set { margin-top: 1em; width: 100%; margin-left: 10%; border-bottom: 1px solid black; }
 	  span.label { font-weight: normal; }
 	  span.test-string { font-family: monospace; font-size: larger; border: 1px solid gray; background-color: #FFFFDD;}
 	  span.assertion { font-style: italic;}
+	  span.test-result { font-size: larger; }
+	  span.test-result.fail { background-color: #FF8888; }
+	  span.test-result.pass { background-color: #88FF88; }
+	  span.test-result.not-run { background-color: #AAAAAA; }
+	  span.test-result.other { background-color: #DDDDFF; }
 	</style>
       </head>
       <body>
@@ -88,8 +94,41 @@
     
     <xsl:apply-templates/>
   </xsl:template>
+
+  <xsl:template match="cat:test-report">
+    <h1><xsl:value-of select="@name"/></h1>
+    <h4>(<xsl:value-of select="@report-date"/>)</h4>
+    <hr/>
+    <xsl:apply-templates select="@processor"/>
+    <xsl:apply-templates select="@catalog-uri"/>
+    <xsl:apply-templates/>
+  </xsl:template>
+
+  <xsl:template match="cat:test-report/@processor">
+    <p>
+      <xsl:text>Processor:  </xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:apply-templates select="../@processor-version"/>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="cat:test-report/@processor-version">
+    <xsl:value-of select="concat(' ', .)"/>
+  </xsl:template>
+
+  <xsl:template match="cat:test-report/@catalog-uri">
+    <p>
+      <xsl:text>Test catalog:  </xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:apply-templates select="../@catalog-date"/>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="cat:test-report/@catalog-date">
+    <xsl:value-of select="concat(' (as of ', ., ')')"/>
+  </xsl:template>
   
-  <xsl:template match="cat:test-set">
+  <xsl:template match="cat:test-set | cat:test-set-results">
     <h2 class="test-set">
       <xsl:text>Test set: </xsl:text>
       <xsl:value-of select="@name"/>
@@ -100,7 +139,8 @@
     <xsl:apply-templates/>
   </xsl:template>  
   
-  <xsl:template match="cat:test-set/cat:test-set">
+  <xsl:template match="cat:test-set/cat:test-set
+		       | cat:test-set-results/cat:test-set-results">
     <h3 class="sub test-set">
       <xsl:text>Test set: </xsl:text>
       <xsl:value-of select="@name"/>
@@ -216,6 +256,53 @@
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
+  
+  <xsl:template match="cat:grammar-result">
+    <xsl:element name="div">
+      <xsl:attribute name="class">
+	<xsl:text>block grammar-test</xsl:text>
+      </xsl:attribute>
+      <xsl:element name="b">
+	<xsl:attribute name="class">
+	  <xsl:text>label</xsl:text>
+	</xsl:attribute>
+	<xsl:text>Grammar test </xsl:text>
+      </xsl:element>
+      <xsl:text>&#xA0;</xsl:text>
+      <xsl:element name="span">
+	<xsl:attribute name="class">
+	  <xsl:text>test-result </xsl:text>
+	  <xsl:value-of select="@result"/>
+	</xsl:attribute>
+	<xsl:value-of select="@result"/>
+      </xsl:element>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+  
+  <xsl:template match="cat:test-result">
+    <xsl:element name="div">
+      <xsl:attribute name="class">
+	<xsl:text>block normal-test</xsl:text>
+      </xsl:attribute>
+      <xsl:element name="b">
+	<xsl:attribute name="class">
+	  <xsl:text>label</xsl:text>
+	</xsl:attribute>
+	<xsl:text>Test case </xsl:text>
+	<xsl:number select="test-case"/>
+      </xsl:element>
+      <xsl:text>&#xA0;</xsl:text>
+      <xsl:element name="span">
+	<xsl:attribute name="class">
+	  <xsl:text>test-result </xsl:text>
+	  <xsl:value-of select="@result"/>
+	</xsl:attribute>	
+	<xsl:value-of select="@result"/>
+      </xsl:element>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
     
   <xsl:template match="cat:test-string">
     <xsl:element name="div">
@@ -284,17 +371,32 @@
       <xsl:attribute name="class">
 	<xsl:text>block result</xsl:text>
       </xsl:attribute>
+      <!--
       <xsl:element name="span">
 	<xsl:attribute name="class">
 	  <xsl:text>label</xsl:text>
 	</xsl:attribute>
 	<xsl:text>Result: </xsl:text>
       </xsl:element>
+      -->
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
     
-  <xsl:template match="cat:assert-xml">
+  <xsl:template match="cat:assert-xml | cat:reported-xml">
+    <xsl:element name="p">
+      <xsl:choose>
+	<xsl:when test="self::cat:assert-xml">
+	  <xsl:text>Expected result:</xsl:text>
+	</xsl:when>
+	<xsl:when test="self::cat:reported-xml">
+	  <xsl:text>Reported result:</xsl:text>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:text>XML:</xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
     <xsl:element name="div">
       <xsl:attribute name="class">
 	<xsl:text>block ast</xsl:text>
@@ -303,7 +405,7 @@
     </xsl:element>
   </xsl:template>
     
-  <xsl:template match="cat:assert-xml-ref">
+  <xsl:template match="cat:assert-xml-ref | cat:reported-xml-ref">
     <xsl:element name="div">
       <xsl:attribute name="class">
 	<xsl:text>block result ast-ref</xsl:text>
@@ -331,7 +433,34 @@
       <xsl:attribute name="class">
 	<xsl:text>assertion</xsl:text>
       </xsl:attribute>
-      <xsl:text>Not a sentence.</xsl:text>
+      <xsl:text>Expected result: Not a sentence.</xsl:text>
+    </xsl:element>
+  </xsl:template>
+    
+  <xsl:template match="cat:reported-not-a-sentence">
+    <xsl:element name="span">
+      <xsl:attribute name="class">
+	<xsl:text>assertion</xsl:text>
+      </xsl:attribute>
+      <xsl:text>Reported result: Not a sentence.</xsl:text>
+    </xsl:element>
+  </xsl:template>
+    
+  <xsl:template match="cat:assert-not-a-grammar">
+    <xsl:element name="span">
+      <xsl:attribute name="class">
+	<xsl:text>assertion</xsl:text>
+      </xsl:attribute>
+      <xsl:text>Expected result: Not a grammar.</xsl:text>
+    </xsl:element>
+  </xsl:template>
+    
+  <xsl:template match="cat:reported-not-a-grammar">
+    <xsl:element name="span">
+      <xsl:attribute name="class">
+	<xsl:text>assertion</xsl:text>
+      </xsl:attribute>
+      <xsl:text>Reported result: Not a grammr.</xsl:text>
     </xsl:element>
   </xsl:template>
 

@@ -1,3 +1,4 @@
+<?xml-stylesheet type="text/xsl" href="../lib/testcat-html.xsl"?>
 <test-report xmlns="https://github.com/cmsmcq/ixml-tests"
 	      name="Test report for Level zero tests"
               processor="Aparecium"

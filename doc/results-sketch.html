@@ -1,0 +1,196 @@
+<html xmlns:gt="http://blackmesatech.com/2020/grammartools" xmlns:rtn="http://blackmesatech.com/2020/iXML/recursive-transition-networks" xmlns:cat="https://github.com/cmsmcq/ixml-tests">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>iXML grammar</title>
+<style type="text/css">
+	  div.unknown { color: red; margin-left: 1em; }
+	  div.xml { color: navy; margin-left: 1em; }
+
+	  div.block { margin-left: 25%; }
+	  div.block > div.block { margin-left: 0; }
+	  div.test-set {}
+	  div.metadata { width: 100%; background-color: #DDD; }
+	  div.app-info { color: brown; }
+	  div.ixml-source, div.vxml-source { padding: 0.5em; border: 1px solid navy; white-space: pre;}
+	  div.ast { padding: 0.5em; border: 1px solid navy;}
+	  div.vxml { padding: 0.5em; padding-left: 0;}
+	  div.block.vxml-ref span.label { font-weight: bold; }
+	  div.grammar-test { margin-top: 1.5em; padding: 0.5em; border-top: 1px dotted navy;}
+	  div.normal-test { margin-top: 1.5em; padding: 0.5em; border-top: 1px dotted navy;}
+	  h2.test-set { margin-top: 3em; width: 100%; border-bottom: 1px solid black; }
+	  h3.test-set { margin-top: 1em; width: 100%; margin-left: 10%; border-bottom: 1px solid black; }
+	  span.label { font-weight: normal; }
+	  span.test-string { font-family: monospace; font-size: larger; border: 1px solid gray; background-color: #FFFFDD;}
+	  span.assertion { font-style: italic;}
+	  span.test-result { font-size: larger; }
+	  span.test-result.fail { background-color: #FF8888; }
+	  span.test-result.pass { background-color: #88FF88; }
+	  span.test-result.not-run { background-color: #AAAAAA; }
+	  span.test-result.other { background-color: #DDDDFF; }
+	</style>
+</head>
+<body>
+<h1>Test report for Level zero tests</h1>
+<h4>(2022-02-06)</h4>
+<hr>
+<p>Processor:  Aparecium 2021-11</p>
+<p>Test catalog:  file:///home/cmsmcq/github/Aparecium/tests/test0.xml</p>
+  <div class="block desc">
+    <p>Demonstrates a standard format for test results, both a minimal
+    version and a fuller version.</p>
+    <p>The structure of the test report mirrors the structure of the
+    test catalog: The test-report element corresponds to the input
+    test-catalog, each test-set in the input produces a
+    test-set-results element in the report, and so on.</p>
+  </div>
+
+  <h2 class="test-set">Test set: zero (0 tests)</h2>
+    <div class="block normal-test">
+<b class="label">Test case 1</b> <span class="test-result pass">pass</span>
+</div>
+    <div class="block normal-test">
+<b class="label">Test case 2</b> <span class="test-result pass">pass</span>
+</div>
+    <div class="block normal-test">
+<b class="label">Test case 3</b> <span class="test-result pass">pass</span>
+</div>
+    <div class="block normal-test">
+<b class="label">Test case 4</b> <span class="test-result pass">pass</span>
+</div>
+  
+
+  <h2 class="test-set">Test set: zero-bis (0 tests)</h2>
+    <div class="block desc">
+      <p>This version of the 'zero' test set has more detail.</p>
+    </div>
+
+    <div class="block vxml-ref">
+<span class="label">External grammar:  </span><a class="inline xref" href="../lib/ixml.2021-09-14.ixml.xml">../lib/ixml.2021-09-14.ixml.xml</a>
+</div>
+    <div class="block normal-test">
+<b class="label">Test case 1</b> <span class="test-result pass">pass</span>
+      <div class="block test-string">
+<span class="label">Test string: </span><span class="test-string">S : 'a'.</span>
+</div>      
+      <div class="block result">
+	<p>Reported result:</p>
+<div class="block ast">
+	  <div class="xml">
+<span class="tag starttag">&lt;ixml&gt;</span><div class="xml">
+<span class="tag starttag">&lt;rule<span class="avs"> <span class="attname">name</span><span class="attdelims"> = "</span><span class="attval">S</span><span class="attdelims">"</span></span>&gt;</span>:<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">a</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>.<span class="tag endtag">&lt;/rule&gt;</span>
+</div>
+<span class="tag endtag">&lt;/ixml&gt;</span>
+</div>
+	</div>
+      </div>
+    </div>
+    <div class="block normal-test">
+<b class="label">Test case 2</b> <span class="test-result pass">pass</span>
+      <div class="block test-string">
+<span class="label">Test string: </span><span class="test-string">S : 'a'.</span>
+</div>      
+      <div class="block result">
+	<p>Reported result:</p>
+<div class="block ast">
+	  <div class="xml">
+<span class="tag starttag">&lt;ixml&gt;</span><div class="xml">
+<span class="tag starttag">&lt;rule<span class="avs"> <span class="attname">name</span><span class="attdelims"> = "</span><span class="attval">S</span><span class="attdelims">"</span></span>&gt;</span>:<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">a</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>.<span class="tag endtag">&lt;/rule&gt;</span>
+</div>
+<span class="tag endtag">&lt;/ixml&gt;</span>
+</div>
+	</div>
+      </div>
+    </div>
+    <div class="block normal-test">
+<b class="label">Test case 3</b> <span class="test-result pass">pass</span>
+      <div class="block test-string">
+<span class="label">Test string: </span><span class="test-string">S : 'magic'; 'b', "c"; ["v"; 'aeiou'].</span>
+</div>
+      <div class="block result">
+	<p>Reported result:</p>
+<div class="block ast">
+        <div class="xml">
+<span class="tag starttag">&lt;ixml&gt;</span><div class="xml">
+<span class="tag starttag">&lt;rule<span class="avs"> <span class="attname">name</span><span class="attdelims"> = "</span><span class="attval">S</span><span class="attdelims">"</span></span>&gt;</span>:<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">magic</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>;<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">b</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>,<div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">dstring</span><span class="attdelims"> = "</span><span class="attval">c</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>;<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;inclusion&gt;</span>[<div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">dstring</span><span class="attdelims"> = "</span><span class="attval">v</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>;<div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">aeiou</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>]<span class="tag endtag">&lt;/inclusion&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>.<span class="tag endtag">&lt;/rule&gt;</span>
+</div>
+<span class="tag endtag">&lt;/ixml&gt;</span>
+</div>
+	</div>
+      </div>
+    </div>
+    <div class="block normal-test">
+<b class="label">Test case 4</b> <span class="test-result pass">pass</span>
+      <div class="block test-string">
+<span class="label">External test string: </span><a class="inline xref" href="t2.ixml">t2.ixml</a>
+</div>
+      <div class="block test-string">
+<span class="label">Test string: </span><span class="test-string">S : 'magic'; 'b', "c"; ["v"; 'aeiou'].</span>
+</div>
+      <div class="block result">
+	<p>Reported result:</p>
+<div class="block ast">
+        <div class="xml">
+<span class="tag starttag">&lt;ixml&gt;</span><div class="xml">
+<span class="tag starttag">&lt;rule<span class="avs"> <span class="attname">name</span><span class="attdelims"> = "</span><span class="attval">S</span><span class="attdelims">"</span></span>&gt;</span>:<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">magic</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>;<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">b</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>,<div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">dstring</span><span class="attdelims"> = "</span><span class="attval">c</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>;<div class="xml">
+<span class="tag starttag">&lt;alt&gt;</span><div class="xml">
+<span class="tag starttag">&lt;inclusion&gt;</span>[<div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">dstring</span><span class="attdelims"> = "</span><span class="attval">v</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>;<div class="xml">
+<span class="tag starttag">&lt;literal<span class="avs"> <span class="attname">sstring</span><span class="attdelims"> = "</span><span class="attval">aeiou</span><span class="attdelims">"</span></span>&gt;</span><span class="tag endtag">&lt;/literal&gt;</span>
+</div>]<span class="tag endtag">&lt;/inclusion&gt;</span>
+</div>
+<span class="tag endtag">&lt;/alt&gt;</span>
+</div>.<span class="tag endtag">&lt;/rule&gt;</span>
+</div>
+<span class="tag endtag">&lt;/ixml&gt;</span>
+</div>
+	</div>
+      </div>
+    </div>
+    
+  
+</body>
+</html>
