@@ -1,0 +1,83 @@
+<test-report xmlns="https://github.com/cmsmcq/ixml-tests"
+	      name="Test report for Level zero tests"
+              processor="Aparecium"
+	      processor-version="2021-11"
+	      catalog-uri="file:///home/cmsmcq/github/Aparecium/tests/test0.xml"
+	      report-date="2022-02-06"
+	      >
+  <description>
+    <p>Demonstrates a standard format for test results, both a minimal
+    version and a fuller version.</p>
+    <p>The structure of the test report mirrors the structure of the
+    test catalog: The test-report element corresponds to the input
+    test-catalog, each test-set in the input produces a
+    test-set-results element in the report, and so on.</p>
+  </description>
+
+  <test-set-results name="zero">
+    <test-result name="t1i" result="pass"/>
+    <test-result name="t1x" result="pass"/>
+    <test-result name="t2i" result="pass"/>
+    <test-result name="t2x" result="pass"/>
+  </test-set-results>
+
+  <test-set-results name="zero-bis">
+    <description>
+      <p>This version of the 'zero' test set has more detail.</p>
+    </description>
+
+    <vxml-grammar-ref href="../lib/ixml.2021-09-14.ixml.xml"/>
+    <test-result name="t1i" result="pass">
+      <test-string>S : 'a'.</test-string>      
+      <result>
+	<reported-xml>
+	  <ixml><rule name="S">:<alt><literal sstring="a"/></alt>.</rule></ixml>
+	</reported-xml>
+      </result>
+    </test-result>
+    <test-result name="t1x" result="pass">
+      <test-string>S : 'a'.</test-string>      
+      <result>
+	<reported-xml>
+	  <ixml><rule name="S">:<alt><literal sstring="a"/></alt>.</rule></ixml>
+	</reported-xml>
+      </result>
+    </test-result>
+    <test-result name="t2i" result="pass">
+      <test-string>S : 'magic'; 'b', "c"; ["v"; 'aeiou'].</test-string>
+      <result>
+	<reported-xml>
+        <ixml
+            ><rule name="S"
+                   >:<alt><literal sstring="magic"/></alt
+                   >;<alt><literal sstring="b"/>,<literal dstring="c"/></alt
+                   >;<alt><inclusion
+                     >[<literal dstring="v"
+                     />;<literal sstring="aeiou"
+                   />]</inclusion></alt
+            >.</rule
+        ></ixml>
+	</reported-xml>
+      </result>
+    </test-result>
+    <test-result name="t2x" result="pass">
+      <test-string-ref href="t2.ixml"/>
+      <test-string>S : 'magic'; 'b', "c"; ["v"; 'aeiou'].</test-string>
+      <result>
+	<reported-xml>
+        <ixml
+            ><rule name="S"
+                   >:<alt><literal sstring="magic"/></alt
+                   >;<alt><literal sstring="b"/>,<literal dstring="c"/></alt
+                   >;<alt><inclusion
+                     >[<literal dstring="v"
+                     />;<literal sstring="aeiou"
+                   />]</inclusion></alt
+            >.</rule
+        ></ixml>
+	</reported-xml>
+      </result>
+    </test-result>
+    
+  </test-set-results>
+</test-report>

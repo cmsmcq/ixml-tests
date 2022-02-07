@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <uri resource="results-sketch.xml" uri="../lib/test-catalog.rnc"/>
   <uri resource="test-catalog.tags.xml" typeId="TEI ODD document (P5)"/>
   <uri resource="catalog-sketch.xml" uri="../lib/test-catalog.rnc"/>
 </locatingRules>

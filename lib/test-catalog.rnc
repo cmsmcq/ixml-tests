@@ -6,6 +6,7 @@ grammar {
 	# RNC grammar for test catalog.
 	#
 	# Revisions:
+	# 2022-02-06 : CMSMcQ : Add a quick and dirty report format.
 	# 2021-12-22 : CMSMcQ : Make 'created' optional on individual tests;
 	#                       notionally, let it be inherited from test set.
 	# 2021-11-11 : CMSMcQ : Revamp result to allow multiple results
@@ -32,9 +33,9 @@ grammar {
 # (Exception:  element test-set has two definitions, test-set-0
 # and test-set-1.)
 
-	start = test-catalog
+	start = test-catalog | test-report
 
-# test-catalog
+# test-catalog, test-report
 
 	# A test catalog is a collection of test sets, with common
 	# metadata.
@@ -45,6 +46,21 @@ grammar {
 	    (Metadata
 	    &
 	    (test-set-0 | test-set-ref)*)
+	}
+
+	# A test report is a collection of test set reports, with common
+	# metadata.
+	test-report = element test-report {
+	    attribute name { text },
+	    attribute report-date { xsd:date },
+	    attribute processor { text },
+	    attribute processor-version { text }?,
+	    attribute catalog-uri { text },
+	    attribute catalog-date { text }?,
+	    external-atts,
+	    (Metadata
+	    &
+	    test-set-results*)
 	}
 
 # Metadata
@@ -72,7 +88,7 @@ grammar {
 	}
 	
 
-# test-set
+# test-set, test-set-results
 
         # A test set is a collection of tests (or possibly subordinate
 	# test sets, or both) with common metadata and a common
@@ -112,6 +128,15 @@ grammar {
 	    (test-set-1 | test-set-ref | test-case)*))
 	}
 
+        test-set-results = element test-set-results {
+	    attribute name { text },
+	    external-atts,
+	    (Metadata
+	    &
+	    (Grammar-results?,
+	    (test-set-results | test-result)*))
+	}
+
         # Grammars can be in invisible XML or in visible XML.
 	# They can be inline or external.  They can be marked
 	# as a grammar test or not.
@@ -121,6 +146,15 @@ grammar {
 	    | ixml-grammar-ref
 	    | vxml-grammar-ref),
 	    grammar-test?)
+
+        # In the results file, we may omit the grammar, or include
+	# it, possibly both reproducing the reference and giving
+	# the grammar inline. 
+	Grammar-results = ((ixml-grammar
+	    | vxml-grammar
+	    | ixml-grammar-ref
+	    | vxml-grammar-ref)*,
+	    grammar-result?)
 
         # Q. Why is the grammar optional?
 	# A. Because in a nested test set we may want to inherit the
@@ -180,6 +214,11 @@ grammar {
 	    (Metadata & (History?, result))
 	}
 
+	grammar-result = element grammar-result {
+	    external-atts,
+	    (Metadata & (result-report?))
+	}
+
 
 # test-case
 
@@ -191,6 +230,15 @@ grammar {
 	    external-atts,
 	    (Metadata & (History?, Test-string, result))
 	}
+	
+        test-result = element test-result {
+	    attribute name { text }, 
+	    attribute result { result-type }, 
+	    external-atts,
+	    (Metadata & ((Test-string)*, result-report?))
+	}
+	
+	result-type = 'pass' | 'fail' | 'not-run' | 'other'
 
         # Test-string:  in-line or external
 
@@ -213,6 +261,12 @@ grammar {
         result = element result {
 	    external-atts,
 	    Assertion
+	}
+
+        result-report = element result {
+	    external-atts,
+	    Assertion?,
+	    Observation?
 	}
 
 
@@ -260,6 +314,28 @@ grammar {
 	    external-atts,
 	    Metadata
 	}
+
+        Observation = ((reported-xml-ref | reported-xml)+
+	            | reported-not-a-sentence
+	            | reported-not-a-grammar)
+		    
+        reported-xml-ref = element reported-xml-ref {
+	    external-atts,
+	    attribute href { xsd:anyURI }
+	}
+        reported-xml = element reported-xml {
+	    external-atts,
+	    any-element+
+	}
+        reported-not-a-sentence = element reported-not-a-sentence {
+	    external-atts,
+	    Metadata
+	}
+        reported-not-a-grammar = element reported-not-a-grammar {
+	    external-atts,
+	    Metadata
+	}
+		    
 
 # Common constructs
 
