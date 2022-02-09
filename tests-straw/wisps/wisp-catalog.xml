@@ -42,7 +42,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g01.cMM">
       <!-- <accept s="a+b"/> -->
       <tc:test-string>a+b</tc:test-string>
       <tc:result>
@@ -51,7 +51,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g01.cMM">
       <tc:test-string>a-b+a</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -59,43 +59,43 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>42</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>42</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>a*b/a</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>x-y+z</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>-a</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>a++</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g01.rMM">
       <tc:test-string>a-(b-a)</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
@@ -114,7 +114,7 @@
       to see if it has already been completed.</tc:p>
     </tc:description>
     <tc:ixml-grammar>S: X, X. X: a. X: .</tc:ixml-grammar>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g02.cMM">
       <tc:test-string>
       </tc:test-string>
       <tc:result>
@@ -123,7 +123,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g02.cMM">
       <tc:test-string>a</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -131,7 +131,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g02.cMM">
       <tc:test-string>aa</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -139,13 +139,13 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g02.rMM">
       <tc:test-string>b</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g02.rMM">
       <tc:test-string>aaa</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
@@ -159,7 +159,7 @@
       <tc:p>A toy fragment of CSS from one of Steven Pemberton's talks.</tc:p>
     </tc:description>
     <tc:vxml-grammar-ref href="grammars/sample.grammar.03.ixml"/>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g03.cMM">
       <tc:test-string>p{}</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -167,7 +167,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g03.cMM">
       <tc:test-string>p{a:x}</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -175,7 +175,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g03.cMM">
       <tc:test-string>q{b:y;b2:z;xyz:x}</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -183,7 +183,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g03.cMM">
       <tc:test-string>p{a:x}q{b:y;b2:z;xyz:x}</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -191,49 +191,49 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>p</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>a:x</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>{a:x}</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>p{a x}</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>q{b:y;b2:z,xyz:x}</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>q{b:y;b2=z;xyz:x}</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>q{b:y b2:z xyz:x}</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g03.rMM">
       <tc:test-string>p{a:x};q{b:y;b2:z;xyz:x}</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
@@ -249,7 +249,7 @@
       Vaillant's tutorial on Earley parsing.</tc:p>
     </tc:description>
     <tc:vxml-grammar-ref href="grammars/sample.grammar.04.ixml"/>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>0</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -257,7 +257,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>42</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -265,7 +265,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>42-3</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -273,7 +273,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>42*3-7</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -281,7 +281,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>42-3/7</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -289,7 +289,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>(42-3)/7</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -297,7 +297,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>((42-3)/7)</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -305,7 +305,7 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.cMM">
+    <tc:test-case name="g04.cMM">
       <tc:test-string>((((42)-((3)))/7))</tc:test-string>
       <tc:result>
 	<tc:assert-xml>
@@ -317,43 +317,43 @@
 	to accept, with the version of Earley0 of 6 April 2018.
 	That may be a sign.
 	*-->
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>x</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>-</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>-42</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>42=3</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>42-3div7</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>(42-3)/7)</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
       </tc:result>
     </tc:test-case>
-    <tc:test-case name="gNN.rMM">
+    <tc:test-case name="g04.rMM">
       <tc:test-string>(((42-3)/7)</tc:test-string>
       <tc:result>
 	<tc:assert-not-a-sentence/>
@@ -570,20 +570,20 @@
 	A: {nil}. 
 	B: {nil}.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g23.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g23.rMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g23.cMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -620,20 +620,20 @@
 	S: (A, ((B, (C, D)+, E)+, F)+, G)+.
 	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g24.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g24.rMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g24.cMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -663,13 +663,13 @@
           A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
           Z: {nil}. Y: {nil}. X: {nil}. W: {nil}.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g25.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g25.cMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
@@ -678,7 +678,7 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g25.rMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -696,13 +696,13 @@
           S: A, B, (X, B)*, C.
           A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g26.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g26.cMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
@@ -711,7 +711,7 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g26.rMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -740,20 +740,20 @@
 	G: W.  W: B.	  
 	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g27.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g27.rMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g27.cMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -774,13 +774,13 @@
         S: A.  A: B.  B: C; X. X: B.
         A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g28.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g28.cMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
@@ -789,7 +789,7 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g28.rMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -809,20 +809,20 @@
 	  X:  A+, A+, "x".
 	  A: {nil}. 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g29.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g29.rMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g29.cMM">
 	<tc:test-string>x</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -843,7 +843,7 @@
       <tc:ixml-grammar>
 	name: ["a"-"z"]; ["a"-"z"].
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g30.cMM">
 	<tc:test-string>p</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -863,7 +863,7 @@
       <tc:ixml-grammar>
 	name: ["a"-"z"]; ["a"-"z";"A"-"Z"].
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g31.cMM">
 	<tc:test-string>p</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -980,7 +980,7 @@
       <accept src="31" s="
 	name: [&quot;a&quot;-&quot;z&quot;]; [&quot;a&quot;-&quot;z&quot;;&quot;A&quot;-&quot;Z&quot;].
       "/>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g31.rMM">
 <tc:test-string>p</tc:test-string>
 <tc:result>
 <tc:assert-not-a-sentence/>
@@ -1061,7 +1061,7 @@ nonstar: ~["*"].
 nonstarnonslash: ~["*"; "/"]. 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g33.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1069,7 +1069,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g33.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1091,7 +1091,7 @@ nonstarnonslash: ~["*"; "/"].
 	A: "a"; "b".
 	B: "c"; "d".
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g34.cMM">
 	<tc:test-string>ac</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1099,7 +1099,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g34.cMM">
 	<tc:test-string>ad</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1107,7 +1107,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g34.cMM">
 	<tc:test-string>bc</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1115,7 +1115,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g34.cMM">
 	<tc:test-string>bd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1123,19 +1123,19 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g34.rMM">
 	<tc:test-string>abcd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g34.rMM">
 	<tc:test-string>ab</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g34.rMM">
 	<tc:test-string>ca</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1157,7 +1157,7 @@ nonstarnonslash: ~["*"; "/"].
 	S: A.
 	A: "a", A; .
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g35.cMM">
 	<tc:test-string>
 	</tc:test-string>
 	<tc:result>
@@ -1166,7 +1166,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g35.cMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1174,7 +1174,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g35.cMM">
 	<tc:test-string>aa</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1182,7 +1182,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g35.cMM">
 	<tc:test-string>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1190,7 +1190,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g35.rMM">
 	<tc:test-string>b</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1215,7 +1215,7 @@ nonstarnonslash: ~["*"; "/"].
 	S: A.
 	A: "a", A, "c"; "b".
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g36.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1223,7 +1223,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g36.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1246,7 +1246,7 @@ nonstarnonslash: ~["*"; "/"].
 	F: V; "(", A, ")".
 	V: "a"; "b"; "c"; "d".
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g37.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1254,7 +1254,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g37.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1295,7 +1295,7 @@ nonstarnonslash: ~["*"; "/"].
 
       S: [" "; #09; #0A; #0D]+.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g38.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1303,7 +1303,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g38.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1345,7 +1345,7 @@ nonstarnonslash: ~["*"; "/"].
 
       S: [" "; #09; #0A; #0D]+.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g39.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1353,7 +1353,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g39.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1397,7 +1397,7 @@ nonstarnonslash: ~["*"; "/"].
 
       S: [" "; #09; #0A; #0D]+.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g40.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1405,7 +1405,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g40.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1513,7 +1513,7 @@ nonstarnonslash: ~["*"; "/"].
       comment: "(*", nonstar*, "*"+, (nonrpnonstar, nonstar*, "*"+)*, ")".
       nonstar: ~["*"].
       nonrpnonstar: ~[")"; "*"].</tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g41.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1521,7 +1521,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g41.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1563,7 +1563,7 @@ nonstarnonslash: ~["*"; "/"].
       tom, dick, harry
       tom and dick and harry
       }</tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g42.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1571,7 +1571,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g42.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1607,7 +1607,7 @@ nonstarnonslash: ~["*"; "/"].
       { nil }.
 
       S: [" "; #09; #A; #D]*.</tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g43.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1615,7 +1615,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g43.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1666,7 +1666,7 @@ nonstarnonslash: ~["*"; "/"].
       the cats admires the white well-read castle
 
       }</tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g44.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1674,7 +1674,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g44.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1703,7 +1703,7 @@ nonstarnonslash: ~["*"; "/"].
 
       Sentence: (( ["t"; "d"; "h"], ",")*, ["t"; "d"; "h"], "&amp;")?, ["t"; "d"; "h"].
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g45.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1711,7 +1711,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g45.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1746,7 +1746,7 @@ nonstarnonslash: ~["*"; "/"].
       X: "a", X.
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g46.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1754,7 +1754,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g46.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1788,7 +1788,7 @@ nonstarnonslash: ~["*"; "/"].
       Digit:  ["0"-"9"].
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g47.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1796,7 +1796,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g47.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1829,7 +1829,7 @@ nonstarnonslash: ~["*"; "/"].
       Digit:  ["0"-"9"].
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g48.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1837,7 +1837,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g48.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1872,7 +1872,7 @@ nonstarnonslash: ~["*"; "/"].
       { e.g. "(i+i)xi" }
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g49.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1880,7 +1880,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g49.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1916,7 +1916,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g50.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1924,7 +1924,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g50.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -1973,7 +1973,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g51.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -1981,7 +1981,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g51.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2019,7 +2019,7 @@ nonstarnonslash: ~["*"; "/"].
       M: .
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g52.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2027,7 +2027,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g52.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2069,7 +2069,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g53.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2077,7 +2077,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g53.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2122,7 +2122,7 @@ nonstarnonslash: ~["*"; "/"].
       Sign: ["+"; '-' ].
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g54.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2130,7 +2130,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g54.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2165,7 +2165,7 @@ nonstarnonslash: ~["*"; "/"].
       B: "c", C.
       C: "a".
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g55.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2173,7 +2173,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g55.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2217,7 +2217,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g56.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2225,7 +2225,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g56.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2257,7 +2257,7 @@ nonstarnonslash: ~["*"; "/"].
       A: "a"; "a", S; "b", A, A.
       B: "b"; "b", S; "a", B, B.
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g57.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2265,7 +2265,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g57.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2311,7 +2311,7 @@ nonstarnonslash: ~["*"; "/"].
       E is now unreachable and its rule can be removed.
 
       }</tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g58.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2319,7 +2319,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g58.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2357,7 +2357,7 @@ nonstarnonslash: ~["*"; "/"].
 
       { sample grammar 60 is a recasting of this in idiomatic EBNF. }
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g59.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2365,7 +2365,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g59.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2406,7 +2406,7 @@ nonstarnonslash: ~["*"; "/"].
       as an example when discussing general parsing methods.
       }
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g60.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2414,7 +2414,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g60.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2447,7 +2447,7 @@ nonstarnonslash: ~["*"; "/"].
       S: "a", B.
       B: "b"; "a", B, "b".
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g61.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2455,7 +2455,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g61.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2500,7 +2500,7 @@ nonstarnonslash: ~["*"; "/"].
       { Sample grammars 63 and 64 are rewrites of this grammar. }
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g62.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2508,7 +2508,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g62.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2544,7 +2544,7 @@ nonstarnonslash: ~["*"; "/"].
       { This and sample grammar 64 are rewrites of grammar 62. }
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g63.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2552,7 +2552,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g63.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2593,7 +2593,7 @@ nonstarnonslash: ~["*"; "/"].
       { This and sample grammar 62 are rewrites of grammar 62. }
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g64.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2601,7 +2601,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g64.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2635,7 +2635,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g65.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2643,7 +2643,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g65.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2677,7 +2677,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g66.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2685,7 +2685,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g66.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2720,7 +2720,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g67.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2728,7 +2728,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g67.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2776,7 +2776,7 @@ nonstarnonslash: ~["*"; "/"].
 
 
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g68.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2784,7 +2784,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g68.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
@@ -2831,7 +2831,7 @@ nonstarnonslash: ~["*"; "/"].
       
       R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       </tc:ixml-grammar>
-      <tc:test-case name="gNN.cMM">
+      <tc:test-case name="g69.cMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-xml>
@@ -2839,7 +2839,7 @@ nonstarnonslash: ~["*"; "/"].
 	  </tc:assert-xml>
 	</tc:result>
       </tc:test-case>
-      <tc:test-case name="gNN.rMM">
+      <tc:test-case name="g69.rMM">
 	<tc:test-string>tbd</tc:test-string>
 	<tc:result>
 	  <tc:assert-not-a-sentence/>
