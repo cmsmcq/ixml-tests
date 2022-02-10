@@ -33,7 +33,13 @@ grammar {
 # (Exception:  element test-set has two definitions, test-set-0
 # and test-set-1.)
 
-	start = test-catalog | test-report
+# The normal starting points are test-catalog and test-report.
+# But to allow individual test sets and tests to be reported
+# separately, we also allow lower-level result elements as the
+# start symbol.
+
+	start = test-catalog | test-report 
+              | test-set-results | grammar-result | test-result
 
 # test-catalog, test-report
 
