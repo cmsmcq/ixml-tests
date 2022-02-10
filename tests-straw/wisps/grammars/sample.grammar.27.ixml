@@ -1,0 +1,27 @@
+{ Sample grammar 27.
+
+  Another grammar with infinite ambiguity. This one shows
+  that the problem of multiple non-trivial paths does not arise
+  only horizontally with regular-right-part grammars, but can be
+  created vertically as well; the set of derivations is the same
+  as the set of paths through the right-hand side of S in
+  sample.grammar.25.
+
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : made ixml version of this, from teststrings.xml
+}
+
+S: A.
+	
+{ The simple path with no loops. }
+A: B. B: C. C: D. D: E. E: F. F: G.
+	
+{ The loops. }
+D: Z.  Z: C.
+E: Y.  Y: B.
+F: X.  X: B.	  
+G: W.  W: B.
+
+A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.

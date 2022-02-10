@@ -1,0 +1,26 @@
+{ Sample grammar 21, from Joop Leo, "A general context-free parsing
+algorithm running in linear time on every LR(k) grammar without using
+lookahead," *Theoretical Computer Science* 82 (1991): 165-176.
+Example 2.2.
+
+This shows right recursion and the quadratic growth of items, as
+reduction chains get longer and longer.
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : copied from paper, translated into ixml
+}
+
+{
+S -> aS | C.
+C -> aCb | &epsilon;.
+
+and input a^n b^m (n ge m)
+}
+
+S: "a", S; C.
+C: "a", C, "b"; .
+
+
+
+

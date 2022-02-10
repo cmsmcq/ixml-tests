@@ -1,0 +1,18 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 109 (1e) and 142 (2e).
+
+This is a regular grammar; C/J use it in their discussion of parsing
+with regular grammars.
+}
+
+{ Revisions:
+  2018-08-09 : CMSMcQ : made first transcription.
+}
+
+S: "a", A; "a", B.
+A: "b", B.
+A: "b", C.
+B: "c", A.
+B: "c", C.
+C: "a".

@@ -1,0 +1,40 @@
+{ Sample grammar transcribed from Claus Braband, Robert Giegerich,
+and Anders M&oslash;ller, "Analyzing Ambiguity of Context-Free Grammars."
+Science of Computer Programming 75.3 (2010): 176-191.
+
+https://www.itu.dk/people/brabrand/ambiguity-journal.pdf
+http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf
+
+The PDF gives no indication of publication venue.  The citation given
+appears to be confirmed by
+https://pub.uni-bielefeld.de/publication/1796697 and by Claus
+Braband's list of publications https://www.itu.dk/people/brabrand/
+
+A paper with the same authors and title (but apparently slightly
+different text) appeared in International Conference on Implementation
+and Application of Automata CIAA 2007, ed. Jan Holub, Jan
+&Zhacek;d'&aacute;rek (Springer), LNCS 4783, pp. 214-225.
+
+This grammar appears on page 6 of the PDF as Example 4 (Vertical ambiguity).
+
+"Intuitively, vertical unambiguity means that, during parsing of a
+string, there is never a choice between two different productions of a
+non-terminal." (p. 5).
+
+"The string xay can be parsed in two ways by choosing either the first
+or the second production of Z, that is, xay &isin; L_G(A "y")
+&intersect; L_G("x" B).  The name *vertical* ambiguity comes from the
+fact that productions are often written as separate lines as in this
+example." (p. 6)
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+Z: A, "y";
+   "x", B.
+A: "x", "a".
+B: "a", "y".
+

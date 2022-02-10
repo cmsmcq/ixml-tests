@@ -1,0 +1,26 @@
+{ Sample grammar 90, same as 79 with errors injected to see what we
+can do by way of error diagnosis.   First of a series.
+
+90 Omit full stop at end of rule.
+91 Omit semicolon in rule.
+92 Omit nonterminal in rule.
+93 Omit close brace in rule.
+94 Omit open brace in rule.
+95 Omit colon in rule.
+
+96 Inject nonterminal in rule before another nonterminal.
+97 Inject semicolon in rule after comma.
+98 Inject semicolon in rule before comma.
+99 Inject comma in rule before colon.
+100 Inject comma in rule before comma.
+101 Inject comma between rules.
+
+102 Change semicolon to colon.
+}
+
+{ Revisions:
+  2019-06-07 : CMSMcQ : made first transcription.
+}
+
+S:  A, "b"; A, "c"
+A: "a"; { nil } .

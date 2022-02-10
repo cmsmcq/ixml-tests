@@ -1,0 +1,38 @@
+{ Sample grammar 24.
+ 
+  Another grammar with infinite ambiguity.
+  This one illustrates the difficulty of trying to provide at least one
+  parse  for each possible looping path through the tree.</p>
+	
+  Consider a RHS that generates an infinite set of strings.
+  By the pumping lemma for regular languages, we know that for
+  every sentence longer than some language-dependent length
+  (number of states in the FSA, if I remember correctly), the sentence
+  takes the form uvw, where v can occur zero or more times, so
+  u + v^n + w.
+
+  It would be nice to illustrate the set of possible paths,
+  just because. That is, for each set of paths through the RHS
+  of the form u + v^n + w, provide paths for n=0 (u + w) and n=1
+  (u + v + w).
+
+  I don't see a convenient way to do this at the moment, so I
+  currently plan to extend the notion of original NTs to regular
+  languages (or see what H/U call this kind of thing) and return
+  only original parses. But it would be interesting to see if
+  one could exercise each loop in this FSA.
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : made ixml version of this, from teststrings.xml
+}
+
+
+S: (A, ((B, (C, D)+, E)+, F)+, G)+.
+A: {nil}.
+B: {nil}.
+C: {nil}.
+D: {nil}.
+E: {nil}.
+F: {nil}.
+G: {nil}.

@@ -1,0 +1,19 @@
+{ Sample grammar 12.
+
+Intended to show lots of ambiguity but be simpler than 11 (of which
+this is just a stripped down copy.  No empty elements, so I think
+the number of parse trees should be finite.
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : made file with idea I had last night.
+}
+
+S: A+.
+A: (A, A)+; "a"+.
+
+
+
+
+
+

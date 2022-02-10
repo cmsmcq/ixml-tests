@@ -1,0 +1,43 @@
+{ Sample grammar transcribed from Claus Braband, Robert Giegerich,
+and Anders M&oslash;ller, "Analyzing Ambiguity of Context-Free Grammars."
+Science of Computer Programming 75.3 (2010): 176-191.
+
+https://www.itu.dk/people/brabrand/ambiguity-journal.pdf
+http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf
+
+The PDF gives no indication of publication venue.  The citation given
+appears to be confirmed by
+https://pub.uni-bielefeld.de/publication/1796697 and by Claus
+Braband's list of publications https://www.itu.dk/people/brabrand/
+
+A paper with the same authors and title (but apparently slightly
+different text) appeared in International Conference on Implementation
+and Application of Automata CIAA 2007, ed. Jan Holub, Jan
+&Zhacek;d'&aacute;rek (Springer), LNCS 4783, pp. 214-225.
+
+This grammar appears on page 6 of the PDF as Example 5 (Horizontal ambiguity).
+
+"Horizontal unambiguity then means that, when parsing a string
+according to a production, there is never any choice of how to split
+the string into substrings corresponding to the entities in the
+production." (p. 5).
+
+"Also here, the string xay can be parsed in two ways, by parsing the a
+either in "x" A (using the first production of A and the second of B)
+or in B (using the second production of A and the first of B). More
+formally, xay ∈ L_G("x" A) &language-overlap; L_G(B). Here, the
+ambiguity is at a split-point between entities on the right-hand side
+of a particular production, hence the name horizontal ambiguity." (p. 6)
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+Z: "x", A, B.
+A: "a";
+   { nil }.
+B: "a", "y";
+   "y".
+

@@ -1,0 +1,42 @@
+{ Sample grammar transcribed from Claus Braband, Robert Giegerich,
+and Anders M&oslash;ller, "Analyzing Ambiguity of Context-Free Grammars."
+Science of Computer Programming 75.3 (2010): 176-191.
+
+https://www.itu.dk/people/brabrand/ambiguity-journal.pdf
+http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf
+
+The PDF gives no indication of publication venue.  The citation given
+appears to be confirmed by
+https://pub.uni-bielefeld.de/publication/1796697 and by Claus
+Braband's list of publications https://www.itu.dk/people/brabrand/
+
+A paper with the same authors and title (but apparently slightly
+different text) appeared in International Conference on Implementation
+and Application of Automata CIAA 2007, ed. Jan Holub, Jan
+&Zhacek;d'&aacute;rek (Springer), LNCS 4783, pp. 214-225.
+
+This grammar appears on page 18 of the PDF, as Example 22.
+
+This grammar illustrates the property of RNA
+palindromes that a given letter matches not itself but a
+complementary base.  (I am confused by G/U as well as G/C
+and A/U, but perhaps by "complementary" here they means a base
+matches any base but itself.)
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : provide better location in PDF.
+                        correct typo (missing quotation mark).
+  2018-08-21 : CMSMcQ : made first transcription.
+}
+
+R: "C", R, "G"; 
+   "G", R, "C";
+   "A", R, "U";
+   "U", R, "A";
+   "G", R, "U";
+   "U", R, "G";
+   { nil } 
+   .
+
+

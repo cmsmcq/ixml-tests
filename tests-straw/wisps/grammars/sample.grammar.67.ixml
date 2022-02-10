@@ -1,0 +1,18 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 182 (1e) and 255 (2e).
+
+"An LL(2) grammar that is not strong-LL(2)."
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+S:  "a", A, "a", "a";
+    "b", A, "b", "a".
+A: "b"; .
+
+
+

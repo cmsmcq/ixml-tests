@@ -1,0 +1,27 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York: Springer, 2008), pp. 186 (1e) and 265 (2e),
+Figure 9.2. A grammar for simple arithmetic expressions. 
+
+Changes:
+In 1e, the S rule has explicit start- and end-marks: S: "#", E, "#".
+In G/J, the first rule for F is F: n, with n as terminal.
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S: E.
+E: E, "+", T.
+E: T.
+T: T, #D7, F.
+T: F.
+F: ["0" - "9"]+.
+F: "(", E, ")".
+
+
+
+
+

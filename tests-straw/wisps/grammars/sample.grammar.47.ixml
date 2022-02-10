@@ -1,0 +1,17 @@
+{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+Second edition New York:  Springer, 2008), pp. 63 (1e) and 63 (2e).
+
+Caption is: "A simple ambiguous grammar."
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : add pointer to 2e
+  2018-08-09 : CMSMcQ : made first transcription; needs checking.
+}
+
+Sum: Digit.
+Sum: Sum, "+", Sum.
+Digit:  ["0"-"9"].
+

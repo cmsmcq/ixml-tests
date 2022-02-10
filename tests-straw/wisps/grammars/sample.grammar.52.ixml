@@ -1,0 +1,21 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 95 (1e) and 120 (2e).
+
+They use this grammar to illustrate grammar cleaning (in the course
+of their discussion of CYK parsing).
+
+"The grammar of Figure 4.10 [4.8 in 1e] is a nasty grammar to text
+your &epsilon;-rule elimination scheme on."
+}
+
+{ Revisions:
+  2018-08-09 : CMSMcQ : made first transcription.
+}
+
+S: L, "a", M.
+L: L, M.
+L: .
+M: M, M.
+M: .
+

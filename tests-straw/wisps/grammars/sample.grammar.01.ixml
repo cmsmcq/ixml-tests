@@ -1,0 +1,21 @@
+{ sample grammar 1, used in talk at Balisage 2017 }
+
+E: E, Q, F; F.
+F: 'a'; 'b'.
+Q: '+'; '-'.
+
+{ Some test strings in the language:
+
+          a 
+          a+b 
+          a-b+a
+
+  Not in the language:
+
+          42
+          a*b/a
+          x-y+z
+          -a
+          a++
+          a-(b-a)
+}         

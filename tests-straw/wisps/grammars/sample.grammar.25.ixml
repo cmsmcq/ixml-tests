@@ -1,0 +1,25 @@
+{ Sample grammar 25.
+
+  Another grammar with infinite ambiguity.  This one
+  has some non-terminals which occur only inside loops
+  (so a ruthless policy of omitting all loops will never exhibit
+  parse trees with them). 
+
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : made ixml version of this, from teststrings.xml
+}
+
+
+S: A, B, C,
+   D, (Z, C, D)*,
+   E, (Y, B, C, D, (Z, C, D)*, E)*,
+   F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*,
+   G, (W, A, B, C,
+      D, (Z, C, D)*,
+      E, (Y, B, C, D, (Z, C, D)*, E)*,
+      F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*, G)*.
+      
+A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+Z: {nil}. Y: {nil}. X: {nil}. W: {nil}.

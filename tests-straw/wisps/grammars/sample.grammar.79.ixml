@@ -1,0 +1,17 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), p. 260 (2e).  (Does not
+appear in 1e, that I know of.)
+
+Appears as problem 8.5.b.  "Is the following grammar LL(1)?"
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S:  A, "b"; A, "c".
+A: "a"; { nil } .
+
+
+

@@ -1,0 +1,25 @@
+{ Sample grammar 14, from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 149 (1e) and 204 (2e).
+
+Revisions:
+
+  2018-08-09 : CMSMcQ : add reference to 1e, cleaner citation
+  2018-03-29 : CMSMcQ : copied from book, translated into ixml
+}
+
+{
+S -> E
+E -> E Q F
+E -> F
+F -> a
+Q -> +
+Q -> -
+}
+
+S: E.
+E: E; E, Q, F.
+F: "a".
+Q: "+"; "-".
+
+

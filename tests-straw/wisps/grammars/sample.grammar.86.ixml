@@ -1,0 +1,23 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York: Springer, 2008), p. 290 (2e), Fiogure 9.23.
+In 1e, figure 9.24 offers a similar but different grammar.
+
+"A non-LR(0) grammar for differences of numbers."
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S: E.
+E: E, "-", T.
+E: T.
+T: "n".
+T: "(", E, ")".
+
+
+
+
+

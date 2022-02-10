@@ -1,0 +1,9 @@
+{ Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+Compilerbaus (Bonn: Addison-Wesley, 1996, p. 5.
+
+An infinite language. }
+
+S: A.
+A: "a", A; .
+
+{ L = empty string, a, aa, aaa, aaaa, ... }

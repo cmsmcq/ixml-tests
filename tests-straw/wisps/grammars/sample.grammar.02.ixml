@@ -1,0 +1,40 @@
+{ sample grammar for dumb Earley parser. 
+Attempts to check for correct handling of comp
+relation.
+
+2018-03-24
+
+} 
+
+S: X, X.
+X: a.
+X: .
+
+{ The language is {'', 'a', 'aa'}.
+  When we parse the first one, we accrue items thus:
+  1 (0, 0, S -> . X X) by initialization
+  2 (0, 0, X -> . a) by prediction from 1.
+  3 (0, 0, X -> .) by prediction from 1.
+  4 (0, 0, S -> X . X) by completion from 3, with 1.
+  5 (0, 0, S -> X X .) by completion from 3, with 4.
+ 
+  We have thus established that the predictor items
+  needed for completion are not necessarily present
+  when the completing item is added to the set.  Here
+  item 4 cannot be added until after 3, because it depends
+  on 3.
+}
+
+{ Sample sentences in the language:
+
+  ""
+  "a"
+  "aa"
+
+Not in the language:
+
+  "b"
+  "aaa"
+  
+} 
+

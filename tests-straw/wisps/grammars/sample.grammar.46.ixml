@@ -1,0 +1,18 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+Second edition New York:  Springer, 2008), pp. 57 (1e) and 48 (2e).
+
+This is adapted / extended from the example in G and J's discussion of
+non-productive non-terminals.
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : add pointer to 2e
+  2018-08-09 : CMSMcQ : made first transcription; needs checking.
+}
+
+
+S: "b"; X.
+X: "a", X.
+

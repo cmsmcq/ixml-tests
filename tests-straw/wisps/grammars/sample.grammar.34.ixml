@@ -1,0 +1,10 @@
+{ Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+Compilerbaus (Bonn: Addison-Wesley, 1996, p. 5.
+
+A finite language. }
+
+S: A, B.
+A: "a"; "b".
+B: "c"; "d".
+
+{ L = ac, ad, bc, bd }

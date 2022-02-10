@@ -1,0 +1,9 @@
+{ Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+Compilerbaus (Bonn: Addison-Wesley, 1996, p. 6.
+
+An infinite language with center recursion. }
+
+S: A.
+A: "a", A, "c"; "b".
+
+{ L = b, abc, aabcc, aaabccc, ... }

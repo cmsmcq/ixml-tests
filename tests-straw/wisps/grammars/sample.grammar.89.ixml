@@ -1,0 +1,35 @@
+{ Sample grammar transcribed from Eugene Charniak, Statistical
+Language Learning (Cambridge, Mass.: MIT Press, 1993), p. 6, figure
+1.5, with sample sentences and parse trees in figures 1.4, 1.6, and
+1.7.
+
+Transcribed for use in examples.
+
+Charniak ignores whitespace; the ws construct is mine.
+
+}
+
+{ Revisions:
+  2019-06-07 : CMSMcQ : made first transcription.
+}
+
+s-maj: s, fpunc.
+s: np, vp.
+vp: verb;
+    verb, np;
+    verb, np, np.
+np: det, noun;
+    det, noun, noun;
+    noun.
+    
+det: "the", ws?.
+noun: "dog", ws?;
+      "salespeople", ws?;
+      "biscuits", ws?.
+verb: "ate", ws?;
+      "sold", ws?.
+fpunc: ".", ws?.
+
+ws: [" "; #9; #A; #D]+.
+
+

@@ -1,0 +1,21 @@
+{ Sample grammar 13, from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 146 (1e) and 201 (2e).
+
+The grammar appears in their discussion of 'parsing by searching'.
+
+Revisions:
+
+  2018-08-09 : CMSMcQ : provide better bibliographic data, give 1e page
+  2018-03-29 : CMSMcQ : copied from book, translated into ixml
+}
+
+{
+S -> a S b
+S -> S a b
+S -> a a a
+}
+
+S: "a", S, "b"; S, "a", "b"; "a", "a", "a".
+
+

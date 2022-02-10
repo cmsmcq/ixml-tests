@@ -1,0 +1,19 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide
+(New York: Ellis Horwood, 1990), p. 86 (with typo),
+and second edition (New York:  Springer, 2008), p. 109
+(with typo corrected).
+
+They use this grammar to illustrate Unger parsing.
+"This grammar generates sequences of d's in an awkward way."
+}
+
+{ Revisions:
+  2018-08-09 : CMSMcQ : made first transcription.
+}
+
+S: L, S, D; .
+L: .
+D: "d".
+
+

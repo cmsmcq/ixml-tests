@@ -1,0 +1,16 @@
+{ Sample grammar 31.  Cut down from 3. 
+
+  An attempt to isolate the bug caused by the initial version
+  of sample.grammar.03 (toy CSS grammar).
+ 
+  Like 30, but the two branches are not identical.
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : make ixml version (from teststrings.xml)
+  2018-04-07 : CMSMcQ : made this by cutting down 3
+}
+
+name: ["a"-"z"]; ["a"-"z";"A"-"Z"].
+
+

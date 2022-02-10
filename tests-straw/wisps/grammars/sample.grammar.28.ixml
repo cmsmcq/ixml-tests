@@ -1,0 +1,18 @@
+{ Sample grammar 28.
+
+  Another grammar with infinite ambiguity. Vertical version
+  of sample.grammar.26 and/or cut-down version of
+  sample.grammar.27, with a single loop.
+
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : made ixml version of this, from teststrings.xml
+}
+
+S: A.
+A: B.
+B: C; X.
+X: B.
+
+A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 

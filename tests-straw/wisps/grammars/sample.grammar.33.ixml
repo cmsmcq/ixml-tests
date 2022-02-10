@@ -1,0 +1,72 @@
+{ Grammar for the toy programming language Tosca.
+
+From Susan Stepney, High integrity compilation: a case study. Hemel
+Hempstead: Prentice Hall International, 1993. Web edition.  Tosca is
+defined in chapter 4; the concrete syntax is specified using Z, not
+using a grammar, and leaves some things undefined, so the grammar
+given here is a bit of a reconstruction.
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+  2018-08-09 : CMSMcQ : write grammar, trying to follow Stepney's Z
+}
+
+{ program is defined in section 4.8 }
+program: decl*, cmd.
+
+{ Names are described in 4.3 but left indeterminate syntactically;
+I've made them like the SGML reference concrete syntax. }
+NAME: letter, namechar*.
+letter:  ["a"-"z"; "A"-"Z"].
+digit: ["0"-"9"].
+namechar:  letter; digit; ["-"; "."; "_"].
+
+{ Types are described in 4.3 }
+TYPE:  "int"; "bool".
+boolean:  "true"; "false".
+number:  digit+.
+
+{ declarations:  section 4.4 }
+decl:  NAME, S, ":", S, TYPE, S, ";", S.
+
+{ operators, section 4.5 }
+unaryOp: negate; not.  
+
+negate: "-".
+not: "not".
+
+binaryOp: plus; minus; less; greater; equal; or; and.  
+plus: "+".
+minus: "-".
+less: "<".
+greater: ">".
+equal: "=".
+or: "or".
+and: "and".
+
+{ expressions:  4.6 }
+expr:  constant; variable; unaryExpr; binaryExpr.
+constant:  number; boolean.
+variable:  name.
+unaryExpr:  unaryOp, S, expr.
+binaryExpr:  "(", S, expr, S, binaryOp, S, expr, S, ")".
+
+{ commands:  4.7 }
+cmd: (skip; block; assign; choice; loop; input; output), S.
+cmdseq: cmd*(";", S).
+skip: "skip".
+block:  "begin", S, cmdseq, "end".
+assign: variable, S, ":=", S, expr.
+choice: "if", S, expr, S, "then", S, cmd, "else", S, cmd.
+loop: "while", S, expr, S, "do", S, cmd.
+input: "input", S, name.
+output: "output", S, expr.
+
+{ Stepney does not specify whitespace or comment rules. }
+-S: (ws; comment)*.
+-ws: [#20; #0A; #09; #0D].
+comment: "/*", nonstar*, ("*", nonstarnonslash*)*, "*/".
+nonstar: ~["*"]. 
+nonstarnonslash: ~["*"; "/"]. 

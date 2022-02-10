@@ -1,0 +1,32 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 89 (1e) and 112 (2e).
+
+They use this grammar to illustrate CYK parsing.
+"This grammar describes the syntax of numbers in scientific notation."
+
+Versions of this grammar after elimination of epsilon-rules, 
+after eliminating unit rules, and after further cleanup (elimination
+of unreachable non-terminals) are given in pp. 120-122 of 2e.  I
+have not made test cases from them.  A Chomsky Normal Form equivalent
+is sample grammar 54.
+}
+
+{ Revisions:
+  2018-08-09 : CMSMcQ : made first transcription.
+}
+
+Number: Integer; Real.
+Integer: Digit; Integer, Digit.
+Real: Integer, Fraction, Scale.
+Fraction:  ".", Integer.
+Scale:  "e", Sign, Integer; Empty.
+Digit:  ["0"-"9"].
+Sign:  "+"; "-".
+Empty: .
+
+{e.g. 32.5e+1 }
+
+{ Hmm.  Required sign for scale? }
+
+

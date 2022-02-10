@@ -1,0 +1,25 @@
+{ Sample grammar 18, from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 161 (1e) and 221 (2e).
+
+This is from their discussion of epsilon rules in Earley parsing.
+
+Revisions:
+
+  2018-08-09 : CMSMcQ : cleaner citation
+  2018-03-29 : CMSMcQ : copied from book, translated into ixml
+}
+
+{
+S -> A | A, B | B
+A -> C
+B -> D
+C -> p | &epsilon;
+D -> q
+}
+
+S: A; A, B; B.
+A: C.
+B: D.
+C: "p"; .
+D: "q".

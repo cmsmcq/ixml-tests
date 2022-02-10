@@ -1,0 +1,15 @@
+{ Sample grammar 23, to illustate that you can't just ignore empty
+nodes. }
+
+{ Revisions:
+
+  2018-08-10 : CMSMcQ : correct syntax error (curly quotes from email
+               editor) caught by DCG parser.
+  2018-04-06 : CMSMcQ : made grammar as example in progress report to DAL
+
+}
+
+S: X.
+X:  A+, "x", B+.
+A: {nil}. 
+B: {nil}.

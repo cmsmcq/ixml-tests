@@ -1,0 +1,17 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 181 (1e) and 255 (2e).
+
+This is an LL(k+1) grammar that is not LL(k), where k = 3.
+The language itself, however, is not LL(4):  the same language is
+defined by S: "a","a","a", ("b";"c").
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+S:  "a", "a", "a", "b"; "a", "a", "a", "c".
+
+
+

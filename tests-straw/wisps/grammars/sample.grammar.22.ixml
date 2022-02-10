@@ -1,0 +1,13 @@
+{ Sample grammar 22, made from scratch.
+
+A grammar where each sentence has an infinite number of derivations.
+Cf. grammars 6, 10, 19, and 20.  Except for 20, they all deal with
+infinite depth; this with infinite breadth.  (See?  Regular right-part
+grammars do introduce at least one complication.)
+
+Revisions:
+2018-04-06 : CMSMcQ : made file
+}
+
+S: (X)*.
+X: 'x'; .

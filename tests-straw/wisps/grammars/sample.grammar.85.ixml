@@ -1,0 +1,29 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York: Springer, 2008), p. 287 (2e), Figure 9.21.
+
+"An &epsilon;-LR(0) grammar"
+
+This is an illustration of the observation (p. 287) that "Many
+grammars would be LR(0) if they did not have &epsilon;-rules."
+It serves to illustrate an algorithm for dealing with such rules.
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S: E, "$".
+E: E, Q, F.
+E: F.
+F: "a".
+Q: "/".
+Q: { nil }.
+
+{ "(The &epsilon;-rule is intended to represent multiplication.)" }
+
+
+
+
+

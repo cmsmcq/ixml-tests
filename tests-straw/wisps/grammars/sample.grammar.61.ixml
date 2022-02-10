@@ -1,0 +1,16 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 167 (1e) and 238 (2e).
+
+"An example SLL(1) grammar"
+"This grammar generates all sentences starting with a number of
+as, followed by an equal number of bs."
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+S: "a", B.
+B: "b"; "a", B, "b".

@@ -1,0 +1,22 @@
+{ Sample grammar 8, taken from
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/right-recursion
+
+It also appears on p. 224 of Grune/Jacobs 2e.
+
+This one shows right recursion (and the quadratic growth in the
+Earley sets).
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+}
+
+{
+A -> 'a' A
+A ->
+}
+
+A: "a", A; .
+
+

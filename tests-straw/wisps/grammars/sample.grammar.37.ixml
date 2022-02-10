@@ -1,0 +1,14 @@
+{ Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+Compilerbaus (Bonn: Addison-Wesley, 1996, p. 6.
+
+Expressions. }
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+  2018-08-09 : CMSMcQ : translate grammar
+}
+A: T; A, "+", T.
+T: F; T, "*", F.
+F: V; "(", A, ")".
+V: "a"; "b"; "c"; "d".
+

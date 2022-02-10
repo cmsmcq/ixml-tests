@@ -1,0 +1,22 @@
+{ Sample grammar 6, derived from 5 to demonstrate that infinite
+numbers of parse trees can arise without empty RHS.  (I understand
+Loup Vaillant to be saying otherwise at
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/parser
+
+but I may have misunderstood or read carelessly.  The problem arises
+whenever the u v^n w x^n y of the pumping lemma has v and x nillable
+or (as here) null.)
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+}
+
+
+S: A; B.
+A: "a"; B.
+B: A; "b".
+
+
+

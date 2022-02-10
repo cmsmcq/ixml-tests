@@ -1,0 +1,30 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 169 (1e) and 240 (2e).
+
+"The grammar describes a simple language that could be used as the 
+input language for a rudimentary consulting system; the user enters
+some facts, and then asks a question.  There is also a facility for
+sub-sesssions.  The contents of the facts and questions are of no
+concern here.  They are represented by the word STRING, which is
+regarded as a terminal symbol."
+
+I've simulated STRING by defining it as a line of characters
+ending with newline.
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+Session:  Fact, Session.
+Session:  Question.
+Session:  "(", Session, ")", Session.
+Fact: "!", STRING.
+Question: "?", STRING.
+
+STRING: (~[#0A])*, [#0A].
+
+{ Sample grammars 63 and 64 are rewrites of this grammar. }
+

@@ -1,0 +1,20 @@
+{ Sample grammar 10, taken from
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/parser
+
+This one shows handling of infinite ambiguity.
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+}
+
+{
+A -> A
+A ->
+}
+
+A: A; .
+
+
+

@@ -1,0 +1,28 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 99 (1e) and 123 (2e).
+
+This is a Chomsky Normal Form version of sample grammar 51; its
+primary interest for testing ixml parsers is its opacity.
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+  2018-08-09 : CMSMcQ : made first transcription.
+}
+
+Number: ["0" - "9"].
+Number: Integer, Digit.
+Number: N1, Scale1;
+    Integer, Fraction.
+N1:  Integer, Fraction.
+Integer:  ['0' - '9'].
+Integer:  Integer, Digit.
+Fraction: T1, Integer.
+T1 : ".".
+Scale1: N2, Integer.
+N2:  T2, Sign.
+T2:  "e".
+Digit: ['0'-'9'].
+Sign: ["+"; '-' ].
+

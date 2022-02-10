@@ -1,0 +1,26 @@
+{ Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+Compilerbaus (Bonn: Addison-Wesley, 1996, p. 7.
+
+BNF as Wirth uses it.  Rules for ws added for convenience;
+Wirth assumes the lexer eats whitespace. }
+
+{ We write 'nil' for Wirth's empty-set symbol. }
+syntax:  S?, production, syntax; nil.
+production: identifier, S?, "=", S?, expression, S?, ".", S?.
+expression: term; expression, S?, "|", S?, term.
+term: factor; term, S, factor.
+factor: identifer; string.
+
+identifier: letter; identifier, letter; identifier, digit.
+string: stringhead, '"'.
+stringhead: '"'; stringhead, character.
+letter: ["A"-"Z"; "a"-"z"].
+digit: ["0"-"9"].
+
+{ Wirth does not define character. }
+character: ~['"'].
+
+{ Wirth does not define empty-set symbol. }
+nil: .
+
+S: [" "; #09; #0A; #0D]+.

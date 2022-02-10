@@ -1,0 +1,21 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 170 (1e) and 242 (2e).
+
+This is G/J's rewrite of sample 62, using an epsilon rule for
+greater clarity.  Cf. also grammar 64.
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+Session:  Facts, Question; "(", Session, ")", Session.
+Facts: Fact, Facts; {nil} .
+Fact: "!", STRING.
+Question: "?", STRING.
+
+STRING: (~[#0A])*, [#0A].
+
+{ This and sample grammar 64 are rewrites of grammar 62. }
+

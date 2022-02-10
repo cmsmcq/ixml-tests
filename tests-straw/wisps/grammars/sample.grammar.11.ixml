@@ -1,0 +1,18 @@
+{ Sample grammar 11.
+
+Intended to show lots of ambiguity.
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : made file with idea I had last night.
+}
+
+S: (A; B; C)*.
+A: (A; B; C)*; ["x"; "y"; "z"]*.
+B: (A; B; C)*; ["x"; "y"; "z"]*.
+C: (A; B; C)*; ["x"; "y"; "z"]*.
+
+
+
+
+

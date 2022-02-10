@@ -1,0 +1,25 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 96 (1e) and 120 (2e).
+
+They use this grammar to illustrate grammar cleaning (in the course
+of their discussion of CYK parsing); this is the result of applying
+their epsilon-rule elimination scheme to sample grammar 52.
+
+Its interest here is that it is an example of a machine-generated
+grammar and that it has non-productive and/or unreachable non-terminals.
+(Cleaning the grammar reduces it to the rule S: "a".)
+
+}
+
+{ Revisions:
+  2018-08-09 : CMSMcQ : made first transcription.
+}
+
+S: L1, "a", M1; "a", M1; L1, "a"; "a".
+L: L1, M1; L1; M1; {nil}.
+M: M1, M1; M1; {nil}.
+L1: L1, M1; L1; M1.
+M1: M1, M1; M1.
+
+

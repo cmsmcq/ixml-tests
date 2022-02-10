@@ -1,0 +1,25 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York: Springer, 2008), pp. 201 (1e) and 280 (2e), 
+Figures 9.18 and 9.14 respectively.
+
+"A very simple grammar for differences of numbers."
+
+They are using this as an example of handle-finding.
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S: E, "$".
+E: E, "-", T.
+E: T.
+T: "n".
+T: "(", E, ")".
+
+
+
+
+

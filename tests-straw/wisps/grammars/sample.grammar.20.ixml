@@ -1,0 +1,20 @@
+{ Sample grammar 20, based on 19 but with a twist.
+
+This one shows handling of infinite ambiguity.
+
+There is only one sentence, but it has an infinite number of parse
+trees, which grow in both width and depth as the first alternative for
+A is taken.
+}
+
+{ Revisions:
+
+  2019-04-15 : CMSMcQ : make ixml version
+  2018-04-06 : CMSMcQ : add explanatory comment
+  2018-03-29 : CMSMcQ : made file
+}
+
+A: A, A; . 
+
+
+

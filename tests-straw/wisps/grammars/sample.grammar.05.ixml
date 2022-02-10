@@ -1,0 +1,21 @@
+{ Sample grammar 5, taken from
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/empty-rules
+
+His initial parser has a bug exercised by this.  Cf. sample 2, I
+think.
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+}
+
+{
+A ->
+A -> B
+B -> A
+}
+
+A: ; B.
+B: A.
+

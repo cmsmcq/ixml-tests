@@ -52,7 +52,7 @@ grammar {
 	# metadata.
 	test-report = element test-report {
 	    attribute name { text },
-	    attribute report-date { xsd:date },
+	    attribute report-date { xsd:date | xsd:dateTime },
 	    attribute processor { text },
 	    attribute processor-version { text }?,
 	    attribute catalog-uri { text },

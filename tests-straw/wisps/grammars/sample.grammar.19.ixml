@@ -1,0 +1,16 @@
+{ Sample grammar 19, based on 10 (from Loup Vaillant) but without epsilon.
+
+This one shows handling of infinite ambiguity.
+
+Revisions:
+
+  2018-04-06 : CMSMcQ : corrected revision history
+  2018-03-29 : CMSMcQ : made grammar
+  
+}
+
+
+A: A; "a".
+
+
+

@@ -1,0 +1,16 @@
+{ Sample grammar 26. 
+
+  Another grammar with infinite ambiguity.  Cut-down
+  version of sample.grammar.25, with a single loop.
+
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : made ixml version of this, from teststrings.xml
+}
+
+   S: A, B, (X, B)*, C.
+   A: {nil}.
+   B: {nil}.
+   C: {nil}.
+   X: {nil}. 

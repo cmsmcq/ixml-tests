@@ -1,0 +1,29 @@
+{ Sample grammar 9, taken from
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/parser
+
+This one shows handling of ambiguity.
+
+Revisions:
+
+  2019-04-15 : CMSMcQ : restore right brace to Vaillant's first rule for Block,
+                        since syntax of 2019-01-28 allows comments to next.
+                        this was (again) caught by the (new) DCG parser.
+  2018-08-10 : CMSMcQ : correct syntax error caught by DCG parser.
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+}
+
+{
+Block -> "{}"
+Block -> If
+If    -> "if" Block
+If    -> "if" Block "else" Block
+}
+
+Block: "{}", S; If.
+If: "if", S, Block; "if", S, "else", S, Block.
+S: [" "; #0A; #0D; #09]*.
+
+
+
+

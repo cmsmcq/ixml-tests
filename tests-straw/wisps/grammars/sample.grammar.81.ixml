@@ -1,0 +1,21 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), p. 261 (2e).  (Does not
+appear in 1e, that I know of.)
+
+Appears as problem 8.6.  Sec. 8.2.5.1 showed that no left-recursive
+grammar can be LL(1) because of FIRST/FIRST conflict.  "But what about
+the grammar [below] [p. 261] which is left-recursive, obviously not
+LL(1), but the FIRST sets of both alternatives contains only
+&epsilon;?"  }
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S:  S, B; { epsilon} .
+B: { epsilon }.
+
+
+
+

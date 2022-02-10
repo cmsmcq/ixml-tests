@@ -1,0 +1,23 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York: Springer, 2008), pp. 211 (1e) and 297 (2e),
+Figures 9.31 and 9.30, respectively.
+
+"A simple grammar with an &epsilon;-rule"
+
+}
+
+{ Revisions:
+  2019-04-29 : CMSMcQ : made first transcription.
+}
+
+S: A, B, "c".
+A: "a".
+B: "b".
+B: { epsilon }.
+
+
+
+
+
+

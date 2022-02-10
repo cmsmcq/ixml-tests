@@ -1,0 +1,21 @@
+{ Sample grammar 7, taken from
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/right-recursion
+
+It also appears in Grune/Jacob 2e p. 224.
+
+It illustrates left recursion; cf. 08 for right recursion.
+
+Revisions:
+
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+}
+
+{
+A -> A 'a'
+A ->
+}
+
+A: A, "a"; .
+
+

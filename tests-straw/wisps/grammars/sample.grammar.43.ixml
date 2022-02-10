@@ -1,0 +1,20 @@
+{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+Second edition New York:  Springer, 2008), pp. 33 (1e) and 26 (2e).
+
+Rules for ws added for convenience; Grune and Jacobs assume the lexer
+eats whitespace. Peculiarity:  whitespace is allowed but not required,
+and it is allowed after any keyword but not at the beginning of the input.
+
+}
+{ Revisions:
+  2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+  2018-08-10 : CMSMcQ : add pointer to 2e
+  2018-08-09 : CMSMcQ : made first transcription; needs checking.
+}
+
+ZeroMotion: "up", S, ZeroMotion, "down", S, ZeroMotion;
+    "down", S, ZeroMotion, "up", S, ZeroMotion;
+    { nil }.
+
+S: [" "; #09; #A; #D]*.

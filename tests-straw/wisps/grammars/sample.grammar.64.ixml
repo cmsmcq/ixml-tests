@@ -1,0 +1,26 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 170 (1e) and 242 (2e).
+
+This is my rewrite of sample 63, using * instead of recursion in
+the definition of Facts.  (Session could also be
+
+    Session:  (Fact)*, Question; "(", Session, ")", Session.
+    
+but I believe this version is a little clearer.
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+Session:  Facts, Question; "(", Session, ")", Session.
+Facts: (Fact)*.
+Fact: "!", STRING.
+Question: "?", STRING.
+
+STRING: (~[#0A])*, [#0A].
+
+{ This and sample grammar 62 are rewrites of grammar 62. }
+

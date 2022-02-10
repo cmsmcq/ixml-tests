@@ -1,0 +1,12 @@
+{ Sample grammar 91, same as 79 with errors injected to see what we
+can do by way of error diagnosis. 
+
+91 Omit semicolon in rule.
+}
+
+{ Revisions:
+  2019-06-07 : CMSMcQ : made first transcription.
+}
+
+S:  A, "b" A, "c".
+A: "a"; { nil } .

@@ -1,0 +1,15 @@
+{ Sample grammar 29.
+
+  Another grammar with arbitrary but minimum width. This one
+  tries to break over-simple loop-detection algorithms; it's a
+  variant of sample.grammar.23.
+
+}
+
+{ Revisions:
+  2019-04-15 : CMSMcQ : made ixml version of this, from teststrings.xml
+}
+
+  S: X.
+  X:  A+, A+, "x".
+  A: {nil}. 

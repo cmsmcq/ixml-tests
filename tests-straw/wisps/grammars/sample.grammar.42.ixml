@@ -1,0 +1,31 @@
+{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+Second edition New York:  Springer, 2008), pp. 32 (1e) and 23 (2e).
+
+Rules for ws added for convenience; Grune and Jacobs assume the lexer
+eats whitespace. }
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : add pointer to 2e
+  2018-08-09 : CMSMcQ : made first transcription; needs checking.
+}
+
+Sentence: Name; List, S, "and", S, Name.
+Name: "tom"; "dick"; "harry".
+List: Name, ", ", List; Name.
+
+S: " "+.
+
+{ Generates
+
+  tom
+  dick
+  tom and dick
+  tom, dick and harry
+  tom, tom, harry and dick
+
+Does not accept
+
+  tom, dick, harry
+  tom and dick and harry
+  }

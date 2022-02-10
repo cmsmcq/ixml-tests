@@ -1,0 +1,15 @@
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 119 (1e) and 165 (2e).
+
+"This grammar produces sentences with equal numbers of *a*s and *b*s."
+
+}
+
+{ Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+}
+
+S: "a", B; "b", A.
+A: "a"; "a", S; "b", A, A.
+B: "b"; "b", S; "a", B, B.
