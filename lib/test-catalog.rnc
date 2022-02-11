@@ -147,20 +147,17 @@ grammar {
 	# They can be inline or external.  They can be marked
 	# as a grammar test or not.
 	
-	Grammar-spec = ((ixml-grammar
+	Grammar-data = (ixml-grammar
 	    | vxml-grammar
 	    | ixml-grammar-ref
-	    | vxml-grammar-ref),
-	    grammar-test?)
+	    | vxml-grammar-ref)
+	    
+	Grammar-spec = (Grammar-data, grammar-test?)
 
         # In the results file, we may omit the grammar, or include
 	# it, possibly both reproducing the reference and giving
 	# the grammar inline. 
-	Grammar-results = ((ixml-grammar
-	    | vxml-grammar
-	    | ixml-grammar-ref
-	    | vxml-grammar-ref)*,
-	    grammar-result?)
+	Grammar-results = (Grammar-data*, grammar-result?)
 
         # Q. Why is the grammar optional?
 	# A. Because in a nested test set we may want to inherit the
@@ -242,7 +239,9 @@ grammar {
 	    attribute name { text }, 
 	    attribute result { result-type }, 
 	    external-atts,
-	    (Metadata & ((Test-string)*, result-report?))
+	    (Metadata & 
+            (Grammar-data*, (Test-string)*, result-report?)
+            )
 	}
 	
 	result-type = 'pass' | 'fail' | 'not-run' | 'other'
