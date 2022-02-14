@@ -253,6 +253,11 @@
       <tc:p>A toy fragment of CSS from one of Steven Pemberton's talks.</tc:p>
     </tc:description>
     <tc:vxml-grammar-ref href="grammars/sample.grammar.03.ixml"/>
+    <tc:grammar-test>
+      <tc:result>
+	<tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+      </tc:result>
+    </tc:grammar-test>
     <tc:test-case name="g03.cMM">
       <tc:test-string>p{}</tc:test-string>
       <tc:result>
@@ -343,6 +348,11 @@
       Vaillant's tutorial on Earley parsing.</tc:p>
     </tc:description>
     <tc:vxml-grammar-ref href="grammars/sample.grammar.04.ixml"/>
+    <tc:grammar-test>
+      <tc:result>
+	<tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+      </tc:result>
+    </tc:grammar-test>
     <tc:test-case name="g04.cMM">
       <tc:test-string>0</tc:test-string>
       <tc:result>
@@ -566,49 +576,49 @@
       <tc:result><tc:assert-not-a-sentence/></tc:result>
     </tc:test-case>
   </tc:test-set>
-    
+  
   <tc:test-set name="sample.grammar.07">
     <tc:created on="2022-02-08" by="cmsmcq"/>
     <tc:description>
-	<tc:p>Trivial left-recursive grammar, from Loup Vaillant and
-	Grune/Jacobs.</tc:p>
-	<tc:p>L(G) = {'', 'a', 'aa', 'aaa', ... } = regex a*.</tc:p>
-      </tc:description>
-      <tc:ixml-grammar>A: A, "a"; .</tc:ixml-grammar>
-      <tc:grammar-test>
-	<tc:result><tc:assert-xml>
-	  <ixml
+      <tc:p>Trivial left-recursive grammar, from Loup Vaillant and
+      Grune/Jacobs.</tc:p>
+      <tc:p>L(G) = {'', 'a', 'aa', 'aaa', ... } = regex a*.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar>A: A, "a"; .</tc:ixml-grammar>
+    <tc:grammar-test>
+      <tc:result><tc:assert-xml>
+	<ixml
 	    ><rule name="A"
               ><alt><nonterminal name="A"/><literal string="a"/></alt
               ><alt
             /></rule
 	  ></ixml>
 	</tc:assert-xml></tc:result>
-      </tc:grammar-test>
-      <tc:test-case name="g07c01">
-	<tc:test-string/>
-	<tc:result>
-	  <tc:assert-xml><A/></tc:assert-xml>
-	</tc:result>
-      </tc:test-case>
-      <tc:test-case name="g07c02">
-	<tc:test-string>a</tc:test-string>
-	<tc:result>
-	  <tc:assert-xml><A><A/>a</A></tc:assert-xml>
-	</tc:result>
-      </tc:test-case>
-      <tc:test-case name="g07c03">
-	<tc:test-string>aa</tc:test-string>
-	<tc:result>
-	  <tc:assert-xml><A><A><A/>a</A>a</A></tc:assert-xml>
-	</tc:result>
-      </tc:test-case>
-      <tc:test-case name="g07r04">
-	<tc:test-string>b</tc:test-string>
-	<tc:result>
-	  <tc:assert-not-a-sentence/>
-	</tc:result>
-      </tc:test-case>
+    </tc:grammar-test>
+    <tc:test-case name="g07c01">
+      <tc:test-string/>
+      <tc:result>
+	<tc:assert-xml><A/></tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g07c02">
+      <tc:test-string>a</tc:test-string>
+      <tc:result>
+	<tc:assert-xml><A><A/>a</A></tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g07c03">
+      <tc:test-string>aa</tc:test-string>
+      <tc:result>
+	<tc:assert-xml><A><A><A/>a</A>a</A></tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g07r04">
+      <tc:test-string>b</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
   </tc:test-set>
   
   <tc:test-set name="sample.grammar.08">
@@ -621,6 +631,11 @@
 	<tc:p>L(G) = {'', 'a', 'aa', 'aaa', ... } = regex a*.</tc:p>
       </tc:description>
       <tc:ixml-grammar>A: "a", A; .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g08c01">
 	<tc:test-string/>
 	<tc:result>
@@ -658,6 +673,11 @@
 	If: "if", S, Block; "if", S, "else", S, Block.
 	S: [" "; #0A; #0D; #09]*.
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g09r01">
 	<tc:test-string></tc:test-string>
 	<tc:result>
@@ -703,6 +723,11 @@
 	<tc:p>L(G) = {''}.</tc:p>
       </tc:description>
       <tc:ixml-grammar>A: A; .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g10c01">
 	<tc:test-string/>
 	<tc:result>
@@ -734,6 +759,11 @@
 	B: (A; B; C)*; ["x"; "y"; "z"]*.
 	C: (A; B; C)*; ["x"; "y"; "z"]*.
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g11c01">
 	<tc:test-string/>
 	<tc:result>
@@ -771,6 +801,11 @@
 	ambiguity, but should be finite.</tc:p>
       </tc:description>
       <tc:ixml-grammar>S: A+.  A: (A, A)+; "a"+.</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g12.r01">
 	<tc:test-string/>
 	<tc:result><tc:assert-not-a-sentence/></tc:result>
@@ -816,6 +851,11 @@
          S, "a", "b"; 
          "a", "a", "a".
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.14">
@@ -830,6 +870,11 @@
 	F: "a".
 	Q: "+"; "-".
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.15">
@@ -842,6 +887,11 @@
 	</tc:p>
       </tc:description>
       <tc:ixml-grammar>S: S, S; "x".</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.16">
@@ -857,6 +907,11 @@
 	F: "a".
 	Q: "*"; "/"; .	  
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.17">
@@ -868,6 +923,11 @@
 	golf for grammars!</tc:p>
       </tc:description>
       <tc:ixml-grammar>S: A, A, "x". A: .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.18">
@@ -883,6 +943,11 @@
 	C: "p"; {nil} .
 	D: "q".
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.19">
@@ -892,6 +957,11 @@
 	epsilon rule.</tc:p>
       </tc:description>
       <tc:ixml-grammar>A: A; "a".</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.20">
@@ -901,6 +971,11 @@
 	Based on sample.grammar.19.</tc:p>
       </tc:description>
       <tc:ixml-grammar>A: A, A; {nil} .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.21">
@@ -914,6 +989,11 @@
 	as reduction chains get longer and longer.</tc:p>
       </tc:description>
       <tc:ixml-grammar>S: "a", S; C. C: "a", C, "b"; {nil} .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.22">
@@ -924,6 +1004,11 @@
 	routine of an EBNF-capable Earley parser.</tc:p>
       </tc:description>
       <tc:ixml-grammar>S: (X)*. X: "x"; {nil}.</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.23">
@@ -940,6 +1025,11 @@
 	A: {nil}. 
 	B: {nil}.
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g23.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
@@ -990,6 +1080,11 @@
 	S: (A, ((B, (C, D)+, E)+, F)+, G)+.
 	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g24.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
@@ -1015,13 +1110,13 @@
     
   <tc:test-set name="sample.grammar.25">
     <tc:created on="2022-02-08" by="cmsmcq"/>
-      <tc:description>
-	<tc:p>Another grammar with infinite ambiguity.  This one
-	has some non-terminals which occur only inside loops
-	(so a ruthless policy of omitting all loops will never exhibit
-	parse trees with them). </tc:p>
-      </tc:description>
-      <tc:ixml-grammar>
+    <tc:description>
+      <tc:p>Another grammar with infinite ambiguity.  This one
+      has some non-terminals which occur only inside loops
+      (so a ruthless policy of omitting all loops will never exhibit
+      parse trees with them). </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
           S: A, B, C,
              D, (Z, C, D)*,
              E, (Y, B, C, D, (Z, C, D)*, E)*,
@@ -1032,28 +1127,33 @@
                 F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*, G)*.
           A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
           Z: {nil}. Y: {nil}. X: {nil}. W: {nil}.
-      </tc:ixml-grammar>
-      <tc:test-case name="g25.rMM">
-	<tc:test-string>a</tc:test-string>
-	<tc:result>
-	  <tc:assert-not-a-sentence/>
-	</tc:result>
-      </tc:test-case>
-      <tc:test-case name="g25.cMM">
-	<tc:test-string>
-	</tc:test-string>
-	<tc:result>
-	  <tc:assert-xml>
-	    <dummy/>
-	  </tc:assert-xml>
-	</tc:result>
-      </tc:test-case>
-      <tc:test-case name="g25.rMM">
-	<tc:test-string>x</tc:test-string>
-	<tc:result>
-	  <tc:assert-not-a-sentence/>
-	</tc:result>
-      </tc:test-case>
+    </tc:ixml-grammar>
+    <tc:grammar-test>
+      <tc:result>
+	<tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+      </tc:result>
+    </tc:grammar-test>
+    <tc:test-case name="g25.rMM">
+      <tc:test-string>a</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g25.cMM">
+      <tc:test-string>
+      </tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g25.rMM">
+      <tc:test-string>x</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.26">
@@ -1066,6 +1166,11 @@
           S: A, B, (X, B)*, C.
           A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g26.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
@@ -1110,6 +1215,11 @@
 	G: W.  W: B.	  
 	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g27.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
@@ -1144,6 +1254,11 @@
         S: A.  A: B.  B: C; X. X: B.
         A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g28.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
@@ -1179,6 +1294,11 @@
 	  X:  A+, A+, "x".
 	  A: {nil}. 
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g29.rMM">
 	<tc:test-string>a</tc:test-string>
 	<tc:result>
@@ -1213,6 +1333,11 @@
       <tc:ixml-grammar>
 	name: ["a"-"z"]; ["a"-"z"].
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g30.cMM">
 	<tc:test-string>p</tc:test-string>
 	<tc:result>
@@ -1233,6 +1358,11 @@
       <tc:ixml-grammar>
 	name: ["a"-"z"]; ["a"-"z";"A"-"Z"].
       </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
       <tc:test-case name="g31.cMM">
 	<tc:test-string>p</tc:test-string>
 	<tc:result>
@@ -1431,6 +1561,11 @@ nonstar: ~["*"].
 nonstarnonslash: ~["*"; "/"]. 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g33.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1461,6 +1596,11 @@ nonstarnonslash: ~["*"; "/"].
       A: "a"; "b".
       B: "c"; "d".
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g34.cMM">
       <tc:test-string>ac</tc:test-string>
       <tc:result>
@@ -1527,6 +1667,11 @@ nonstarnonslash: ~["*"; "/"].
       S: A.
       A: "a", A; .
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g35.cMM">
       <tc:test-string>
       </tc:test-string>
@@ -1585,6 +1730,11 @@ nonstarnonslash: ~["*"; "/"].
       S: A.
       A: "a", A, "c"; "b".
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g36.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1616,6 +1766,11 @@ nonstarnonslash: ~["*"; "/"].
       F: V; "(", A, ")".
       V: "a"; "b"; "c"; "d".
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g37.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1665,6 +1820,11 @@ nonstarnonslash: ~["*"; "/"].
 
       S: [" "; #09; #0A; #0D]+.
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g38.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1715,6 +1875,11 @@ nonstarnonslash: ~["*"; "/"].
 
       S: [" "; #09; #0A; #0D]+.
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g39.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1767,6 +1932,11 @@ nonstarnonslash: ~["*"; "/"].
 
       S: [" "; #09; #0A; #0D]+.
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g40.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1883,6 +2053,11 @@ nonstarnonslash: ~["*"; "/"].
       comment: "(*", nonstar*, "*"+, (nonrpnonstar, nonstar*, "*"+)*, ")".
       nonstar: ~["*"].
     nonrpnonstar: ~[")"; "*"].</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g41.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1933,6 +2108,11 @@ nonstarnonslash: ~["*"; "/"].
       tom, dick, harry
       tom and dick and harry
     }</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g42.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -1977,6 +2157,11 @@ nonstarnonslash: ~["*"; "/"].
     { nil }.
 
     S: [" "; #09; #A; #D]*.</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g43.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2036,6 +2221,11 @@ nonstarnonslash: ~["*"; "/"].
     the cats admires the white well-read castle
 
     }</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g44.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2073,6 +2263,11 @@ nonstarnonslash: ~["*"; "/"].
 
     Sentence: (( ["t"; "d"; "h"], ",")*, ["t"; "d"; "h"], "&amp;")?, ["t"; "d"; "h"].
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g45.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2116,6 +2311,11 @@ nonstarnonslash: ~["*"; "/"].
     X: "a", X.
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g46.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2158,6 +2358,11 @@ nonstarnonslash: ~["*"; "/"].
     Digit:  ["0"-"9"].
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g47.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2199,6 +2404,11 @@ nonstarnonslash: ~["*"; "/"].
     Digit:  ["0"-"9"].
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g48.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2242,6 +2452,11 @@ nonstarnonslash: ~["*"; "/"].
     { e.g. "(i+i)xi" }
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g49.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2287,6 +2502,11 @@ nonstarnonslash: ~["*"; "/"].
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g50.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2344,6 +2564,11 @@ nonstarnonslash: ~["*"; "/"].
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g51.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2390,6 +2615,11 @@ nonstarnonslash: ~["*"; "/"].
     M: .
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g52.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2440,6 +2670,11 @@ nonstarnonslash: ~["*"; "/"].
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g53.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2493,6 +2728,11 @@ nonstarnonslash: ~["*"; "/"].
     Sign: ["+"; '-' ].
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g54.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2536,6 +2776,11 @@ nonstarnonslash: ~["*"; "/"].
     B: "c", C.
     C: "a".
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g55.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2588,6 +2833,11 @@ nonstarnonslash: ~["*"; "/"].
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g56.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2628,6 +2878,11 @@ nonstarnonslash: ~["*"; "/"].
     A: "a"; "a", S; "b", A, A.
     B: "b"; "b", S; "a", B, B.
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g57.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2682,6 +2937,11 @@ nonstarnonslash: ~["*"; "/"].
     E is now unreachable and its rule can be removed.
 
     }</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g58.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2728,6 +2988,11 @@ nonstarnonslash: ~["*"; "/"].
 
     { sample grammar 60 is a recasting of this in idiomatic EBNF. }
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g59.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2777,6 +3042,11 @@ nonstarnonslash: ~["*"; "/"].
     as an example when discussing general parsing methods.
     }
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g60.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2818,6 +3088,11 @@ nonstarnonslash: ~["*"; "/"].
     S: "a", B.
     B: "b"; "a", B, "b".
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g61.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2872,6 +3147,11 @@ nonstarnonslash: ~["*"; "/"].
     { Sample grammars 63 and 64 are rewrites of this grammar. }
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g62.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2916,6 +3196,11 @@ nonstarnonslash: ~["*"; "/"].
   { This and sample grammar 64 are rewrites of grammar 62. }
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g63.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -2965,6 +3250,11 @@ nonstarnonslash: ~["*"; "/"].
   { This and sample grammar 62 are rewrites of grammar 62. }
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g64.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -3007,6 +3297,11 @@ nonstarnonslash: ~["*"; "/"].
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g65.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -3049,6 +3344,11 @@ A: "a", "a", "a", "b", S; "c".
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g66.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -3092,6 +3392,11 @@ A: "a", "a", "a", "b", S; "c".
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g67.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -3149,6 +3454,11 @@ A: "a", "a", "a", "b", S; "c".
 
 
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g68.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -3205,6 +3515,11 @@ analysis."
 
 R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
     </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g69.cMM">
       <tc:test-string>tbd</tc:test-string>
       <tc:result>
@@ -3248,6 +3563,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       omitted).</tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.70.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g70c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3267,6 +3587,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       not a complete grammar.</tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.71.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g71c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3284,6 +3609,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.72.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g72c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3304,6 +3634,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       "different".</tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.73.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g73c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3323,6 +3658,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.74.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g74c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3347,6 +3687,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.75.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g75c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3361,6 +3706,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.76.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g76c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3375,6 +3725,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.77.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g77c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3389,6 +3744,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.78.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g78c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3403,6 +3763,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.79.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g79c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3417,6 +3782,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.80.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g80c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3431,6 +3801,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.81.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g81c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3445,6 +3820,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.82.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g82c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3459,6 +3839,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.83.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g83c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3473,6 +3858,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.84.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g84c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3487,6 +3877,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.85.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g85c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3501,6 +3896,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.86.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g86c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3515,6 +3915,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.87.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g87c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3529,6 +3934,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.88.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g88c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3543,6 +3953,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.89.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g89c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3557,6 +3972,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.90.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g90c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3571,6 +3991,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.91.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g91c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3585,6 +4010,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.92.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g92c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3599,6 +4029,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.93.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g93c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3613,6 +4048,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.94.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g94c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3627,6 +4067,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.95.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g95c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3641,6 +4086,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.96.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g96c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3655,6 +4105,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.97.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g97c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3669,6 +4124,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.98.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g98c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
@@ -3683,6 +4143,11 @@ R: "a", R, "b"; "b", R, "a"; "a"; "b"; .
       <tc:p></tc:p>
     </tc:description>
     <tc:ixml-grammar-ref href="grammars/sample.grammar.99.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
     <tc:test-case name="g99c01">
       <tc:test-string/>
       <tc:result><tc:assert-xml>
