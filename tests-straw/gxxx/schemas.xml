@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+  <uri resource="gxxx-test-catalog.xml" uri="../../lib/test-catalog.rnc"/>
   <uri resource="temp.g011.S.O0.rg.xml.simpipe.xml" uri="../../../gingersnap/src/grammar-pipeline.rnc"/>
   <uri resource="temp.g022.S.O0.rg.xml.simpipe.xml" uri="../../../gingersnap/src/grammar-pipeline.rnc"/>
   <uri resource="temp.g112.A.O0.rg.xml.simpipe.xml"

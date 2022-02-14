@@ -51,7 +51,7 @@
                </alt>.</rule>
          </ixml>
       </vxml-grammar> -->
-      <vxml-grammar-ref href="file:/Users/cmsmcq/2021/ixml-tests/tests-straw/gxxx/g012.ixml.xml"/>
+      <vxml-grammar-ref href="./g012.ixml.xml"/>
       <test-case xml:id="state-neg-S_0"
                  gt:polarity="negative"
                  gt:trace="S_0 . 3 / S_0 + error"

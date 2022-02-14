@@ -22,7 +22,7 @@
          <p>Test pipeline: approximation + FSA + tests.</p>
       </description>
       <!--* L(G) = "a"* *-->
-      <vxml-grammar-ref href="file:/Users/cmsmcq/2021/ixml-tests/tests-straw/gxxx/g011.ixml.xml"/>
+      <vxml-grammar-ref href="g011.ixml.xml"/>
       <test-case xml:id="state-neg-S_0"
                  gt:polarity="negative"
                  gt:trace="S_0 . 2 / S_0 + error" name="test-01">

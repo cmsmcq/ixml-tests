@@ -64,7 +64,7 @@
          <p>Test selection: see the individual tests.</p>
          <p>Test pipeline: approximation + FSA + tests.</p>
       </description>
-      <vxml-grammar-ref href="file:/Users/cmsmcq/2021/ixml-tests/tests-straw/gxxx/g010.ixml.xml"/>
+      <vxml-grammar-ref href="g010.ixml.xml"/>
       <test-case xml:id="state-neg-S_0"
                  gt:polarity="negative"
                  gt:trace="S_0 . 1 / S_0 + error" name="S0-ter">
