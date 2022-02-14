@@ -57,12 +57,16 @@ grammar {
 	# A test report is a collection of test set reports, with common
 	# metadata.
 	test-report = element test-report {
-	    attribute name { text },
-	    attribute report-date { xsd:date | xsd:dateTime },
-	    attribute processor { text },
-	    attribute processor-version { text }?,
-	    attribute catalog-uri { text },
-	    attribute catalog-date { text }?,
+            element metadata { 
+    	        (element name { text },
+	        element report-date { xsd:date | xsd:dateTime },
+	        element processor { text },
+	    	element processor-version { text }?,
+	    	element catalog-uri { text },
+	    	element catalog-date { text }?)
+                & 
+                Metadata
+            },
 	    external-atts,
 	    (Metadata
 	    &
