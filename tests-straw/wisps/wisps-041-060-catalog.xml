@@ -1,0 +1,1123 @@
+<tc:test-catalog xmlns:tc="https://github.com/cmsmcq/ixml-tests"
+		 xmlns:ixml="http://invisiblexml.org/NS"
+		 name="Wisps test set 1"
+		 release-date="2022-02-22"
+		 >
+  <tc:description>
+    <tc:p>Grammars 41-60.</tc:p>
+    <tc:p>Tests compiled manually in 2018 and 2019, re-packaged in 2022.</tc:p>
+  </tc:description>
+  
+  <tc:test-set name="sample.grammar.41">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+	Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+	Compilerbaus (Bonn: Addison-Wesley, 1996), pp. 36-37.
+      </tc:p>
+      <tc:p>
+	Oberon-0.
+      </tc:p>
+      <tc:p>	
+	Rules for ws added for convenience; Wirth assumes the lexer
+	eats whitespace.
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      { We move the rule for module to the front, since it is the
+      start symbol. }
+
+      module:
+      S?, "MODULE", S,
+      ident, S?, ";", S?,
+      declarations,
+      ("BEGIN", S, StatementSequence)?,
+      "END", S?, ident, S?, ".", S?.
+      ident:
+      letter, (letter; digit)*, S?.
+      integer:
+      digit, (digit)*.
+
+      selector:
+      (".", S?, ident; "[", S?, expression, "]", S?)*.
+      number:
+      integer, S?.
+      factor:
+      ident, selector;
+      number;
+      "(", S?, expression, ")", S?;
+      "~", S?, factor.
+      term:
+      factor+(("*"; "DIV"; "MOD"; "&amp;"), S?).
+      SimpleExpression:
+      ("+";"-")?, term+(("+";"-";"OR"), S?).
+      { N.B. Simplexpression allows 1, -1, 1 + 1,
+      -1 + 1, but not 1 + -1.
+      I expect that's intentional.
+      I've made it also forbid white space between sign and term.
+      }    
+      expression:
+      SimpleExpression, ("="; "#"; "&lt;"; "&lt;="; "&gt;"; "&gt;="), SimpleExpression.
+      assignment:
+      ident, selector, ":=", S?, expression.
+      ActualParameters:
+      "(", S?, expression*(",", S?), ")", S?.
+      ProcedureCall:
+      ident, selector, ActualParameters?.
+      IfStatement:
+      "IF", S?, expression, "THEN", S?, StatementSequence,
+      ("ELSIF", S?, expression, "THEN", S?, StatementSequence)*,
+      "ELSE", S?, StatementSequence, "END", S?.
+      WhileStatement:
+      "WHILE", S?, expression, "DO", S?, StatementSequence, "END", S?.
+      statement:
+      (assignment; ProcedureCall; IfStatement; WhileStatement)?.
+      StatementSequence:
+      statement+(";", S?).
+
+      IdentList:
+      ident+(",", S?).
+      ArrayType:
+      "ARRAY", S?, expression, "OF", S?, type.
+      FieldList:
+      (IdentList, ":", S?, type)?.
+      RecordType:
+      "RECORD", S?, FieldList+(";", S?), "END", S?.
+      type:
+      ident; ArrayType; RecordType.
+      FPSection:
+      ("VAR")?, S, IdentList, ":", S?, type.
+      FormalParameters:
+      "(", S?, FPSection*(";", S?), ")", S?.
+      ProcedureHeading:
+      "PROCEDURE", S, ident, S?, FormalParameters?.
+      ProcedureBody:
+      declarations, ("BEGIN", S?, StatementSequence)?, "END", S, ident.
+      ProcedureDeclaration:
+      ProcedureHeading, ";", S?, ProcedureBody.
+      declarations:
+      ("CONST", S, (ident, "=", S?, expression, ";", S?)*)?,
+      ("TYPE", S, (IdentList, "=", S?, type, ";")*)?,
+      ("VAR", S, (IdentList, ":", S?, type, ";")*)?,
+      ProcedureDeclaration*(";", S?).
+
+      { S and comment added here to make the grammar usable without
+      a scanner. N.B. Comments do not nest. }
+      S: (ws; comment)+.
+      ws: [" "; #09; #0A; #0D].
+      comment: "(*", nonstar*, "*"+, (nonrpnonstar, nonstar*, "*"+)*, ")".
+      nonstar: ~["*"].
+    nonrpnonstar: ~[")"; "*"].</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g41.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g41.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.42">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+	Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+	Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+	Second edition New York:  Springer, 2008), pp. 32 (1e) and 23 (2e).
+      </tc:p>
+      <tc:p>
+	Rules for ws added for convenience; Grune and Jacobs assume the lexer
+	eats whitespace.
+      </tc:p>
+    </tc:description>
+    
+    <tc:ixml-grammar>
+      Sentence: Name; List, S, "and", S, Name.
+      Name: "tom"; "dick"; "harry".
+      List: Name, ", ", List; Name.
+
+      S: " "+.
+
+      { Generates
+
+      tom
+      dick
+      tom and dick
+      tom, dick and harry
+      tom, tom, harry and dick
+
+      Does not accept
+
+      tom, dick, harry
+      tom and dick and harry
+    }</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g42.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g42.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.43">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 33 (1e) and 26 (2e).
+
+    Rules for ws added for convenience; Grune and Jacobs assume the lexer
+    eats whitespace. Peculiarity:  whitespace is allowed but not required,
+    and it is allowed after any keyword but not at the beginning of the input.
+
+    }
+    { Revisions:
+    2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+    ZeroMotion: "up", S, ZeroMotion, "down", S, ZeroMotion;
+    "down", S, ZeroMotion, "up", S, ZeroMotion;
+    { nil }.
+
+    S: [" "; #09; #A; #D]*.</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g43.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g43.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.44">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 34 (1e) and 26 (2e).
+
+    Rules for ws added for convenience; Grune and Jacobs assume the lexer
+    eats whitespace. Peculiarity:  whitespace is allowed but not required,
+    and it is allowed after any word but not at the beginning of the input. 
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+    Sentence: Subject, Verb, Object.
+    Subject: NounPhrase.
+    Object: NounPhrase.
+    NounPhrase: "the", S, QualifiedNoun.
+    QualifiedNoun: Noun; Adjective, QualifiedNoun.
+    Noun:  noun, S.
+    Adjective: adjective, S.
+    Verb: verb, S.
+    noun: "castle"; "caterpillar"; "cats".
+    adjective: "well-read"; "white"; "wistful".
+    verb: "admires"; "bark"; "criticize".
+
+    S: [" "; #09; #A; #D]*.
+
+    { Produces, inter alia:
+
+    the well-read cats criticize the wistful caterpillar
+    the cats admires the white well-read castle
+
+    }</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g44.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g44.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.45">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 44 (1e) and 33 (2e).
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+    Sentence: (( ["t"; "d"; "h"], ",")*, ["t"; "d"; "h"], "&amp;")?, ["t"; "d"; "h"].
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g45.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g45.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.46">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 57 (1e) and 48 (2e).
+
+    This is adapted / extended from the example in G and J's discussion of
+    non-productive non-terminals.
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+
+    S: "b"; X.
+    X: "a", X.
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g46.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g46.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.47">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 63 (1e) and 63 (2e).
+
+    Caption is: "A simple ambiguous grammar."
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+    Sum: Digit.
+    Sum: Sum, "+", Sum.
+    Digit:  ["0"-"9"].
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g47.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g47.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.48">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 58 (1e) and 54 (2e).
+
+    Caption is: "A grammar for sums of one-digit numbers."
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+    Sum: Digit.
+    Sum: Sum, "+", Digit.
+    Digit:  ["0"-"9"].
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g48.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g48.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.49">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    Second edition New York:  Springer, 2008), pp. 83 (1e) and 105 (2e).
+
+    They use this grammar to illustrate Unger parsing.
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : add pointer to 2e
+    2018-08-09 : CMSMcQ : made first transcription; needs checking.
+    }
+
+    Expr: Expr, "+", Term; Term.
+    Term:  Term, "x" { or better yet [#00D7] = &amp;times; }, Factor; Factor.
+    Factor: "(", Expr, ")"; "i".
+
+    { e.g. "(i+i)xi" }
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g49.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g49.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.50">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide
+    (New York: Ellis Horwood, 1990), p. 86 (with typo),
+    and second edition (New York:  Springer, 2008), p. 109
+    (with typo corrected).
+
+    They use this grammar to illustrate Unger parsing.
+    "This grammar generates sequences of d's in an awkward way."
+    }
+
+    { Revisions:
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    S: L, S, D; .
+    L: .
+    D: "d".
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g50.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g50.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.51">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 89 (1e) and 112 (2e).
+
+    They use this grammar to illustrate CYK parsing.
+    "This grammar describes the syntax of numbers in scientific notation."
+
+    Versions of this grammar after elimination of epsilon-rules, 
+    after eliminating unit rules, and after further cleanup (elimination
+    of unreachable non-terminals) are given in pp. 120-122 of 2e.  I
+    have not made test cases from them.  A Chomsky Normal Form equivalent
+    is sample grammar 54.
+    }
+
+    { Revisions:
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    Number: Integer; Real.
+    Integer: Digit; Integer, Digit.
+    Real: Integer, Fraction, Scale.
+    Fraction:  ".", Integer.
+    Scale:  "e", Sign, Integer; Empty.
+    Digit:  ["0"-"9"].
+    Sign:  "+"; "-".
+    Empty: .
+
+    {e.g. 32.5e+1 }
+
+    { Hmm.  Required sign for scale? }
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g51.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g51.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.52">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 95 (1e) and 120 (2e).
+
+    They use this grammar to illustrate grammar cleaning (in the course
+    of their discussion of CYK parsing).
+
+    "The grammar of Figure 4.10 [4.8 in 1e] is a nasty grammar to text
+    your &amp;epsilon;-rule elimination scheme on."
+    }
+
+    { Revisions:
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    S: L, "a", M.
+    L: L, M.
+    L: .
+    M: M, M.
+    M: .
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g52.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g52.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.53">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 96 (1e) and 120 (2e).
+
+    They use this grammar to illustrate grammar cleaning (in the course
+    of their discussion of CYK parsing); this is the result of applying
+    their epsilon-rule elimination scheme to sample grammar 52.
+
+    Its interest here is that it is an example of a machine-generated
+    grammar and that it has non-productive and/or unreachable non-terminals.
+    (Cleaning the grammar reduces it to the rule S: "a".)
+
+    }
+
+    { Revisions:
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    S: L1, "a", M1; "a", M1; L1, "a"; "a".
+    L: L1, M1; L1; M1; {nil}.
+    M: M1, M1; M1; {nil}.
+    L1: L1, M1; L1; M1.
+    M1: M1, M1; M1.
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g53.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g53.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.54">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 99 (1e) and 123 (2e).
+
+    This is a Chomsky Normal Form version of sample grammar 51; its
+    primary interest for testing ixml parsers is its opacity.
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    Number: ["0" - "9"].
+    Number: Integer, Digit.
+    Number: N1, Scale1;
+    Integer, Fraction.
+    N1:  Integer, Fraction.
+    Integer:  ['0' - '9'].
+    Integer:  Integer, Digit.
+    Fraction: T1, Integer.
+    T1 : ".".
+    Scale1: N2, Integer.
+    N2:  T2, Sign.
+    T2:  "e".
+    Digit: ['0'-'9'].
+    Sign: ["+"; '-' ].
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g54.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g54.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.55">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 109 (1e) and 142 (2e).
+
+    This is a regular grammar; C/J use it in their discussion of parsing
+    with regular grammars.
+    }
+
+    { Revisions:
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    S: "a", A; "a", B.
+    A: "b", B.
+    A: "b", C.
+    B: "c", A.
+    B: "c", C.
+    C: "a".
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g55.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g55.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.56">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 109 (1e) and 142 (2e).
+
+    This is an augmented form of the regular grammar in 55, intended to
+    illustrate the existence of undefined, unproductive, and unreachable
+    non-terminals in regular grammars.
+    }
+
+    { Revisions:
+    2018-08-09 : CMSMcQ : made first transcription.
+    }
+
+    S: "a", A; "a", B.
+    A: "b", B.
+    A: "b", C.
+    B: "c", A.
+    B: "c", C.
+    C: "a".
+
+    B: "c", D. { undefined }
+    B: "c", E.
+    E: "e", E. { unproductive }
+    F: "f", A.  { unreachable }
+    F: "h".
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g56.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g56.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.57">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 119 (1e) and 165 (2e).
+
+    "This grammar produces sentences with equal numbers of *a*s and *b*s."
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    S: "a", B; "b", A.
+    A: "a"; "a", S; "b", A, A.
+    B: "b"; "b", S; "a", B, B.
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g57.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g57.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.58">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), p. 49 (2e).
+
+    "A demo grammar for grammar cleaning"
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    S: A, B; D, E.
+    A: "a".
+    B: "b", C.
+    C: "c".
+    D: "d", F.
+    E: "e".
+    F: "f", D.
+
+    { After removal of non-productive rules, this becomes
+
+    S: A, B.
+    A: "a".
+    B: "b", C.
+    C: "c".
+    E: "e".
+
+    E is now unreachable and its rule can be removed.
+
+    }</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g58.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g58.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.59">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), p. 49 (2e).
+
+    "Grammar for an inherently ambiguous language"
+
+    The language consists of all sequences a^m + b^n + c^n
+    unioned with a^p + b^p + c^q.
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    S: A, B; D, C.
+    A: "a"; "a", A.
+    B: "b", "c"; "b", B, "c".
+    D: "a", "b"; "a", D, "b".
+    C: "c"; "c", C.
+
+    { sample grammar 60 is a recasting of this in idiomatic EBNF. }
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g59.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g59.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.60">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), p. 49 (2e).
+
+    "Grammar for an inherently ambiguous language"
+
+    The language consists of all sequences a^m + b^n + c^n
+    unioned with a^p + b^p + c^q.
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    S: A, B; D, C.
+    A: "a"+.
+    B: "b", "c"; "b", B, "c".
+    D: "a", "b"; "a", D, "b".
+    C: "c"+.
+
+    { This is a recasting of grammar 59 in idiomatic EBNF.
+    Grune and Jacobs repeat this grammar (p. 171) and use it
+    as an example when discussing general parsing methods.
+    }
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g60.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g60.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  
+
+</tc:test-catalog>

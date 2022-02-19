@@ -1,0 +1,757 @@
+<tc:test-catalog xmlns:tc="https://github.com/cmsmcq/ixml-tests"
+		 xmlns:ixml="http://invisiblexml.org/NS"
+		 name="Wisps test set 1"
+		 release-date="2022-02-22"
+		 >
+  <tc:description>
+    <tc:p>Grammars 61-80.</tc:p>
+    <tc:p>Tests compiled manually in 2018 and 2019, re-packaged in 2022.</tc:p>
+  </tc:description>
+
+  <tc:test-set name="sample.grammar.61">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 167 (1e) and 238 (2e).
+
+    "An example SLL(1) grammar"
+    "This grammar generates all sentences starting with a number of
+    as, followed by an equal number of bs."
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    S: "a", B.
+    B: "b"; "a", B, "b".
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g61.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g61.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.62">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p></tc:p>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+  { Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 169 (1e) and 240 (2e).
+
+    "The grammar describes a simple language that could be used as the 
+    input language for a rudimentary consulting system; the user enters
+    some facts, and then asks a question.  There is also a facility for
+    sub-sesssions.  The contents of the facts and questions are of no
+    concern here.  They are represented by the word STRING, which is
+    regarded as a terminal symbol."
+
+    I've simulated STRING by defining it as a line of characters
+    ending with newline.
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    Session:  Fact, Session.
+    Session:  Question.
+    Session:  "(", Session, ")", Session.
+    Fact: "!", STRING.
+    Question: "?", STRING.
+
+    STRING: (~[#0A])*, [#0A].
+
+    { Sample grammars 63 and 64 are rewrites of this grammar. }
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g62.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g62.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.63">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p></tc:p>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+  Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+  second edition New York:  Springer, 2008), pp. 170 (1e) and 242 (2e).
+
+  This is G/J's rewrite of sample 62, using an epsilon rule for
+  greater clarity.  Cf. also grammar 64.
+  }
+
+  { Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+  }
+
+  Session:  Facts, Question; "(", Session, ")", Session.
+  Facts: Fact, Facts; {nil} .
+  Fact: "!", STRING.
+  Question: "?", STRING.
+
+  STRING: (~[#0A])*, [#0A].
+
+  { This and sample grammar 64 are rewrites of grammar 62. }
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g63.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g63.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.64">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p></tc:p>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+  Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+  second edition New York:  Springer, 2008), pp. 170 (1e) and 242 (2e).
+
+  This is my rewrite of sample 63, using * instead of recursion in
+  the definition of Facts.  (Session could also be
+
+  Session:  (Fact)*, Question; "(", Session, ")", Session.
+  
+  but I believe this version is a little clearer.
+  }
+
+  { Revisions:
+  2018-08-10 : CMSMcQ : correct syntax error found by DCG parser
+  2018-08-10 : CMSMcQ : made first transcription.
+  }
+
+  Session:  Facts, Question; "(", Session, ")", Session.
+  Facts: (Fact)*.
+  Fact: "!", STRING.
+  Question: "?", STRING.
+
+  STRING: (~[#0A])*, [#0A].
+
+  { This and sample grammar 62 are rewrites of grammar 62. }
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g64.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g64.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.65">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+  Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+  second edition New York:  Springer, 2008), pp. 181 (1e) and 255 (2e).
+
+  This is an LL(k+1) grammar that is not LL(k), where k = 3.
+  The language itself, however, is not LL(4):  the same language is
+  defined by S: "a","a","a", ("b";"c").
+  }
+
+  { Revisions:
+  2018-08-10 : CMSMcQ : made first transcription.
+  }
+
+  S:  "a", "a", "a", "b"; "a", "a", "a", "c".
+
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g65.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g65.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.66">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+second edition New York:  Springer, 2008), pp. 181 (1e) and 255 (2e).
+
+This is an LL(k+1) language that is not LL(k), where k = 3.
+
+}
+
+{ Revisions:
+2018-08-10 : CMSMcQ : made first transcription.
+}
+
+S:  ("a", S, A)?.
+A: "a", "a", "a", "b", S; "c".
+
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g66.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g66.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.67">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>{ Sample grammar adapted from Dick Grune and Ceriel J. H. Jacobs,
+    Parsing techniques: A practical guide (New York: Ellis Horwood, 1990;
+    second edition New York:  Springer, 2008), pp. 182 (1e) and 255 (2e).
+
+    "An LL(2) grammar that is not strong-LL(2)."
+
+    }
+
+    { Revisions:
+    2018-08-10 : CMSMcQ : made first transcription.
+    }
+
+    S:  "a", A, "a", "a";
+    "b", A, "b", "a".
+    A: "b"; .
+
+
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g67.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g67.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.68">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+
+    <tc:description>
+      <tc:p>Sample grammar transcribed from Claus Braband, Robert
+      Giegerich, and Anders M&amp;oslash;ller, "Analyzing Ambiguity of
+      Context-Free Grammars."  Science of Computer Programming 75.3
+      (2010): 176-191.</tc:p>
+      
+      <tc:p>https://www.itu.dk/people/brabrand/ambiguity-journal.pdf</tc:p>
+      <tc:p>http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf</tc:p>
+
+      <tc:p>The PDF gives no indication of publication venue.  The
+      citation given appears to be confirmed by
+      https://pub.uni-bielefeld.de/publication/1796697 and by Claus
+      Braband's list of publications
+      https://www.itu.dk/people/brabrand/</tc:p>
+      <tc:p>A paper with the same authors and title (but apparently
+      slightly different text) appeared in International Conference on
+      Implementation and Application of Automata CIAA 2007, ed. Jan
+      Holub, Jan Ždárek (Springer), LNCS 4783, pp. 214-225.</tc:p>
+      <tc:p>"A classical example of an unambiguous grammar that is not
+      LR(k) (nor LR-Regular) is the following, called Pal, whose
+      language consists of all palindromes over the alphabet {a, b}."
+      (p. 9 Example 12 of PDF.)</tc:p>
+      <tc:p>First transcribed 2018-08-21</tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+    P: "a", P, "a"; "b", P, "b"; "a"; "b"; .
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g68.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g68.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.69">
+    <tc:created by="cmsmcq" on="2022-02-08"/>
+    <tc:description>
+      <tc:p>Sample grammar transcribed from Claus Braband, Robert
+      Giegerich, and Anders M&amp;oslash;ller, "Analyzing Ambiguity of
+      Context-Free Grammars."  Science of Computer Programming 75.3
+      (2010): 176-191.</tc:p>
+      
+      <tc:p>https://www.itu.dk/people/brabrand/ambiguity-journal.pdf</tc:p>
+      <tc:p>http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf</tc:p>
+      
+      <tc:p>The PDF gives no indication of publication venue.  The
+      citation given appears to be confirmed by
+      https://pub.uni-bielefeld.de/publication/1796697 and by Claus
+      Braband's list of publications
+      https://www.itu.dk/people/brabrand/</tc:p> <tc:p>A paper with
+      the same authors and title (but apparently slightly different
+      text) appeared in International Conference on Implementation and
+      Application of Automata CIAA 2007, ed. Jan Holub, Jan
+      &amp;Zhacek;d'&amp;aacute;rek (Springer), LNCS 4783,
+      pp. 214-225.</tc:p>
+      <tc:p>"A variant of the grammar above [sc. sample grammar 68] is
+      the following language, AntiPal, which our analysis also
+      verifies to be unambiguous: ...  As we shall see in Section 8,
+      this grammar is closely related to grammars occurring naturally
+      in biosequence analysis."</tc:p>
+      <tc:p>First transcribed 2018-08-21.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar>R: "a", R, "b"; "b", R, "a"; "a"; "b"; .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g69.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g69.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.70">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Sample grammar transcribed from Claus Braband, Robert Giegerich,
+      and Anders Møller, "Analyzing Ambiguity of Context-Free Grammars."
+      Science of Computer Programming 75.3 (2010): 176-191.
+      </tc:p>
+      <tc:p>https://www.itu.dk/people/brabrand/ambiguity-journal.pdf</tc:p>
+      <tc:p>http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf</tc:p>
+      <tc:p>The PDF gives no indication of publication venue.  The
+      citation given appears to be confirmed by
+      https://pub.uni-bielefeld.de/publication/1796697 and by Claus
+      Braband's list of publications
+      https://www.itu.dk/people/brabrand/</tc:p>
+      <tc:p>A paper with the same authors and title (but apparently
+      slightly different text) appeared in International Conference on
+      Implementation and Application of Automata CIAA 2007, ed. Jan
+      Holub, Jan Ždárek (Springer), LNCS 4783,
+      pp. 214-225.</tc:p>
+      <tc:p>This grammar appears on p. 9 of the PDF as Example 13.</tc:p>
+      <tc:p>"... tiny ambiguous grammar representing simple
+      arithmetical expressions" (p. 9 of PDF).</tc:p>
+      <tc:p>They later give an unambiguous equivalent, which is
+      essentially the same as sample grammars 37 and 49 (and thus
+      omitted).</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.70.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g70c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.71">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Example from Braband et al., p. 13 of PDF, example
+      18. A grammar which their technique does not identify as
+      unambiguous.</tc:p>
+      <tc:p>I've quoted the 'y', which is either a typo
+      in the PDF or a signal that this is intended as a fragment,
+      not a complete grammar.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.71.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g71c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.72">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Example from Braband et al., p. 15 of PDF, example
+      21 showing their FirstLast approximation  They identify 
+      this as part of a grammar by S. Schmitz.</tc:p>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.72.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g72c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.73">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Example from Braband et al., p. 18 of PDF, example 22,
+      illustrating the property of RNA palindromes that a given letter
+      matches not itself but a complementary base.</tc:p>
+      <tc:p>(I am confused by G/U as well as G/C and A/U, but perhaps
+      by "complementary" here they means a base matches any base but
+      itself.)</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.73.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g73c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.74">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Example from Braband et al., p. 19 of PDF, example G1 in
+      Figure 2 and example G1 in Figure 3 on p. 20.  It is "an
+      ambiguous grammar (G1 from Reeder et al. [30])".  Reeder, J.,
+      Steffen, P., Giegerich, R.  "Effective ambiguity checking in
+      biosequence analysis." BMC Bioinformatics 6 (153), 2005.</tc:p>
+      <tc:p>Sample sequence (ambiguous):
+      AUCGUAACGCGAUACGUCGAAACGUACG
+      </tc:p>
+      <tc:p>Apparently multiply ambiguous, some ambiguities "good" and
+      others "bad".</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.74.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g74c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g74c02">
+      <tc:description>
+	<tc:p>Apparently multiply ambiguous, with some
+	ambiguities "good" and others "bad".</tc:p>
+      </tc:description>
+      <tc:test-string>AUCGUAACGCGAUACGUCGAAACGUACG</tc:test-string>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.75">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Sample grammar transcribed from Claus Braband, Robert Giegerich,
+      and Anders Møller, "Analyzing Ambiguity of Context-Free Grammars."
+      Science of Computer Programming 75.3 (2010): 176-191.</tc:p>
+
+      <tc:p>This grammar appears on page 21 of the PDF as Example 23
+      (Voss-Light).</tc:p>
+      <tc:p>"The grammar Voss from Voss et al. [36] has 28
+      nonterminals and 65 productions.  This grammar clearly asks for
+      automatic support (even for experts in formal grammars).  ...
+      First, we study a grammar, Voss-Light, which demonstrates an
+      essential aspect of the Voss grammar: unpaired bases in bulges
+      and loops (the dots in the transformed grammar) must be treated
+      differently, and they hence are derived from different
+      nonterminal symbols even though they recognize the same
+      language."</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.75.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g75c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.76">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Braband et al, illustration of 'vertical' ambiguity.</tc:p>
+    </tc:description>
+    <!-- <tc:ixml-grammar-ref href="grammars/sample.grammar.76.ixml"/> -->
+    <tc:ixml-grammar>
+      Z: A, "y";
+         "x", B.
+      A: "x", "a".
+      B: "a", "y".
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g76c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.77">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Braband et al., example of 'horizontal' ambiguity.</tc:p>
+    </tc:description>
+    <!-- <tc:ixml-grammar-ref href="grammars/sample.grammar.77.ixml"/> -->
+    <tc:ixml-grammar>
+      Z: "x", A, B.
+      A: "a";
+         { nil }.
+      B: "a", "y";
+         "y".      
+    </tc:ixml-grammar>
+    <tc:grammar-test>
+      <tc:result>
+	<tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+      </tc:result>
+    </tc:grammar-test>
+    <tc:test-case name="g77c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.78">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Grune and Jacobs, 2d ed., problem 8.5.a:  is this LL(1)?</tc:p>
+    </tc:description>
+    <!-- <tc:ixml-grammar-ref href="grammars/sample.grammar.78.ixml"/> -->
+    <tc:ixml-grammar>
+      S:  A, "b"; A, "c".
+      A: { nil } .      
+    </tc:ixml-grammar>
+    <tc:grammar-test>
+      <tc:result>
+	<tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+      </tc:result>
+    </tc:grammar-test>
+    <tc:test-case name="g78c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.79">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.79.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g79c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.80">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.80.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g80c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  
+
+</tc:test-catalog>

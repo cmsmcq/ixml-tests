@@ -1,0 +1,407 @@
+<tc:test-catalog xmlns:tc="https://github.com/cmsmcq/ixml-tests"
+		 xmlns:ixml="http://invisiblexml.org/NS"
+		 name="Wisps test set 1"
+		 release-date="2022-02-22"
+		 >
+  <tc:description>
+    <tc:p>Grammars 81-102.</tc:p>
+    <tc:p>Tests compiled manually in 2018 and 2019, re-packaged in 2022.</tc:p>
+  </tc:description>
+
+  <tc:test-set name="sample.grammar.81">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.81.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g81c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.82">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.82.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g82c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.83">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.83.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g83c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.84">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.84.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g84c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.85">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.85.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g85c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.86">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.86.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g86c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.87">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.87.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g87c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.88">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.88.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g88c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.89">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.89.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g89c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.90">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.90.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g90c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.91">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.91.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g91c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.92">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.92.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g92c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.93">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.93.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g93c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.94">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.94.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g94c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.95">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.95.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g95c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.96">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.96.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g96c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.97">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.97.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g97c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.98">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.98.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g98c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.99">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p></tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.99.ixml"/>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g99c01">
+      <tc:test-string/>
+      <tc:result><tc:assert-xml>
+	<dummy/>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.100">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Sample grammar error: double comma in RHS.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.100.ixml"/>
+    <tc:grammar-test>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:grammar-test>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.101">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Sample grammar error: stray comma between rules.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.101.ixml"/>
+    <tc:grammar-test>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:grammar-test>
+  </tc:test-set>
+
+  <tc:test-set name="sample.grammar.102">
+    <tc:created by="CMSMcQ" on="2022-02-09"/>
+    <tc:description>
+      <tc:p>Sample grammar error: semicolon for colon.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar-ref href="grammars/sample.grammar.102.ixml"/>
+    <tc:grammar-test>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:grammar-test>
+  </tc:test-set>
+
+  
+
+</tc:test-catalog>

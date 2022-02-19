@@ -1,0 +1,993 @@
+<tc:test-catalog xmlns:tc="https://github.com/cmsmcq/ixml-tests"
+		 xmlns:ixml="http://invisiblexml.org/NS"
+		 name="Wisps test set 1"
+		 release-date="2022-02-22"
+		 >
+  <tc:description>
+    <tc:p>Grammars 21-40.</tc:p>
+    <tc:p>Tests compiled manually in 2018 and 2019, re-packaged in 2022.</tc:p>
+  </tc:description>
+    
+  <tc:test-set name="sample.grammar.21">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Sample grammar from Joop Leo "A general context-free
+	parsing algorithm running in linear time on every LR(k)
+	grammar without using lookahead," Theoretical Computer Science
+	82 (1991): 165-176.</tc:p>
+	<tc:p>Illustrates right recursion and quadratic growth of items
+	as reduction chains get longer and longer.</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>S: "a", S; C. C: "a", C, "b"; {nil} .</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.22">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Infinite ambiguity in width, not depth. This cannot happen
+	with BNF, only with EBNF. A test for the parse-tree extraction
+	routine of an EBNF-capable Earley parser.</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>S: (X)*. X: "x"; {nil}.</tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.23">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Another grammar with arbitrary width. This one illustrates
+	that you can't just ignore empty nodes. Just one sentence, but
+	infinitely many parse trees, all of rank 4 (document node, S,
+	X, "x").</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+	S: X.
+	X:  A+, “x”, B+.
+	A: {nil}. 
+	B: {nil}.
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g23.r01">
+	<tc:test-string>a</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g23.r02">
+	<tc:test-string>
+	</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g23.c03">
+	<tc:test-string>x</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.24">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Another grammar with infinite ambiguity.
+	This one illustrates the difficulty of trying to provide at least one
+	parse  for each possible looping path through the tree.</tc:p>
+	
+	<tc:p>Consider a RHS that generates an infinite set of strings.
+	By the pumping lemma for regular languages, we know that for
+	every sentence longer than some language-dependent length
+	(number of states in the FSA, if I remember correctly), the sentence
+	takes the form uvw, where v can occur zero or more times, so
+	u + v^n + w.</tc:p>
+	<tc:p>It would be nice to illustrate the set of possible paths,
+	just because. That is, for each set of paths through the RHS
+	of the form u + v^n + w, provide paths for n=0 (u + w) and n=1
+	(u + v + w).</tc:p>
+	<tc:p>I don't see a convenient way to do this at the moment, so I
+	currently plan to extend the notion of original NTs to regular
+	languages (or see what H/U call this kind of thing) and return
+	only original parses. But it would be interesting to see if
+	one could exercise each loop in this FSA.</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+	S: (A, ((B, (C, D)+, E)+, F)+, G)+.
+	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g24.r01">
+	<tc:test-string>a</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g24.r02">
+	<tc:test-string>
+	</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g24.c03">
+	<tc:test-string>x</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.25">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Another grammar with infinite ambiguity.  This one
+      has some non-terminals which occur only inside loops
+      (so a ruthless policy of omitting all loops will never exhibit
+      parse trees with them). </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+          S: A, B, C,
+             D, (Z, C, D)*,
+             E, (Y, B, C, D, (Z, C, D)*, E)*,
+             F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*,
+             G, (W, A, B, C,
+                D, (Z, C, D)*,
+                E, (Y, B, C, D, (Z, C, D)*, E)*,
+                F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*, G)*.
+          A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+          Z: {nil}. Y: {nil}. X: {nil}. W: {nil}.
+    </tc:ixml-grammar>
+    <tc:grammar-test>
+      <tc:result>
+	<tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+      </tc:result>
+    </tc:grammar-test>
+    <tc:test-case name="g25.r01">
+      <tc:test-string>a</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g25.c02">
+      <tc:test-string>
+      </tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g25.r03">
+      <tc:test-string>x</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.26">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Another grammar with infinite ambiguity.  Cut-down
+	version of sample.grammar.25, with a single loop. </tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+          S: A, B, (X, B)*, C.
+          A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g26.r01">
+	<tc:test-string>a</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g26.c02">
+	<tc:test-string/>
+	<tc:result>
+	  <tc:assert-xml>
+	    <S ixml:state="ambiguous"><A/><B/><C/></S>
+	  </tc:assert-xml>
+	  <tc:assert-xml>
+	    <S ixml:state="ambiguous"><A/><B/><X/><B/><C/></S>
+	  </tc:assert-xml>
+	  <tc:assert-xml>
+	    <S ixml:state="ambiguous"><A/><B/><X/><B/><X/><B/><C/></S>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g26.r03">
+	<tc:test-string>x</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.27">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Another grammar with infinite ambiguity. This one shows
+	that the problem of multiple non-trivial paths does not arise
+	only horizontally with regular-right-part grammars, but can be
+	created vertically as well; the set of derivations is the same
+	as the set of paths through the right-hand side of S in
+	sample.grammar.25.</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+	S: A.
+	{ The simple path with no loops. }
+	A: B. B: C. C: D. D: E. E: F. F: G.
+	{ The loops. }
+	D: Z.  Z: C.
+	E: Y.  Y: B.
+	F: X.  X: B.	  
+	G: W.  W: B.	  
+	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g27.r01">
+	<tc:test-string>a</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g27.r02">
+	<tc:test-string>
+	</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g27.c03">
+	<tc:test-string>x</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.28">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Another grammar with infinite ambiguity. Vertical version
+	of sample.grammar.26 and/or cut-down version of
+	sample.grammar.27, with a single loop. </tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+        S: A.  A: B.  B: C; X. X: B.
+        A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g28.r01">
+	<tc:test-string>a</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g28.c02">
+	<tc:test-string>
+	</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g28.r03">
+	<tc:test-string>x</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.29">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>Another grammar with arbitrary but minimum width. This one
+	tries to break over-simple loop-detection algorithms; it's a
+	variant of sample.grammar.23.</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+	  S: X.
+	  X:  A+, A+, "x".
+	  A: {nil}. 
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g29.r01">
+	<tc:test-string>a</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g29.r02">
+	<tc:test-string>
+	</tc:test-string>
+	<tc:result>
+	  <tc:assert-not-a-sentence/>
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g29.c03">
+	<tc:test-string>x</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.30">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>An attempt to isolate the bug caused by the initial version
+	of sample.grammar.03 (toy CSS grammar).</tc:p>
+	<tc:p>(Plan:  Play code golf.  Start with 03, cut the grammar
+	down as long as we can while retaining the bug.)</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+	name: ["a"-"z"]; ["a"-"z"].
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g30.c01">
+	<tc:test-string>p</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <tc:test-set name="sample.grammar.31">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>An attempt to isolate the bug caused by the initial version
+	of sample.grammar.03 (toy CSS grammar).</tc:p>
+	<tc:p>(Like 30, but the two branches are not identical.</tc:p>
+      </tc:description>
+      <tc:ixml-grammar>
+	name: ["a"-"z"]; ["a"-"z";"A"-"Z"].
+      </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+      <tc:test-case name="g31.c01">
+	<tc:test-string>p</tc:test-string>
+	<tc:result>
+	  <tc:assert-xml>
+	    <dummy/>
+	  </tc:assert-xml>
+	</tc:result>
+      </tc:test-case>
+  </tc:test-set>
+    
+  <!--* OK, time to bootstrap *-->
+  <!--* this is not numbered, but it occupies slot 32 *-->
+  <!--
+      <tc:test-set name="ixml.2016-08">
+      <tc:created on="2022-02-08" by="cmsmcq"/>
+      <tc:description>
+	<tc:p>The ixml grammar of August 2016, as I understand it.
+	There are a number of open questions and probably some
+	misunderstandings.</tc:p>
+	<tc:p>The ixml itself is in ../lib (as is the master copy of the XML).</tc:p>
+      </tc:description>
+      <accept src="01" s="E: E, Q, F; F.  F: 'a'; 'b'. Q: '+'; '-'."/>
+      <accept src="02" s="S: X, X. X: a. X: ."/>
+      <accept src="05" s="A: . A: B. B: A."/>
+      <accept src="05" s="A: ; B. B: A."/>
+      <accept src="06" s="S: A; B. A: &quot;a&quot;; B. B: A; &quot;b&quot;."/>
+      <accept src="07" s="A: A, &quot;a&quot;; ."/>
+      <accept src="08" s="A: &quot;a&quot;, A; ."/>
+      <accept src="09" s="Block: &quot;{}&quot;, S; If.
+			  If: &quot;if&quot;, S, Block; &quot;if&quot;, S, &quot;else&quot;, S, Block.
+      S: [&quot; &quot;; #0A; #0D; #09]*."/>
+      <accept src="10" s="A: A; ."/>
+      <accept src="11" s="
+	S: (A; B; C)*.
+	A: (A; B; C)*; [&quot;x&quot;; &quot;y&quot;; &quot;z&quot;]*.
+	B: (A; B; C)*; [&quot;x&quot;; &quot;y&quot;; &quot;z&quot;]*.
+	C: (A; B; C)*; [&quot;x&quot;; &quot;y&quot;; &quot;z&quot;]*.
+	"/>
+      <accept src="12" s="S: A+.  A: (A, A)+; &quot;a&quot;+."/>
+      <accept src="13" s="S: &quot;a&quot;, S, &quot;b&quot;; S, &quot;a&quot;, &quot;b&quot;; &quot;a&quot;, &quot;a&quot;, &quot;a&quot;."/>
+      <accept src="14" s="
+	S: E.
+	E: E; E, Q, F.
+	F: &quot;a&quot;.
+	Q: &quot;+&quot;; &quot;-&quot;.
+      "/>
+      <accept src="15" s="S: S, S; 'x'."/>
+      <accept src="16" s="
+	S: E.
+	E: E, Q, F; F.
+	F: &quot;a&quot;.
+	Q: &quot;*&quot;; &quot;/&quot;; .	  
+      "/>
+      <accept src="17" s="S: A, A, &quot;x&quot;. A: ."/>
+      <accept src="18" s="
+	S: A; A, B; B.
+	A: C.
+	B: D.
+	C: &quot;p&quot;; {nil} .
+	D: &quot;q&quot;.
+      "/>
+      <accept src="19" s="A: A; &quot;a&quot;."/>
+      <accept src="20" s="A: A, A; {nil} ."/>
+      <accept src="21" s="S: &quot;a&quot;, S; C. C: &quot;a&quot;, C, &quot;b&quot;; {nil} ."/>
+      <accept src="22" s="S: (X)*. X: &quot;x&quot;; {nil}."/>
+      <accept src="23" s="
+	S: X.
+	X:  A+, 'x', B+.
+	A: {nil}. 
+	B: {nil}.
+      "/>
+      <accept src="24" s="
+	S: (A, ((B, (C, D)+, E)+, F)+, G)+.
+	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+      "/>
+      <accept src="25" s="
+          S: A, B, C,
+             D, (Z, C, D)*,
+             E, (Y, B, C, D, (Z, C, D)*, E)*,
+             F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*,
+             G, (W, A, B, C,
+                D, (Z, C, D)*,
+                E, (Y, B, C, D, (Z, C, D)*, E)*,
+                F, (X, B, C, D, (Z, C, D)*, E, (Y, B, C, D, (Z, C, D)*, E)*, F )*, G)*.
+          A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+          Z: {nil}. Y: {nil}. X: {nil}. W: {nil}.
+      "/>
+        <accept src="26" s="
+          S: A, B, (X, B)*, C.
+          A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
+	"/>
+      <accept src="27" s="
+	S: A.
+	{ The simple path with no loops. }
+	A: B. B: C. C: D. D: E. E: F. F: G.
+	{ The loops. }
+	D: Z.  Z: C.
+	E: Y.  Y: B.
+	F: X.  X: B.	  
+	G: W.  W: B.	  
+	A: {nil}.  B: {nil}.  C: {nil}.  D: {nil}.  E: {nil}.  F: {nil}.  G: {nil}.
+      "/>
+      <accept src="28" s="
+        S: A.  A: B.  B: C; X. X: B.
+        A: {nil}.  B: {nil}.  C: {nil}.  X: {nil}. 
+      "/>
+      <accept src="29" s="
+	  S: X.
+	  X:  A+, A+, &quot;x&quot;.
+	  A: {nil}. 
+      "/>
+      <accept src="30" s="
+	name: [&quot;a&quot;-&quot;z&quot;]; [&quot;a&quot;-&quot;z&quot;].
+      "/>
+      <accept src="31" s="
+	name: [&quot;a&quot;-&quot;z&quot;]; [&quot;a&quot;-&quot;z&quot;;&quot;A&quot;-&quot;Z&quot;].
+      "/>
+      <tc:test-case name="g31.rMM">
+      <tc:test-string>p</tc:test-string>
+      <tc:result>
+      <tc:assert-not-a-sentence/>
+      </tc:result>
+      </tc:test-case>
+      </tc:test-set>
+  *-->
+    
+  <tc:test-set name="sample.grammar.33">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Grammar for the toy programming language Tosca. </tc:p>
+      <tc:p>From Susan Stepney, High integrity compilation: a case study. Hemel 
+      Hempstead: Prentice Hall International, 1993. Web edition.  Tosca is 
+      defined in chapter 4; the concrete syntax is specified using Z, not 
+      using a grammar, and leaves some things undefined, so the grammar
+      given here is a bit of a reconstruction.</tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+{ program is defined in section 4.8 }
+program: decl*, cmd.
+
+{ Names are described in 4.3 but left indeterminate syntactically;
+I've made them like the SGML reference concrete syntax. }
+NAME: letter, namechar*.
+letter:  ["a"-"z"; "A"-"Z"].
+digit: ["0"-"9"].
+namechar:  letter; digit; ["-"; "."; "_"].
+
+{ Types are described in 4.3 }
+TYPE:  "int"; "bool".
+boolean:  "true"; "false".
+number:  digit+.
+
+{ declarations:  section 4.4 }
+decl:  NAME, S, ":", S, TYPE, S, ";", S.
+
+{ operators, section 4.5 }
+unaryOp: negate; not.  
+
+negate: "-".
+not: "not".
+
+binaryOp: plus; minus; less; greater; equal; or; and.  
+plus: "+".
+minus: "-".
+less: "&lt;".
+greater: ">".
+equal: "=".
+or: "or".
+and: "and".
+
+{ expressions:  4.6 }
+expr:  constant; variable; unaryExpr; binaryExpr.
+constant:  number; boolean.
+variable:  name.
+unaryExpr:  unaryOp, S, expr.
+binaryExpr:  "(", S, expr, S, binaryOp, S, expr, S, ")".
+
+{ commands:  4.7 }
+cmd: (skip; block; assign; choice; loop; input; output), S.
+cmdseq: cmd*(";", S).
+skip: "skip".
+block:  "begin", S, cmdseq, "end".
+assign: variable, S, ":=", S, expr.
+choice: "if", S, expr, S, "then", S, cmd, "else", S, cmd.
+loop: "while", S, expr, S, "do", S, cmd.
+input: "input", S, name.
+output: "output", S, expr.
+
+{ Stepney does not specify whitespace or comment rules. }
+-S: (ws; comment)*.
+-ws: [#20; #0A; #09; #0D].
+comment: "/*", nonstar*, ("*", nonstarnonslash*)*, "*/".
+nonstar: ~["*"]. 
+nonstarnonslash: ~["*"; "/"]. 
+
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g33.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g33.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.34">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des 
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 5. 
+      </tc:p>
+      <tc:p>A finite language: L = ac, ad, bc, bd.
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      S: A, B.
+      A: "a"; "b".
+      B: "c"; "d".
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g34.c01">
+      <tc:test-string>ac</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g34.c02">
+      <tc:test-string>ad</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g34.c03">
+      <tc:test-string>bc</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g34.c04">
+      <tc:test-string>bd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g34.r05">
+      <tc:test-string>abcd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g34.r06">
+      <tc:test-string>ab</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g34.r07">
+      <tc:test-string>ca</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.35">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des 
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 5. 
+      </tc:p>
+      <tc:p>An infinite language.
+      L = empty string, a, aa, aaa, aaaa, ... 
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      S: A.
+      A: "a", A; .
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g35.c01">
+      <tc:test-string>
+      </tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g35.c02">
+      <tc:test-string>a</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g35.c03">
+      <tc:test-string>aa</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g35.c04">
+      <tc:test-string>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g35.r05">
+      <tc:test-string>b</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.36">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des 
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 6. 
+      </tc:p>
+      <tc:p>
+	An infinite language with center recursion.
+	L = b, abc, aabcc, aaabccc, ...
+      </tc:p>
+      <tc:p>
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      S: A.
+      A: "a", A, "c"; "b".
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g36.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g36.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.37">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des 
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 6. 
+      </tc:p>
+      <tc:p>Expressions. 
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      A: T; A, "+", T.
+      T: F; T, "*", F.
+      F: V; "(", A, ")".
+      V: "a"; "b"; "c"; "d".
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g37.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g37.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+
+  <tc:test-set name="sample.grammar.38">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 7.
+      </tc:p>
+      <tc:p>
+	Grammar for BNF as Wirth uses it.  Rules for ws added for
+      convenience; Wirth assumes the lexer eats whitespace.</tc:p>
+      <tc:p>We write 'nil' for Wirth's empty-set symbol.</tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      syntax:  S?, production, syntax; nil.
+      production: identifier, S?, "=", S?, expression, S?, ".", S?.
+      expression: term; expression, S?, "|", S?, term.
+      term: factor; term, S, factor.
+      factor: identifer; string.
+
+      identifier: letter; identifier, letter; identifier, digit.
+      string: stringhead, '"'.
+      stringhead: '"'; stringhead, character.
+      letter: ["A"-"Z"; "a"-"z"].
+      digit: ["0"-"9"].
+
+      { Wirth does not define character. }
+      character: ~['"'].
+
+      { Wirth does not define empty-set symbol. }
+      nil: .
+
+      S: [" "; #09; #0A; #0D]+.
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g38.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g38.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.39">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 8.
+      </tc:p>
+      <tc:p>
+	Grammar for EBNF as Wirth uses it.  Rules for ws added for
+	convenience; Wirth assumes the lexer eats whitespace. 
+      </tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      syntax:  S?, production*S.
+      production: identifier, S?, "=", S?, expression, S?, ".", S?.
+      expression: term+("|", S?).
+      term: factor+S.
+      factor: identifer; string;
+      "(", expression, ")";
+      "[", expression, "]";
+      "{", expression, "}".
+
+      identifier: letter, (letter; digit)*.
+      string: '"', character*, '"'.
+      letter: ["A"-"Z"; "a"-"z"].
+      digit: ["0"-"9"].
+
+      { Wirth does not define character. }
+      character: ~['"'].
+
+      { Wirth does not define empty-set symbol. }
+      nil: .
+
+      S: [" "; #09; #0A; #0D]+.
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g39.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g39.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+  
+  <tc:test-set name="sample.grammar.40">
+    <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:description>
+      <tc:p>Sample grammar from Niklaus Wirth, Grundlagen und Techniken des
+      Compilerbaus (Bonn: Addison-Wesley, 1996, p. 9.
+      </tc:p>
+      <tc:p>
+	EBNF as Wirth uses it.  Rules for ws added for convenience;
+	Wirth assumes the lexer eats whitespace. }
+      </tc:p>
+      <tc:p>Is this a duplicate of 39?</tc:p>
+    </tc:description>
+    <tc:ixml-grammar>
+      
+      syntax:  S?, production*S.
+      production: identifier, S?, "=", S?, expression, S?, ".", S?.
+      expression: term+("|", S?).
+      term: factor+S.
+      factor: identifer; string;
+      "(", expression, ")";
+      "[", expression, "]";
+      "{", expression, "}".
+
+      identifier: letter, (letter; digit)*.
+      string: '"', character*, '"'.
+      letter: ["A"-"Z"; "a"-"z"].
+      digit: ["0"-"9"].
+
+      { Wirth does not define character. }
+      character: ~['"'].
+
+      { Wirth does not define empty-set symbol. }
+      nil: .
+
+      S: [" "; #09; #0A; #0D]+.
+    </tc:ixml-grammar>
+      <tc:grammar-test>
+	<tc:result>
+	  <tc:assert-xml><grammar-to-be-supplied/></tc:assert-xml>
+	</tc:result>
+      </tc:grammar-test>
+    <tc:test-case name="g40.c01">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-xml>
+	  <dummy/>
+	</tc:assert-xml>
+      </tc:result>
+    </tc:test-case>
+    <tc:test-case name="g40.r02">
+      <tc:test-string>tbd</tc:test-string>
+      <tc:result>
+	<tc:assert-not-a-sentence/>
+      </tc:result>
+    </tc:test-case>
+  </tc:test-set>
+
+  
+
+</tc:test-catalog>

@@ -1,30 +1,6 @@
 { Sample grammar transcribed from Claus Braband, Robert Giegerich,
 and Anders M&oslash;ller, "Analyzing Ambiguity of Context-Free Grammars."
 Science of Computer Programming 75.3 (2010): 176-191.
-
-https://www.itu.dk/people/brabrand/ambiguity-journal.pdf
-http://cs.au.dk/~amoeller/papers/ambiguity/journal.pdf
-
-The PDF gives no indication of publication venue.  The citation given
-appears to be confirmed by
-https://pub.uni-bielefeld.de/publication/1796697 and by Claus
-Braband's list of publications https://www.itu.dk/people/brabrand/
-
-A paper with the same authors and title (but apparently slightly
-different text) appeared in International Conference on Implementation
-and Application of Automata CIAA 2007, ed. Jan Holub, Jan
-&Zhacek;d'&aacute;rek (Springer), LNCS 4783, pp. 214-225.
-
-This grammar appears on p. 13 of the PDF as Example 18.
-
-A grammar which their technique does not identify as unambiguous.
-I've quoted the "y", which is either a typo in their PDF or a 
-signal that this is intended as a fragment.
-}
-
-{ Revisions:
-  2019-04-29 : CMSMcQ : provide location in PDF.
-  2018-08-21 : CMSMcQ : made first transcription.
 }
 
 S: A, A.
