@@ -229,9 +229,7 @@
     <tc:ixml-grammar-ref href="grammars/sample.grammar.03.ixml"/>
     <tc:grammar-test>
       <tc:result>
-	<tc:assert-xml>
-	  <grammar-to-be-supplied/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/sample.grammar.03.ixml.xml"/>
       </tc:result>
     </tc:grammar-test>
     <tc:test-case name="g03.c01">
@@ -327,7 +325,81 @@
     <tc:grammar-test>
       <tc:result>
 	<tc:assert-xml>
-	  <grammar-to-be-supplied/>
+	  <ixml
+            ><comment> Sample grammar 4, taken from
+
+  http://loup-vaillant.fr/tutorials/earley-parsing/what-and-why
+
+Revisions:
+
+  2018-08-10 : CMSMcQ : correct syntax error caught by DCG parser.
+  2018-03-29 : CMSMcQ : copied from net, translated into ixml
+</comment
+            ><comment>
+Sum     = Sum     [+-] Product
+        | Product
+Product = Product [*/] Factor
+        | Factor
+Factor  = '(' Sum ')'
+        | Number
+Number  = [0-9]+
+</comment
+            ><rule name="Sum"
+              ><alt
+		><nonterminal name="Sum"
+		/><nonterminal name="SOp"
+		/><nonterminal name="Product"
+              /></alt
+              ><alt
+		><nonterminal name="Product"
+              /></alt
+            ></rule
+            ><rule name="SOp"
+              ><alt
+		><inclusion
+		  ><literal string="+"
+		  /><literal string="-"
+		/></inclusion
+              ></alt
+            ></rule
+            ><rule name="Product"
+              ><alt
+		><nonterminal name="Product"
+		/><nonterminal name="POp"
+		/><nonterminal name="Factor"
+              /></alt
+              ><alt
+		><nonterminal name="Factor"
+              /></alt
+            ></rule
+            ><rule name="POp"
+              ><alt
+		><inclusion
+		  ><literal string="*"
+		  /><literal string="/"
+		/></inclusion
+              ></alt
+            ></rule
+            ><rule name="Factor"
+              ><alt
+		><literal string="("
+		/><nonterminal name="Sum"
+		/><literal string=")"
+              /></alt
+              ><alt
+		><nonterminal name="Number"
+              /></alt
+            ></rule
+            ><rule name="Number"
+              ><alt
+		><repeat1
+		  ><inclusion
+                    ><range from="0" to="9"
+		  /></inclusion
+		></repeat1
+              ></alt
+            ></rule
+	  ></ixml>
 	</tc:assert-xml>
       </tc:result>
     </tc:grammar-test>
@@ -451,8 +523,9 @@
       <tc:p>L(G) = {''}.</tc:p>
     </tc:description>
     <!-- Two versions in slightly different styles. -->
-    <tc:ixml-grammar>A: . A: B. B: A.</tc:ixml-grammar>
+    <!-- <tc:ixml-grammar>A: . A: B. B: A.</tc:ixml-grammar> -->
     <!-- <tc:ixml-grammar>A: (); B. B: A.</tc:ixml-grammar> -->
+    <tc:ixml-grammar>A: ; B. B: A.</tc:ixml-grammar> 
     <tc:grammar-test>
       <tc:result>
 	<tc:assert-xml>
@@ -757,19 +830,52 @@
     <tc:test-case name="g09c04">
       <tc:test-string>if {} else {}</tc:test-string>
       <tc:result>
-	<tc:assert-xml><dummy/></tc:assert-xml>
+	<tc:assert-xml>
+	  <Block
+	    ><If>if<S> </S
+	    ><Block>{}<S> </S
+	    ></Block>else<S> </S
+	    ><Block>{}<S
+	    /></Block
+	    ></If
+	  ></Block>
+	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g09c05">
       <tc:test-string>if{}else{}</tc:test-string>
       <tc:result>
-	<tc:assert-xml><dummy/></tc:assert-xml>
+	<tc:assert-xml>
+	  <Block
+	    ><If>if<S
+	    /><Block>{}<S
+	    /></Block>else<S
+	    /><Block>{}<S
+	    /></Block
+	    ></If
+	  ></Block>
+	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g09c06">
       <tc:test-string>if{}elseif{}else {}  </tc:test-string>
       <tc:result>
-	<tc:assert-xml><dummy/></tc:assert-xml>
+	<tc:assert-xml>
+	  <Block
+	    ><If>if<S
+	    /><Block>{}<S
+	    /></Block>else<S
+	    /><Block
+	      ><If>if<S
+              /><Block>{}<S
+              /></Block>else<S> </S
+              ><Block>{}<S>  </S
+              ></Block
+	      ></If
+	    ></Block
+	    ></If
+	  ></Block>
+	</tc:assert-xml>
       </tc:result>
     </tc:test-case>
   </tc:test-set>
@@ -1045,32 +1151,93 @@
     </tc:test-case>
     <tc:test-case name="g12.c04">
       <tc:test-string>aaaa</tc:test-string>
-      <tc:result>
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A>aaaa</A></S>
-	</tc:assert-xml>
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A>aaa</A><A>a</A></S>
-	</tc:assert-xml>
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A>aa</A><A>aa</A></S>
-	</tc:assert-xml>
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A>a</A><A>aaa</A></S>
-	</tc:assert-xml>
-	<tc:assert-xml>	  
-	  <S ixml:state="ambiguous"><A>a</A><A>a</A><A>a</A><A>a</A></S>
-	</tc:assert-xml>
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A><A>a</A><A>aaa</A></A></S>
-	</tc:assert-xml>
-	<!-- ... -->
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A><A>a</A><A>a</A></A><A><A>a</A><A>a</A></A></S>
-	</tc:assert-xml>
-	<tc:assert-xml>
-	  <S ixml:state="ambiguous"><A><A><A>a</A><A>a</A></A><A><A>a</A><A>a</A></A></A></S>
-	</tc:assert-xml>
+      <tc:result><tc:assert-xml>
+	<S ixml:state="ambiguous"><A>aaaa</A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A>aaa</A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A>aa</A><A>a</A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A>aa</A><A>aa</A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A>a</A><A>aaa</A></S>
+	</tc:assert-xml><tc:assert-xml>	  
+	<S ixml:state="ambiguous"><A>a</A><A>a</A><A>a</A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A><A>a</A><A>aaa</A></A></S>
+	</tc:assert-xml><!-- ... --><tc:assert-xml>
+	<S ixml:state="ambiguous"><A><A>a</A><A>a</A></A><A><A>a</A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A><A><A>a</A><A>a</A></A><A><A>a</A><A>a</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A>a</A><A>a</A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><A><A>a</A><A>a</A></A><A>a</A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A>aa</A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>aa</A><A>a</A></A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A>a</A><A>a</A></A><A>a</A></A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A>aa</A></A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A><A>a</A><A>a</A></A></A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A><A>a</A><A>a</A></A><A>a</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>aa</A><A>aa</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A>a</A><A>aa</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A>a</A></A><A>aa</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A>aaa</A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A><A>aa</A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A><A><A>a</A><A>a</A></A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A><A>a</A><A>aa</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A><A>a</A><A><A>a</A><A>a</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>aaa</A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A>a</A><A>a</A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A>aa</A><A>a</A></A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A><A>a</A><A>a</A></A><A>a</A></A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A>a</A><A>aa</A></A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A>a</A><A><A>a</A><A>a</A></A></A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>aa</A><A>aa</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A>a</A><A>a</A></A><A>aa</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A>aaa</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A><A>aa</A><A>a</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A><A><A>a</A><A>a</A></A><A>a</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A><A>a</A><A>aa</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A><A>a</A><A><A>a</A><A>a</A></A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>aa</A><A><A>a</A><A>a</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A><A>a</A><A>a</A></A><A><A>a</A><A>a</A></A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>aa</A><A><A>a</A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A>a</A><A>a</A><A><A>a</A><A>a</A></A></S>
+	</tc:assert-xml><tc:assert-xml>
+        <S ixml:state="ambiguous"><A><A>a</A><A>a</A></A><A><A>a</A><A>a</A></A></S>	  
+        </tc:assert-xml>
 	<!-- ... -->
       </tc:result>
     </tc:test-case>
@@ -1353,9 +1520,16 @@
 	<tc:test-string>xxxx</tc:test-string>
 	<tc:result><tc:assert-xml>	
 	  <S ixml:state="ambiguous"><S><S>x</S><S><S>x</S><S>x</S></S></S><S>x</S></S>
-	</tc:assert-xml><tc:assert-xml>	
+	  </tc:assert-xml><tc:assert-xml>
 	  <S ixml:state="ambiguous"><S><S><S>x</S><S>x</S></S><S>x</S></S><S>x</S></S>
-	</tc:assert-xml></tc:result>
+	  </tc:assert-xml><tc:assert-xml>
+          <S ixml:state="ambiguous"><S><S>x</S><S>x</S></S><S><S>x</S><S>x</S></S></S>
+	  </tc:assert-xml><tc:assert-xml>
+          <S ixml:state="ambiguous"><S>x</S><S><S><S>x</S><S>x</S></S><S>x</S></S></S>
+	  </tc:assert-xml><tc:assert-xml>
+          <S ixml:state="ambiguous"><S>x</S><S><S>x</S><S><S>x</S><S>x</S></S></S></S>
+	</tc:assert-xml>
+	</tc:result>
       </tc:test-case>
   </tc:test-set>
     
