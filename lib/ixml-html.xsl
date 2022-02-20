@@ -63,6 +63,7 @@
 	  div.repeatsep { background-color: #DDFFDD; }
 	  span.rhs > span.alt { display: block; margin-left:  1em; }
 	  span.stack-rule { font-variant-caps: small-caps; color: navy; }
+	  span.item-label { color: gray; }
 	  .alts { background-color: #FEE; }
 	</style>
       </head>
@@ -104,6 +105,7 @@
   <xsl:template match="rule">
     <div class="rule" id="{@name}">
       <span class="lhs"><xsl:value-of select="concat(@mark, @name)"/></span>
+      <xsl:apply-templates select="@rtn:item"/>
       <span class="ruledelim"> = </span>
       <span class="rhs">
 	<xsl:apply-templates/>
@@ -115,12 +117,21 @@
   <xsl:template match="rule[@gt:satisfiable = 'false']">
     <div class="unsatisfiable rule" id="{@name}">
       <span class="lhs"><xsl:value-of select="concat(@mark, @name)"/></span>
+      <xsl:apply-templates select="@rtn:item"/>
       <span class="ruledelim"> = </span>
       <span class="rhs">
 	<xsl:apply-templates/>
       </span>
       <span class="ruledelim">.</span>
     </div>
+  </xsl:template>
+
+  <xsl:template match="rule/@rtn:item" priority="10">    
+    <span class="item-label">
+      <xsl:text>{</xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:text>}</xsl:text>
+    </span>
   </xsl:template>
   
   <xsl:template match="alt">
@@ -283,7 +294,7 @@
   <xsl:template match="inclusion/* | exclusion/*" mode="incldelim">
     <xsl:if test="not(self::comment)
 		  and following-sibling::*[not(self::comment)]">
-      <span class="classelim">; </span>
+      <span class="classdelim">; </span>
     </xsl:if>    
   </xsl:template>
 
@@ -308,7 +319,6 @@
   </xsl:template>
   
   <xsl:template match="attribute::rtn:stack" mode="stack">
-    <xsl:message>Hi, mom.</xsl:message>
     <span class="stack-rule">
       <xsl:text>{&#x296E; </xsl:text>
       <xsl:value-of select="."/>
