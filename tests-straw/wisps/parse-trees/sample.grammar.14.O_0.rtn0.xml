@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../../gingersnap/src/ixml-html.xsl"?>
+<ixml xmlns:follow="http://blackmesatech.com/2016/nss/ixml-gluschkov-automata-followset"
+      xmlns:gl="http://blackmesatech.com/2019/iXML/Gluschkov"
+      xmlns:gt="http://blackmesatech.com/2020/grammartools"
+      xmlns:rtn="http://blackmesatech.com/2020/iXML/recursive-transition-networks"
+      gt:date="2022-02-19T19:34:34.491403-07:00"
+      gt:base-grammar="file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml"
+      gt:base-grammar-uri="file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml"
+      gl:gluschkov="dummy value"
+      follow:followsets="dummy value"
+      rtn:rtn="Recursive transition network">
+   <comment> 2022-02-19T19:34:34.491403-07:00 creation of stack-augmented pseudo-regular grammar (SAPRG) by ixml-to-saprg.xsl. </comment>
+   <comment> Input grammar G: file:/home/cmsmcq/2022/github/Gingersnap/src/grammar-pipeline-handler.xsl </comment>
+   <comment> Output grammar G′:  this grammar.</comment>
+   <comment> A stack automaton guided by grammar G′and the rtn:stack attributes should recognize L(G), the same language recognized by G.  If the rtn:stack attributes are ignored, this is a (pseudo-)regular grammar which recognizes the R_0 superset of L(G). </comment>
+   <comment>2022-02-19T19:34:34.491403-07:00: item-labeling.xsl.</comment>
+   <comment>    Input: file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml</comment>
+   <comment>    Output:  same grammar with item labels added. </comment>
+   <comment>2022-02-19T19:34:34.491403-07:00: ixml-annotate-gluschkov.xsl.</comment>
+   <comment>    Input: file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml</comment>
+   <comment>    Grammar augmented with Gluschkov automata (@gl:*).</comment>
+   <comment>2022-02-19T19:34:34.491403-07:00: ixml-annotate-pc.xsl.</comment>
+   <comment>    Input: file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml</comment>
+   <comment>    Grammar augmented with @gt:recursive etc.</comment>
+   <comment> Expansion for S. </comment>
+   <comment> S: E. </comment>
+   <rule name="S_0">
+      <alt rtn:ruletype="recursion">
+         <comment>nil</comment>
+         <nonterminal rtn:nttype="call" name="E_0" rtn:stack="push S_1"/>
+      </alt>
+   </rule>
+   <rule name="S_1" rtn:nttype="state" rtn:item="S = ^E ⦁ .">
+      <alt>
+         <comment>nil</comment>
+         <nonterminal name="S_f"/>
+      </alt>
+   </rule>
+   <rule name="S_f">
+      <alt rtn:RHStype="grammar-final" rtn:stack="if-stack-empty">
+         <comment>nil</comment>
+      </alt>
+   </rule>
+   <comment> End of expansion for S. </comment>
+   <comment> Expansion for E. </comment>
+   <comment> E: F; E, Q, F. </comment>
+   <rule name="E_0">
+      <alt rtn:ruletype="recursion">
+         <comment>nil</comment>
+         <nonterminal rtn:nttype="call" name="F_0" rtn:stack="push E_1"/>
+      </alt>
+      <alt rtn:ruletype="recursion">
+         <comment>nil</comment>
+         <nonterminal rtn:nttype="call" name="E_0" rtn:stack="push E_2"/>
+      </alt>
+   </rule>
+   <rule name="E_1" rtn:nttype="state" rtn:item="E = ^F ⦁ .">
+      <alt>
+         <comment>nil</comment>
+         <nonterminal name="E_f"/>
+      </alt>
+   </rule>
+   <rule name="E_2" rtn:nttype="state" rtn:item="E = ^E ⦁ , ^Q, ^F.">
+      <alt rtn:ruletype="recursion">
+         <comment>nil</comment>
+         <nonterminal rtn:nttype="call" name="Q_0" rtn:stack="push E_3"/>
+      </alt>
+   </rule>
+   <rule name="E_3" rtn:nttype="state" rtn:item="E = ^E, ^Q ⦁ , ^F.">
+      <alt rtn:ruletype="recursion">
+         <comment>nil</comment>
+         <nonterminal rtn:nttype="call" name="F_0" rtn:stack="push E_4"/>
+      </alt>
+   </rule>
+   <rule name="E_4" rtn:nttype="state" rtn:item="E = ^E, ^Q, ^F ⦁ .">
+      <alt>
+         <comment>nil</comment>
+         <nonterminal name="E_f"/>
+      </alt>
+   </rule>
+   <rule name="E_f">
+      <alt rtn:ruletype="return">
+         <comment>nil</comment>
+         <nonterminal name="S_1" rtn:stack="pop S_1"/>
+      </alt>
+      <alt rtn:ruletype="return">
+         <comment>nil</comment>
+         <nonterminal name="E_2" rtn:stack="pop E_2"/>
+      </alt>
+   </rule>
+   <comment> End of expansion for E. </comment>
+   <comment> Expansion for F. </comment>
+   <comment> F: 'a'. </comment>
+   <rule name="F_0">
+      <alt rtn:ruletype="terminal">
+         <literal string="a" rtn:item="F = &#34;a&#34; ⦁ ."/>
+         <nonterminal rtn:nttype="state" name="F_1"/>
+      </alt>
+   </rule>
+   <rule name="F_1" rtn:nttype="state" rtn:item="F = &#34;a&#34; ⦁ .">
+      <alt>
+         <comment>nil</comment>
+         <nonterminal name="F_f"/>
+      </alt>
+   </rule>
+   <rule name="F_f">
+      <alt rtn:ruletype="return">
+         <comment>nil</comment>
+         <nonterminal name="E_1" rtn:stack="pop E_1"/>
+      </alt>
+      <alt rtn:ruletype="return">
+         <comment>nil</comment>
+         <nonterminal name="E_4" rtn:stack="pop E_4"/>
+      </alt>
+   </rule>
+   <comment> End of expansion for F. </comment>
+   <comment> Expansion for Q. </comment>
+   <comment> Q: '+'; '-'. </comment>
+   <rule name="Q_0">
+      <alt rtn:ruletype="terminal">
+         <literal string="+" rtn:item="Q = &#34;+&#34; ⦁ ."/>
+         <nonterminal rtn:nttype="state" name="Q_1"/>
+      </alt>
+      <alt rtn:ruletype="terminal">
+         <literal string="-" rtn:item="Q = &#34;-&#34; ⦁ ."/>
+         <nonterminal rtn:nttype="state" name="Q_2"/>
+      </alt>
+   </rule>
+   <rule name="Q_1" rtn:nttype="state" rtn:item="Q = &#34;+&#34; ⦁ .">
+      <alt>
+         <comment>nil</comment>
+         <nonterminal name="Q_f"/>
+      </alt>
+   </rule>
+   <rule name="Q_2" rtn:nttype="state" rtn:item="Q = &#34;-&#34; ⦁ .">
+      <alt>
+         <comment>nil</comment>
+         <nonterminal name="Q_f"/>
+      </alt>
+   </rule>
+   <rule name="Q_f">
+      <alt rtn:ruletype="return">
+         <comment>nil</comment>
+         <nonterminal name="E_3" rtn:stack="pop E_3"/>
+      </alt>
+   </rule>
+   <comment> End of expansion for Q. </comment>
+</ixml>

@@ -789,8 +789,8 @@
 		><alt
 		  ><nonterminal name="A"
 		/></alt
-		><alt/
-              ></rule
+		><alt
+              /></rule
 	    ></ixml>
       </tc:assert-xml>
 	</tc:result>
@@ -1124,17 +1124,78 @@
 	</tc:assert-xml>
       </tc:result>
     </tc:grammar-test>
+    <tc:test-case name="g13c01">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string/>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c02">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>a</tc:test-string>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c03">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>aa</tc:test-string>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c04">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>ab</tc:test-string>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c05">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>aaa</tc:test-string>
+      <tc:result><tc:assert-xml>
+	<S>aaa</S>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c06">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>aaaab</tc:test-string>
+      <tc:result><tc:assert-xml>
+	<S ixml:state="ambiguous">a<S>aaa</S>b</S>
+      </tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><S>aaa</S>ab</S>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c07">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>aaab</tc:test-string>
+      <tc:result><tc:assert-not-a-sentence/></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c08">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>aaaaabb</tc:test-string>
+      <tc:result><tc:assert-xml>
+	<S ixml:state="ambiguous">a<S>a<S>aaa</S>b</S>b</S>
+      </tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous">a<S><S>aaa</S>ab</S>b</S>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
+    <tc:test-case name="g13c09">
+      <tc:created by="cmsmcq" on="2022-02-18"/>
+      <tc:test-string>aaaabab</tc:test-string>
+      <tc:result><tc:assert-xml>
+	<S ixml:state="ambiguous"><S>a<S>aaa</S>b</S>ab</S>
+      </tc:assert-xml><tc:assert-xml>
+	<S ixml:state="ambiguous"><S><S>aaa</S>ab</S>ab</S>
+      </tc:assert-xml></tc:result>
+    </tc:test-case>
   </tc:test-set>
   
   <tc:test-set name="sample.grammar.14">
     <tc:created on="2022-02-08" by="cmsmcq"/>
+    <tc:modified on="2022-02-19" by="cmsmcq"
+		 change="Corrected typo"/>
       <tc:description>
 	<tc:p>From Grune and Jacobs p. 203, discussion of "parsing by
 	searching".</tc:p>
       </tc:description>
       <tc:ixml-grammar>
 	S: E.
-	E: E; E, Q, F.
+	E: F; E, Q, F.
 	F: "a".
 	Q: "+"; "-".
       </tc:ixml-grammar>
@@ -1149,7 +1210,7 @@
               ></rule
               ><rule name="E"
 		><alt
-		  ><nonterminal name="E"
+		  ><nonterminal name="F"
 		/></alt
 		><alt
 		  ><nonterminal name="E"
@@ -1174,6 +1235,57 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g14c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>b</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c04">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>aa</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c05">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>2a</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c06">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a+a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><E><F>a</F></E><Q>+</Q><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c07">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a+a-a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><E><E><F>a</F></E><Q>+</Q><F>a</F></E><Q>-</Q><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c08">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a++</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g14c09">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a+-b</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.15">
@@ -1203,6 +1315,48 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g15c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g15c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>y</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g15c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>x</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S>x</S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g15c04">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>xx</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><S>x</S><S>x</S></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g15c05">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>xxx</tc:test-string>
+	<tc:result><tc:assert-xml>	
+	  <S ixml:state="ambiguous"><S><S>x</S><S>x</S></S><S>x</S></S>
+	</tc:assert-xml><tc:assert-xml>	
+	  <S ixml:state="ambiguous"><S>x</S><S><S>x</S><S>x</S></S></S>	  
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g15c06">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>xxxx</tc:test-string>
+	<tc:result><tc:assert-xml>	
+	  <S ixml:state="ambiguous"><S><S>x</S><S><S>x</S><S>x</S></S></S><S>x</S></S>
+	</tc:assert-xml><tc:assert-xml>	
+	  <S ixml:state="ambiguous"><S><S><S>x</S><S>x</S></S><S>x</S></S><S>x</S></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.16">
@@ -1255,6 +1409,59 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g16c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>b</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c04">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>aa</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><E><F>a</F></E><Q/><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c05">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>2a</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c06">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a/a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><E><F>a</F></E><Q>/</Q><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c07">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a*a/a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><E><E><E><F>a</F></E><Q>*</Q><F>a</F></E><Q>/</Q><F>a</F></E></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c08">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a**</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g16c09">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a//b</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.17">
@@ -1284,6 +1491,28 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g17c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g17c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>x</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><A/><A/>x</S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g17c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>y</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g17c04">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>xx</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.18">
@@ -1341,8 +1570,63 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g18c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-xml>
+	  <S><A><C/></A></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>p</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><A><C>p</C></A></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>q</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S ixml:state="ambiguous"><A><C/></A><B><D>q</D></B></S>
+	</tc:assert-xml><tc:assert-xml>
+	  <S ixml:state="ambiguous"><B><D>q</D></B></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c04">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>pq</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <S><A><C>p</C></A><B><D>q</D></B></S>
+	</tc:assert-xml></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c05">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>pp</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c06">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>qq</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c07">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>qp</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c08">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>ppq</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g18c09">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>pqpq</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
   </tc:test-set>
-    
+
   <tc:test-set name="sample.grammar.19">
     <tc:created on="2022-02-08" by="cmsmcq"/>
       <tc:description>
@@ -1366,6 +1650,30 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g19c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a</tc:test-string>
+	<tc:result><tc:assert-xml>
+	  <A ixml:state="ambiguous">a</A>
+	</tc:assert-xml><tc:assert-xml>
+	  <A ixml:state="ambiguous"><A>a</A></A>
+	</tc:assert-xml><tc:assert-xml>
+	  <A ixml:state="ambiguous"><A><A>a</A></A></A>
+	</tc:assert-xml><tc:assert-xml>
+	  <A ixml:state="ambiguous"><A><A><A>a</A></A></A></A>
+        </tc:assert-xml><!-- ... etc ... -->
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g19c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g19c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>aa</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
   </tc:test-set>
     
   <tc:test-set name="sample.grammar.20">
@@ -1391,6 +1699,28 @@
 	  </tc:assert-xml>
 	</tc:result>
       </tc:grammar-test>
+      <tc:test-case name="g20c01">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string/>
+	<tc:result><tc:assert-xml>
+	  <A ixml:state="ambiguous"/>
+	</tc:assert-xml><tc:assert-xml>
+	  <A ixml:state="ambiguous"><A/><A/></A>
+	</tc:assert-xml><tc:assert-xml>
+	  <A ixml:state="ambiguous"><A><A/><A/></A><A/></A>
+	</tc:assert-xml><!-- ... etc ... -->
+	</tc:result>
+      </tc:test-case>
+      <tc:test-case name="g20c02">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>a</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
+      <tc:test-case name="g20c03">
+	<tc:created by="cmsmcq" on="2022-01-19"/>
+	<tc:test-string>aa</tc:test-string>
+	<tc:result><tc:assert-not-a-sentence/></tc:result>
+      </tc:test-case>
   </tc:test-set>
 
   

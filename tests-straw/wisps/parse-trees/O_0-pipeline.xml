@@ -1,0 +1,57 @@
+<grammar-pipeline>
+  
+  <desc>
+    <p>This pipeline takes an ixml grammar and produces an O_0
+    superset grammar, in the form of a stack-augmented pseudo-regular
+    grammar showing the recursive transition network for the input
+    grammar.</p>
+    
+    <p>I'm not completely sure I know what I'm doing; I know I did
+    this before, but I need a better way to remember how to do it.
+    That's this pipeline, maybe.</p>
+	
+    <p>Revisions:
+    2022-02-19 : CMSMcQ : borrow this from O0-superset.xsl, extend
+                          to insert labels
+    2021-01-10 : CMSMcQ : incorporate in a stand-alone stylesheet
+    2020-12-30 : CMSMcQ : began pipeline. 
+    </p>
+  </desc>
+
+  <annotate-pc>
+    <desc>
+      <p>Parent/child annotation is a prerequisite for
+      Gluschkov annoation.</p>
+    </desc>
+  </annotate-pc>
+
+  <annotate-gl>
+    <desc>
+      <p>Gluschkov annotation is a prerequisite for
+      making the RTN.</p>
+    </desc>
+  </annotate-gl>
+
+  <make-rtn non-fissile="#none"
+	    start="S"
+	    linkage="#none"
+	    keep-non-fissiles="#yes"
+	    save="temp.O0.rtn.xml"
+	    >
+    <desc>
+      <p>Build the RTN, using all recursive nonterminals
+      and providing no external linkage.</p>
+    </desc>
+  </make-rtn>
+
+  <eliminate-unit-rules>
+    <desc>
+      <p>Applied to a recursive transition network
+      this is said to eliminate epsilon transitions.
+      Does it retain stack info?
+      </p>
+    </desc>
+  </eliminate-unit-rules>
+
+
+</grammar-pipeline>

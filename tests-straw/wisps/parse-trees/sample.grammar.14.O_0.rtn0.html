@@ -1,0 +1,131 @@
+<!DOCTYPE HTML><html xmlns:gt="http://blackmesatech.com/2020/grammartools" xmlns:rtn="http://blackmesatech.com/2020/iXML/recursive-transition-networks">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>iXML grammar</title>
+      <style type="text/css">
+	  div.unknown { color: red; margin-left: 1em; }
+	  span.tag { font-family: Courier, monospace; }
+	  div.titlearea { border-bottom: 1px solid black; margin-bottom: 1em; }
+	  .comment-body { font-style: italic; }
+	  div.rule { margin-top: 0.5em; }
+	  div.unsatisfiable { background-color: #EAA; }
+	  div.repeatfactor { background-color: #DDDDFF; }
+	  div.repeatsep { background-color: #DDFFDD; }
+	  span.rhs > span.alt { display: block; margin-left:  1em; }
+	  span.stack-rule { font-variant-caps: small-caps; color: navy; }
+	  span.item-label { color: gray; }
+	  .alts { background-color: #FEE; }
+	</style>
+   </head>
+   <body>
+      <div class="grammar">
+         <div class="titlearea">
+            <h1>iXML grammar</h1>
+         </div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> 2022-02-19T19:17:27.040097-07:00 creation of stack-augmented pseudo-regular grammar
+               (SAPRG) by ixml-to-saprg.xsl. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Input grammar G: file:/home/cmsmcq/2022/github/Gingersnap/src/grammar-pipeline-handler.xsl
+               </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Output grammar G′:  this grammar.</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> A stack automaton guided by grammar G′and the rtn:stack attributes should recognize
+               L(G), the same language recognized by G.  If the rtn:stack attributes are ignored,
+               this is a (pseudo-)regular grammar which recognizes the R_0 superset of L(G). </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">2022-02-19T19:17:27.040097-07:00: item-labeling.xsl.</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">    Input: file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">    Output:  same grammar with item labels added. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">2022-02-19T19:17:27.040097-07:00: ixml-annotate-gluschkov.xsl.</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">    Input: file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">    Grammar augmented with Gluschkov automata (@gl:*).</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">2022-02-19T19:17:27.040097-07:00: ixml-annotate-pc.xsl.</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">    Input: file:/home/cmsmcq/2022/github/ixml-tests/tests-straw/wisps/parse-trees/sample.grammar.14.ixml.xml</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body">    Grammar augmented with @gt:recursive etc.</span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Expansion for S. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> S: E. </span><span class="comdelim">}</span></div>
+         <div class="rule" id="S_0"><span class="lhs">S_0</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_0">E_0</a><span class="stack-rule">{⥮ push S_1 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="S_1"><span class="lhs">S_1</span><span class="item-label">{S = ^E ⦁ .}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#S_f">S_f</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="S_f"><span class="lhs">S_f</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <span class="stack-rule">{⥮ if-stack-empty ⥯}</span></span></span><span class="ruledelim">.</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> End of expansion for S. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Expansion for E. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> E: E; E, Q, F. </span><span class="comdelim">}</span></div>
+         <div class="rule" id="E_0"><span class="lhs">E_0</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_0">E_0</a><span class="stack-rule">{⥮ push E_1 ⥯}</span>
+                  <span class="altdelim">; </span></span><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_0">E_0</a><span class="stack-rule">{⥮ push E_2 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="E_1"><span class="lhs">E_1</span><span class="item-label">{E = ^E ⦁ .}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_f">E_f</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="E_2"><span class="lhs">E_2</span><span class="item-label">{E = ^E ⦁ , ^Q, ^F.}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#Q_0">Q_0</a><span class="stack-rule">{⥮ push E_3 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="E_3"><span class="lhs">E_3</span><span class="item-label">{E = ^E, ^Q ⦁ , ^F.}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#F_0">F_0</a><span class="stack-rule">{⥮ push E_4 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="E_4"><span class="lhs">E_4</span><span class="item-label">{E = ^E, ^Q, ^F ⦁ .}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_f">E_f</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="E_f"><span class="lhs">E_f</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#S_1">S_1</a><span class="stack-rule">{⥮ pop S_1 ⥯}</span>
+                  <span class="altdelim">; </span></span><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_1">E_1</a><span class="stack-rule">{⥮ pop E_1 ⥯}</span>
+                  <span class="altdelim">; </span></span><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_2">E_2</a><span class="stack-rule">{⥮ pop E_2 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> End of expansion for E. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Expansion for F. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> F: #. </span><span class="comdelim">}</span></div>
+         <div class="rule" id="F_0"><span class="lhs">F_0</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="literal">"a"</span><span class="seqdelim">, </span>
+                  <a class="nonterminal" href="#F_1">F_1</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="F_1"><span class="lhs">F_1</span><span class="item-label">{F = "a" ⦁ .}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#F_f">F_f</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="F_f"><span class="lhs">F_f</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_4">E_4</a><span class="stack-rule">{⥮ pop E_4 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> End of expansion for F. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Expansion for Q. </span><span class="comdelim">}</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> Q: #; #. </span><span class="comdelim">}</span></div>
+         <div class="rule" id="Q_0"><span class="lhs">Q_0</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="literal">"+"</span><span class="seqdelim">, </span>
+                  <a class="nonterminal" href="#Q_1">Q_1</a>
+                  <span class="altdelim">; </span></span><span class="alt">
+                  <span class="literal">"-"</span><span class="seqdelim">, </span>
+                  <a class="nonterminal" href="#Q_2">Q_2</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="Q_1"><span class="lhs">Q_1</span><span class="item-label">{Q = "+" ⦁ .}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#Q_f">Q_f</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="Q_2"><span class="lhs">Q_2</span><span class="item-label">{Q = "-" ⦁ .}</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#Q_f">Q_f</a>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="rule" id="Q_f"><span class="lhs">Q_f</span><span class="ruledelim"> = </span><span class="rhs"><span class="alt">
+                  <span class="comment"><span class="comdelim">{</span><span class="comment-body">nil</span><span class="comdelim">}</span></span>
+                  <a class="nonterminal" href="#E_3">E_3</a><span class="stack-rule">{⥮ pop E_3 ⥯}</span>
+                  </span></span><span class="ruledelim">.</span></div>
+         <div class="comment"><span class="comdelim">{</span><span class="comment-body"> End of expansion for Q. </span><span class="comdelim">}</span></div>
+      </div>
+   </body>
+</html>

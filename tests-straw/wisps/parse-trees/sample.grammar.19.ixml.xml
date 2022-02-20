@@ -1,0 +1,10 @@
+<ixml
+  ><rule name="A"
+    ><alt
+      ><nonterminal name="A"
+    /></alt
+    ><alt
+      ><literal string="a"
+    /></alt
+  ></rule
+></ixml>

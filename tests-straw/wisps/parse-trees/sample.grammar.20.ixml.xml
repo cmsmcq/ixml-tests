@@ -1,0 +1,10 @@
+<ixml
+  ><rule name="A"
+    ><alt
+      ><nonterminal name="A"
+      /><nonterminal name="A"
+    /></alt
+    ><comment>nil</comment
+    ><alt
+  /></rule
+></ixml>

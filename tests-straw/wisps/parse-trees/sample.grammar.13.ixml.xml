@@ -1,0 +1,7 @@
+<ixml>
+  <rule name="S">
+    <alt><literal string="a"/><nonterminal name="S"/><literal string="b"/></alt>
+    <alt><nonterminal name="S"/><literal string="a"/><literal string="b"/></alt>
+    <alt><literal string="a"/><literal string="a"/><literal string="a"/></alt>
+  </rule>
+</ixml>

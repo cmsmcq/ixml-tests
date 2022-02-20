@@ -1,0 +1,31 @@
+<ixml
+  ><rule name="S"
+    ><alt
+      ><nonterminal name="E"
+    /></alt
+  ></rule
+  ><rule name="E"
+    ><alt
+      ><nonterminal name="E"
+      /><nonterminal name="Q"
+      /><nonterminal name="F"
+    /></alt
+    ><alt
+      ><nonterminal name="F"
+    /></alt
+  ></rule
+  ><rule name="F"
+    ><alt
+      ><literal string="a"
+    /></alt
+  ></rule
+  ><rule name="Q"
+    ><alt
+      ><literal string="*"
+    /></alt
+    ><alt
+      ><literal string="/"
+    /></alt
+    ><alt
+  /></rule
+></ixml>

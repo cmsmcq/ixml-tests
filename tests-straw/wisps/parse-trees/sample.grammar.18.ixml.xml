@@ -1,0 +1,36 @@
+<ixml
+  ><rule name="S"
+    ><alt
+      ><nonterminal name="A"
+    /></alt
+    ><alt
+      ><nonterminal name="A"
+      /><nonterminal name="B"
+    /></alt
+    ><alt
+      ><nonterminal name="B"
+    /></alt
+  ></rule
+  ><rule name="A"
+    ><alt
+      ><nonterminal name="C"
+    /></alt
+  ></rule
+  ><rule name="B"
+    ><alt
+      ><nonterminal name="D"
+    /></alt
+  ></rule
+  ><rule name="C"
+    ><alt
+      ><literal string="p"
+    /></alt
+    ><comment>nil</comment
+    ><alt
+  /></rule
+  ><rule name="D"
+    ><alt
+      ><literal string="q"
+    /></alt
+  ></rule
+></ixml>
