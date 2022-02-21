@@ -235,33 +235,25 @@
     <tc:test-case name="g03.c01">
       <tc:test-string>p{}</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g03.c01.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g03.c02">
       <tc:test-string>p{a:x}</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g03.c02.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g03.c03">
       <tc:test-string>q{b:y;b2:z;xyz:x}</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g03.c03.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g03.c04">
       <tc:test-string>p{a:x}q{b:y;b2:z;xyz:x}</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g03.c04.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g03.r05">
@@ -406,65 +398,49 @@ Number  = [0-9]+
     <tc:test-case name="g04.c01">
       <tc:test-string>0</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c01.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c02">
       <tc:test-string>42</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c02.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c03">
       <tc:test-string>42-3</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c03.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c04">
       <tc:test-string>42*3-7</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c04.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c05">
       <tc:test-string>42-3/7</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c05.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c06">
       <tc:test-string>(42-3)/7</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c06.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c07">
       <tc:test-string>((42-3)/7)</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c07.xml"/>
       </tc:result>
     </tc:test-case>
     <tc:test-case name="g04.c08">
       <tc:test-string>((((42)-((3)))/7))</tc:test-string>
       <tc:result>
-	<tc:assert-xml>
-	  <dummy/>
-	</tc:assert-xml>
+	<tc:assert-xml-ref href="parse-trees/g04.c08.xml"/>
       </tc:result>
     </tc:test-case>
     <!--* that last accept with nested parens takes 9 seconds
