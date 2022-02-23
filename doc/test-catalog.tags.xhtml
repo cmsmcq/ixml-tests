@@ -1,14 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.6.0" />
-<title>Tag set description</title>
-
-<style type="text/css">
-/*<![CDATA[*/
-div.unknown {
+   <head>
+      <title>Tag set description</title>
+      <style type="text/css">div.unknown {
     margin: 0 1em;
     color: red;
 }
@@ -66,211 +60,320 @@ span.attname {
 span.attname:before {
     content: '@';
 }
-/*]]>*/
 </style>
-</head>
-<body>
-<div class="TEI">
-<div class="text">
-<div class="front">
-<div class="titlePage">
-<h1 class="docTitle"><span class="titlePart">XML elements for ixml
-test catalogs</span></h1>
-<div class="docAuthor">C. M. Sperberg-McQueen</div>
-<div class="docDate">7 November 2021, last rev. 22 December
-2021</div>
-</div>
-<div class="toc">
-<ul>
-<li><a class="tocptr" href="#intro">Introduction</a></li>
-<li><a class="tocptr" href="#issues">Known issues</a></li>
-<li><a class="tocptr" href="#elements">Element reference list
-<ul>app-info</ul>
-</a></li>
-<li><a class="tocptr" href=
-"#elem-assert-not-a-grammar">assert-not-a-grammar</a></li>
-<li><a class="tocptr" href=
-"#elem-assert-not-a-sentence">assert-not-a-sentence</a></li>
-<li><a class="tocptr" href="#elem-assert-xml">assert-xml</a></li>
-<li><a class="tocptr" href=
-"#elem-assert-xml-ref">assert-xml-ref</a></li>
-<li><a class="tocptr" href="#elem-code">code</a></li>
-<li><a class="tocptr" href="#elem-created">created</a></li>
-<li><a class="tocptr" href="#elem-description">description</a></li>
-<li><a class="tocptr" href="#elem-doc">doc</a></li>
-<li><a class="tocptr" href="#elem-emph">emph</a></li>
-<li><a class="tocptr" href=
-"#elem-grammar-test">grammar-test</a></li>
-<li><a class="tocptr" href=
-"#elem-ixml-grammar">ixml-grammar</a></li>
-<li><a class="tocptr" href=
-"#elem-ixml-grammar-ref">ixml-grammar-ref</a></li>
-<li><a class="tocptr" href="#elem-modified">modified</a></li>
-<li><a class="tocptr" href="#elem-p">p</a></li>
-<li><a class="tocptr" href="#elem-result">result</a></li>
-<li><a class="tocptr" href="#elem-test-case">test-case</a></li>
-<li><a class="tocptr" href=
-"#elem-test-catalog">test-catalog</a></li>
-<li><a class="tocptr" href="#elem-test-set">test-set</a></li>
-<li><a class="tocptr" href=
-"#elem-test-set-ref">test-set-ref</a></li>
-<li><a class="tocptr" href="#elem-test-string">test-string</a></li>
-<li><a class="tocptr" href=
-"#elem-test-string-ref">test-string-ref</a></li>
-<li><a class="tocptr" href=
-"#elem-vxml-grammar">vxml-grammar</a></li>
-<li><a class="tocptr" href=
-"#elem-vxml-grammar-ref">vxml-grammar-ref</a></li>
-</ul>
-</div>
-</div>
-<div class="body">
-<div class="div" id="intro">
-<h2>Introduction</h2>
-<p>This document lists the elements in an XML vocabulary for ixml
-test catalogs and test-result reports, giving a short description
-of each. Fuller description and discussion may be added later if
-felt to be needed; for now this is mostly an alphabetical reference
-list to explain what the elements are intended to mean and how they
-are to be used.</p>
-<p>The vocabulary described was developed by C. M. Sperberg-McQueen
-as a proposal for the invisible-XML Community Group at the World
-Wide Web Consortium, but it has not yet been considered by the
-group, still less adopted, and it has no official status of any
-kind.</p>
-<p>The vocabulary describes two different types of document:</p>
-<ul>
-<li>
-<p>Test catalogs describe a potentially complex set of test cases
-for an invisible XML processor; they can be organized internally
-into multiple sets of test cases, and test sets can nest.</p>
-<p>Each test set may specify an ixml grammar in either ixml or XML
-form, together with a set of test cases and optionally nested test
-sets. An optional <a class="gi" href=
-"#elem-grammar-test">grammar-test</a> element signals that the
-grammar itself should be regarded as a test case and identifies the
-expected result of processing the grammar.</p>
-<p>Each test case in a test set supplies input to be parsed against
-the grammar for the test set, and specifies a result.</p>
-<p>Grammars and test-case input can be given inline or in separate
-files. The expected results can also be given inline or
-externally.</p>
-</li>
-<li>
-<p>Test reports describe the results of running a given processor
-against the tests in a test catalog.</p>
-<p>A metadata section provides information about the test catalog
-used and the processor tested. Then, for each test set and test
-case, the result produced by the processor is reported and whether
-it is or is not the result expected in the test catalog.</p>
-<p><em class="hi">Note: the current version of this vocabulary does
-not yet define elements for test reports. Real soon now.</em></p>
-</li>
-</ul>
-<p>A <a class="ref" href="catalog-sketch.xml">sample test
-catalog</a> is given in the <code class="code">doc</code> directory
-of the ixml-tests Git repository (where this document is also to be
-found) in both <a class="ref" href="catalog-sketch.xml">XML</a> and
-<a class="ref" href="catalog-sketch.html">HTML</a> (for situations
-where dynamic XSLT processing is not possible).</p>
-</div>
-<div class="div" id="issues">
-<h2>Known issues</h2>
-<p>Among the shortcomings of the current state of the test catalog
-schema are these.</p>
-<p id="reports"><span class="label">No reporting of test
-results.</span> XML vocabularies are needed to allow a test harness
-to report the detailed results of running a test suite and
-comparing the output to the expected results, and to allow the
-developers of an implementation to report (perhaps in somewhat less
-detail) which tests they have run and not run, and of those they
-ran which tests they passed and which they failed.</p>
-<p>An initial sketch of such a vocabulary is expected soon, but
-it's not here yet.</p>
-<p id="ambiguity"><span class="label">Awkward treatment of
-ambiguous sentences.</span> An ambiguous sentence has more than one
-parse tree, and the choice of which tree to return is
-implementation-dependent (or possibly implementation-defined), so
-that a correct implementation may easily produce a parse tree which
-is correct but does not match the parse tree specified in the test
-case.</p>
-<p>The current approach is to allow multiple parse trees, with the
-meaning being that if the processor produces any of them, it passes
-that test. If the processor returns a parse forest instead of a
-single tree, every tree in the returned forest should be among
-those specified in the result. This has the drawback that in some
-cases the set of parse trees specified will not be and cannot be
-complete: in some grammars, some sentences have an infinite number
-of parse trees.</p>
-<p>For practical purposes, however, we can expect there to be a
-finite number of processors using any given test suite, each of
-which will return a finite number of trees. If a processor fails a
-test on an ambiguous grammar, then the tree returned by the
-processor should be checked manually and added to the specified
-result. Unless a processor returns a different result each time it
-parses the test input, the second and later runs against the test
-suite should be problem-free.</p>
-<p>There are of course alternatives:</p>
-<ul>
-<li>
-<p>Allow an assertion about the result, expressed in XPath. This is
-the approach taken in the QT test suite and in XSpec. Drawback:
-unless the assertion is very thorough, the test case will not fully
-specify the required test result, allowing incorrect results to
-pass the test.</p>
-</li>
-<li>
-<p>Allow a set of assertions about the result, expressed in XPath.
-To pass the test, a processor's result must satisfy all assertions.
-Drawback: as before, though it's easier to be thorough.</p>
-</li>
-<li>
-<p>Allow an and/or tree of assertions about the result, expressed
-in XPath. To pass the test, a processor's result must satisfy all
-children of an <span class="gi">and</span> and at least one child
-of an <span class="gi">or</span>. Drawback: logical conjunction and
-disjunction are already built in to XPath so it's not really
-necessary to provide a new set of machinery for the purpose.</p>
-</li>
-</ul>
-As the examples of the QT3 test suite and XSpec show, all of these
-involve building additional machinery both into the vocabulary for
-the test catalog and also into the test harness. An XPath assertion
-must be evaluated in a dynamic context and must say something about
-the result returned, so we now end up having to build a dynamic
-context and bind the result to some well known variable like
-<code class="code">$result</code>, so that the assertion can say
-something useful about the result.
-<p>The current approach has the comparative advantage that it does
-not require an XPath evaluator: one could in principle handle the
-comparison of test results to the expected output by writing out
-temporary files and calling a diff program. The occasional false
-negative in the test results seems a small price to pay for that
-advantage.</p>
-</div>
-<div class="div" id="elements">
-<h2>Element reference list</h2>
-<div class="elementSpec" id="elem-app-info">
-<h3 class="spec-label element">app-info</h3>
-<div class="spec-content">
-<div class="block gloss">(i.e. application information)</div>
-<div class="desc">includes information needed by any application
-which is to process the test catalog; this is an extension
-mechanism to allow the inclusion of arbitrary XML elements in the
-catalog. May occur wherever metadata is allowed: as a child of
-<a class="gi" href="#elem-test-catalog">test-catalog</a>, <a class=
-"gi" href="#elem-test-set">test-set</a>, <a class="gi" href=
-"#elem-test-case">test-case</a>, etc.</div>
-<div class="exemplum">
-<p>The process by which a test case is generated may produce, as a
-side effect, a <span class="soCalled">‘raw parse tree’</span> in
-which all nonterminals are present. This can be helpful in
-diagnosing problems in an ixml parser, so it may be thought useful
-to record the raw parse tree, even though there is no standard
-place for it in the schema. The following example shows a raw parse
-tree embedded in a test case.</p>
-<div class="eg">
-<pre>
+   </head>
+   <body>
+      <div class="TEI">
+         <div class="text">
+            <div class="front">
+               <div class="titlePage">
+                  <h1 class="docTitle">
+                     <span class="titlePart">XML elements for ixml test catalogs</span>
+                  </h1>
+                  <div class="docAuthor">C. M. Sperberg-McQueen</div>
+                  <div class="docDate">7 November 2021, last rev. 22 February 2022</div>
+               </div>
+               <div class="toc">
+                  <ul>
+                     <li>
+                        <a class="tocptr" href="#intro">Introduction</a>
+                     </li>
+                     <li>
+                        <a class="tocptr" href="#issues">Known issues</a>
+                     </li>
+                     <li>
+                       <a class="tocptr" href="#elements">Element reference list</a>
+		       <ul>
+                              <li>
+                                 <a class="tocptr" href="#elem-app-info">app-info</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-assert-not-a-grammar">assert-not-a-grammar</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-assert-not-a-sentence">assert-not-a-sentence</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-assert-xml">assert-xml</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-assert-xml-ref">assert-xml-ref</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-catalog-date">catalog-date</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-catalog-uri">catalog-uri</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-code">code</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-created">created</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-description">description</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-doc">doc</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-emph">emph</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-grammar-result">grammar-result</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-grammar-test">grammar-test</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-ixml-grammar">ixml-grammar</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-ixml-grammar-ref">ixml-grammar-ref</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-metadata">metadata</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-modified">modified</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-name">name</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-p">p</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-processor">processor</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-processor-version">processor-version</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-report-date">report-date</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-reported-not-a-grammar">reported-not-a-grammar</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-reported-not-a-sentence">reported-not-a-sentence</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-reported-xml">reported-xml</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-reported-xml-ref">reported-xml-ref</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-result">result</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-case">test-case</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-catalog">test-catalog</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-report">test-report</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-result">test-result</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-set">test-set</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-set-ref">test-set-ref</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-set-results">test-set-results</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-string">test-string</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-test-string-ref">test-string-ref</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-vxml-grammar">vxml-grammar</a>
+                              </li>
+                              <li>
+                                 <a class="tocptr" href="#elem-vxml-grammar-ref">vxml-grammar-ref</a>
+                              </li>
+                           </ul>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="body">
+               <div class="div" id="intro">
+                  <h2>Introduction</h2>
+                  <p>This document lists the elements in an XML vocabulary for
+	ixml test catalogs and test-result reports, giving a short
+	description of each.  Fuller description and discussion
+	may be added later if felt to be needed; for now this is
+	mostly an alphabetical reference list to explain what the
+	elements are intended to mean and how they are to be used.</p>
+                  <p>The vocabulary described was developed by C. M. Sperberg-McQueen
+	as a proposal for the invisible-XML Community Group at the
+	World Wide Web Consortium, but it has not yet been considered
+	by the group, still less adopted, and it has no official status
+	of any kind.</p>
+                  <p>The vocabulary describes two different types of document:</p>
+	<ul>
+                        <li>
+                           <p>Test catalogs describe a potentially complex set of
+	    test cases for an invisible XML processor; they can
+	    be organized internally into multiple sets of test cases,
+	    and test sets can nest.</p>
+                           <p>Each test set may specify an ixml grammar in either
+	    ixml or XML form, together with a set of test cases and
+	    optionally nested test sets.  An optional
+	    <a class="gi" href="#elem-grammar-test">grammar-test</a> element signals that the grammar
+	    itself should be regarded as a test case and identifies
+	    the expected result of processing the grammar.</p>
+                           <p>Each test case in a test set supplies input to be
+	    parsed against the grammar for the test set, and
+	    specifies a result.</p>
+                           <p>Grammars and test-case input can be given inline
+	    or in separate files.  The expected results can also
+	    be given inline or externally.</p>
+                        </li>
+                        <li>
+                           <p>Test reports describe the results of running a
+	    given processor against the tests in a test catalog.</p>
+                           <p>A metadata section provides information about the
+	    test catalog used and the processor tested.  Then,
+	    for each test set and test case, the result produced
+	    by the processor is reported and whether it is or is not
+	    the result expected in the test catalog.</p>
+                           <p>
+                              <em class="hi">Note:  the current version of this vocabulary
+	    does not yet define elements for test reports.  Real
+	    soon now.</em>
+                           </p>
+                        </li>
+                     </ul>
+
+                  <p>A <a class="ref" href="catalog-sketch.xml">sample test
+	catalog</a> is given in the <code class="code">doc</code> directory of
+	the ixml-tests Git repository (where this document is also to
+	be found) in both <a class="ref" href="catalog-sketch.xml">XML</a>
+	and <a class="ref" href="catalog-sketch.html">HTML</a> (for
+	situations where dynamic XSLT processing is not possible).
+	</p>
+               </div>
+               <div class="div" id="issues">
+                  <h2>Known issues</h2>
+                  <p>Among the shortcomings of the current state of the
+	test catalog schema are these.</p>
+                  <p id="reports">
+                     <span class="label">No reporting of test
+	results.</span> XML vocabularies are needed to allow a test
+	harness to report the detailed results of running a test suite
+	and comparing the output to the expected results, and to allow
+	the developers of an implementation to report (perhaps in
+	somewhat less detail) which tests they have run and not run,
+	and of those they ran which tests they passed and which they
+	failed.</p>
+                  <p>An initial sketch of such a vocabulary is expected
+	soon, but it's not here yet.</p>
+                  <p id="ambiguity">
+                     <span class="label">Awkward treatment of ambiguous
+	sentences.</span> An ambiguous sentence has more than one
+	parse tree, and the choice of which tree to return is
+	implementation-dependent (or possibly implementation-defined),
+	so that a correct implementation may easily produce a parse
+	tree which is correct but does not match the parse tree
+	specified in the test case.</p>
+                  <p>The current approach is to allow multiple parse trees, with
+	the meaning being that if the processor produces any of them,
+	it passes that test.  If the processor returns a parse forest
+	instead of a single tree, every tree in the returned forest
+	should be among those specified in the result.  This has the
+	drawback that in some cases the set of parse trees specified
+	will not be and cannot be complete: in some grammars, some
+	sentences have an infinite number of parse trees.</p>
+                  <p>For practical purposes, however, we can expect there to be
+	a finite number of processors using any given test suite, each
+	of which will return a finite number of trees.  If a processor
+	fails a test on an ambiguous grammar, then the tree returned
+	by the processor should be checked manually and added to the
+	specified result.  Unless a processor returns a different
+	result each time it parses the test input, the second and
+	later runs against the test suite should be problem-free.</p>
+                  <p>There are of course alternatives:</p>
+		  <ul>
+                        <li>
+                           <p>Allow an assertion about the result, expressed in
+	    XPath.  This is the approach taken in the QT test suite
+	    and in XSpec. Drawback: unless the assertion is very
+	    thorough, the test case will not fully specify the
+	    required test result, allowing incorrect results to pass
+	    the test.</p>
+                        </li>
+                        <li>
+                           <p>Allow a set of assertions about the result, expressed
+	    in XPath.  To pass the test, a processor's result must
+	    satisfy all assertions.  Drawback: as before, though it's
+	    easier to be thorough.</p>
+                        </li>
+                        <li>
+                           <p>Allow an and/or tree of assertions about the result,
+	    expressed in XPath.  To pass the test, a processor's
+	    result must satisfy all children of an <span class="gi">and</span> and at
+	    least one child of an <span class="gi">or</span>.  Drawback: logical
+	    conjunction and disjunction are already built in to XPath
+	    so it's not really necessary to provide a new set of
+	    machinery for the purpose.</p>
+                        </li>
+                  </ul>
+		  <p>
+	As the examples of the QT3 test suite and XSpec show, all of
+	these involve building additional machinery both into the
+	vocabulary for the test catalog and also into the test
+	harness.  An XPath assertion must be evaluated in a dynamic
+	context and must say something about the result returned, so
+	we now end up having to build a dynamic context and bind the
+	result to some well known variable like <code class="code">$result</code>,
+	so that the assertion can say something useful about the
+	result.</p>
+                  <p>The current approach has the comparative advantage
+	that it does not require an XPath evaluator: one could in
+	principle handle the comparison of test results to the
+	expected output by writing out temporary files and calling a
+	diff program.  The occasional false negative in the test
+	results seems a small price to pay for that advantage.
+	</p>
+               </div>
+               <div class="div" id="elements">
+                  <h2>Element reference list</h2>
+                  <div class="elementSpec" id="elem-app-info">
+                     <h3 class="spec-label element">app-info</h3>
+                     <div class="spec-content">
+                        <div class="block gloss">(i.e. application information)</div>
+                        <div class="desc">includes information needed by any
+	  application which is to process the
+	  test catalog; this is an extension mechanism
+	  to allow the inclusion of arbitrary XML
+	  elements in the catalog.  May occur
+	  wherever metadata is allowed:
+	  as a child of <a class="gi" href="#elem-test-catalog">test-catalog</a>,
+	  <a class="gi" href="#elem-test-set">test-set</a>,
+	  <a class="gi" href="#elem-test-case">test-case</a>, etc.</div>
+                        <div class="exemplum">
+                           <p>The process by which a test case is generated may
+	    produce, as a side effect, a <span class="soCalled">‘raw parse
+	    tree’</span> in which all nonterminals are
+	    present.  This can be helpful in diagnosing
+	    problems in an ixml parser, so it may be thought
+	    useful to record the raw parse tree, even though
+	    there is no standard place for it in the schema.
+	    The following example shows a raw parse tree
+	    embedded in a test case.</p>
+                           <div class="eg">
+                              <pre>
 &lt;test-case xml:id="S-1" name="S1"&gt;
    &lt;created by="Gingersnap (CMSMcQ)" 
             on="2021-01-26"/&gt;
@@ -285,244 +388,360 @@ tree embedded in a test case.</p>
          &lt;S/&gt;
       &lt;/raw-parse-tree&gt;
    &lt;/app-info&gt;
-&lt;/test-case&gt;</pre></div>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-assert-not-a-grammar">
-<h3 class="spec-label element">assert-not-a-grammar</h3>
-<div class="spec-content">
-<div class="desc">signals that the grammar specified is not a
-conforming ixml grammar (and thus cannot be used to parse the test
-input). Correct behavior in this case is to report that the input
-cannot be parsed using the grammar and optionally describe the
-nature of the problem.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Appears as child of <a class="gi" href=
-"#elem-result">result</a>.</p>
-<p>The spec does not require a particular way of signaling errors
-in the grammar, so each processor may require a different
-setup.</p>
-<p>Within the <a class="gi" href="#elem-result">result</a> element
-for a grammar test, there is no useful distinction between this
-element and <a class="gi" href=
-"#elem-assert-not-a-sentence">assert-not-a-sentence</a>. Casuists
-can argue the case each way. (<em class="hi">The purported grammar
-is not a grammar, so this element applies; it is also not a
-sentence in the language defined by the grammar for ixml grammars,
-so the <a class="gi" href=
-"#elem-assert-not-a-sentence">assert-not-a-sentence</a> also
-applies. If the problem with the grammar is not failure to follow
-the grammar for grammars but violation of some extra-grammatical
-constraint like having only one rule per nonterminal, the input
-<em class="emph" style="font-weight: bold;">is</em> a sentence but
-<em class="emph" style="font-weight: bold;">is not</em> a grammar.
-Etc., etc., etc.</em>) In practice both elements will and should be
-treated as interchangeable in that particular case.</p>
-<p>This element can contain any elements of the <code class=
-"code">metadata</code> class (so: <a class="gi" href=
-"#elem-description">description</a>, <a class="gi" href=
-"#elem-app-info">app-info</a>, <a class="gi" href=
-"#elem-doc">doc</a>), which leads to a lack of parallelism with
-<a class="gi" href="#elem-assert-xml">assert-xml</a> and <a class=
-"gi" href="#elem-assert-xml-ref">assert-xml-ref</a>. Remove?</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-assert-not-a-sentence">
-<h3 class="spec-label element">assert-not-a-sentence</h3>
-<div class="spec-content">
-<div class="desc">signals that the test input is not a sentence in
-the language described by the grammar indicated; correct behavior
-in this case is to report that the input cannot be parsed using the
-grammar and optionally describe the nature of the problem.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Appears as child of <a class="gi" href=
-"#elem-result">result</a>.</p>
-<p>The spec does not require a particular way of signaling failure
-to parse the input, so each processor may require a different
-setup.</p>
-<p>This element can contain any elements of the <code class=
-"code">metadata</code> class (so: <a class="gi" href=
-"#elem-description">description</a>, <a class="gi" href=
-"#elem-app-info">app-info</a>, <a class="gi" href=
-"#elem-doc">doc</a>), which leads to a lack of parallelism with
-<a class="gi" href="#elem-assert-xml">assert-xml</a> and <a class=
-"gi" href="#elem-assert-xml-ref">assert-xml-ref</a>. Remove?</p>
-<p>Within the <a class="gi" href="#elem-result">result</a> element
-for a grammar test, there is no useful distinction between this
-element and <a class="gi" href=
-"#elem-assert-not-a-grammar">assert-not-a-grammar</a>; in that
-context, the two should in practice be treated as
-interchangeable.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-assert-xml">
-<h3 class="spec-label element">assert-xml</h3>
-<div class="spec-content">
-<div class="desc">signals that the test input is a sentence in the
-language described by the grammar indicated and contains an
-acceptable XML representation of one parse of the sentence.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Appears as child of <a class="gi" href=
-"#elem-result">result</a>.</p>
-<p>For ambiguous sentences, more than one parse is correct, and
-this element may occur more than once.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-assert-xml-ref">
-<h3 class="spec-label element">assert-xml-ref</h3>
-<div class="spec-content">
-<div class="desc">signals that the test input is a sentence in the
-language described by the grammar indicated and give a URI for the
-prescribed XML representation of one parse of the sentence.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Appears as child of <a class="gi" href=
-"#elem-result">result</a>.</p>
-<p>For ambiguous sentences, more than one parse is correct, and
-this element may occur more than once.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-code">
-<h3 class="spec-label element">code</h3>
-<div class="spec-content">
-<div class="desc">marks inline code fragments in prose.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Typical typographic treatment is to display in a monospaced
-font.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-created">
-<h3 class="spec-label element">created</h3>
-<div class="spec-content">
-<div class="desc">a metadata element containing information about
-the creation of a test catalog, test set, or test case.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-who">
-<p><span class="attname">who</span></p>
-<div class="desc">specifies who created the item.</div>
-</div>
-<div class="attDef" id="att-when">
-<p><span class="attname">when</span></p>
-<div class="desc">specifies the date the item was created.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>The element is allowed but optional on individual test cases and
-grammar tests. If no creation date is given for an individual test
-case, it is assumed to have been created at the same time as the
-test set as a whole; if it was added later, it can (and ideally
-should) have its date of creation and revision history noted. When
-a test suite is changed over time, it can be helpful if every test
-case has a complete revision history.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-description">
-<h3 class="spec-label element">description</h3>
-<div class="spec-content">
-<div class="desc">contains a sequence of paragraphs containing a
-natural-language description of a test catalog, test set, or test
-case.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Ideally, the <a class="gi" href=
-"#elem-description">description</a> element should be able to
-contain prose tagged in XHTML, or in the XML vocabulary of the
-author's choice. Currently this is not the case.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-doc">
-<h3 class="spec-label element">doc</h3>
-<div class="spec-content">
-<div class="desc">refers to external documentation for the test
-catalog, test set, or test case, if there is any.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-href">
-<p><span class="attname">href</span></p>
-<div class="desc">contains a URI at which the external
-documentation can be found.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>If a test case exhibits a particularly tricky situation which
-has been extensively discussed or analysed by the community group
-(or anyone else), for example, it's helpful to be able to provide
-pointers instead of having to reproduce the discussion inside the
-test catalog, or omitting it entirely.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-emph">
-<h3 class="spec-label element">emph</h3>
-<div class="spec-content">
-<div class="desc">marks emphasized text in prose.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>This element is intended to mark rhetorical emphasis or stress,
-not arbitrary special typographic treatment. (If we turn out to
-need markup for arbitrary typographic treatment, we'll want to
-introduce <span class="gi">hi</span> for typographic highlighting,
-or <span class="gi">seg</span> or <span class="gi">span</span> with
-a <span class="att">style</span> or <span class=
-"att">rendering</span> element.)</p>
-<p><em class="hi">Note: if we turn out to need markup for arbitrary
-typographic treatment, we would do better to specify that the prose
-should be marked up in XHTML.</em></p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-grammar-test">
-<h3 class="spec-label element">grammar-test</h3>
-<div class="spec-content">
-<div class="desc">indicates that the grammar associated with a
-given test set should be treated as a test case and checked for
-conformance; contains a <a class="gi" href=
-"#elem-result">result</a> element indicating expected result of the
-test.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>A child of <a class="gi" href="#elem-test-set">test-set</a>.</p>
-<p>If the grammar is given in an <a class="gi" href=
-"#elem-ixml-grammar">ixml-grammar</a> element or pointed to with an
-<a class="gi" href="#elem-ixml-grammar-ref">ixml-grammar-ref</a>
-element, the grammar should be parsed with the grammar for ixml and
-the result compared with the expected result. The extra-grammatical
-constraints imposed by the spec should also be checked. If the
-grammar given is in XML (using the <a class="gi" href=
-"#elem-vxml-grammar">vxml-grammar</a> or <a class="gi" href=
-"#elem-vxml-grammar-ref">vxml-grammar-ref</a> elements), the
-processor should check it for structural correctness (the spec
-requires that the XML grammar <span class="q">“can be derived from
-an ixml grammar in ixml form by parsing as described in this
-specification”</span>) and for conformance to the extra-grammatical
-or non-structural constraints in the ixml specification.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-ixml-grammar">
-<h3 class="spec-label element">ixml-grammar</h3>
-<div class="spec-content">
-<div class="desc">contains a grammar in ixml form.</div>
-<div class="exemplum">
-<p>The following example shows an ixml grammar for arithmetic
-expressions.</p>
-<div class="eg">
-<pre>     &lt;ixml-grammar&gt;
+&lt;/test-case&gt;</pre>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-assert-not-a-grammar">
+                     <h3 class="spec-label element">assert-not-a-grammar</h3>
+                     <div class="spec-content">
+                        <div class="desc">signals that the grammar specified is not a conforming
+	  ixml grammar (and thus cannot be used to parse the test
+	  input).  Correct behavior in this case is to report that
+	  the input cannot be parsed using the grammar and optionally
+	  describe the nature of the problem.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                           <p>The spec does not require a particular way of signaling
+	    errors in the grammar, so each processor may require a
+	    different setup.</p>
+                           <p>Within the <a class="gi" href="#elem-result">result</a> element for a grammar test,
+	    there is no useful distinction between this element and
+	    <a class="gi" href="#elem-assert-not-a-sentence">assert-not-a-sentence</a>.  Casuists can argue the
+	    case each way.  (<em class="hi">The purported grammar is not a
+	    grammar, so this element applies; it is also not a
+	    sentence in the language defined by the grammar for ixml
+	    grammars, so the <a class="gi" href="#elem-assert-not-a-sentence">assert-not-a-sentence</a> also
+	    applies. If the problem with the grammar is not failure to
+	    follow the grammar for grammars but violation of some
+	    extra-grammatical constraint like having only one rule per
+	    nonterminal, the input <em class="emph" style="font-weight: bold;">is</em> a sentence but
+	    <em class="emph" style="font-weight: bold;">is not</em> a grammar.  Etc., etc., etc.</em>) In
+	    practice both elements will and should be treated as
+	    interchangeable in that particular case.</p>
+                           <p>This element can contain any elements of the
+	    <code class="code">metadata</code> class (so: <a class="gi" href="#elem-description">description</a>,
+	    <a class="gi" href="#elem-app-info">app-info</a>, <a class="gi" href="#elem-doc">doc</a>), which leads to a lack of
+	    parallelism with <a class="gi" href="#elem-assert-xml">assert-xml</a> and
+	    <a class="gi" href="#elem-assert-xml-ref">assert-xml-ref</a>.  Remove?</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-assert-not-a-sentence">
+                     <h3 class="spec-label element">assert-not-a-sentence</h3>
+                     <div class="spec-content">
+                        <div class="desc">signals that the test input is not
+	  a sentence in the language described by the
+	  grammar indicated; correct behavior in this
+	  case is to report that the input cannot be
+	  parsed using the grammar and optionally
+	  describe the nature of the problem.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                           <p>The spec does not require a particular
+	    way of signaling failure to parse the input,
+	    so each processor may require a different
+	    setup.</p>
+                           <p>This element can contain any elements of the
+	    <code class="code">metadata</code> class (so: <a class="gi" href="#elem-description">description</a>,
+	    <a class="gi" href="#elem-app-info">app-info</a>, <a class="gi" href="#elem-doc">doc</a>), which leads to a lack of
+	    parallelism with <a class="gi" href="#elem-assert-xml">assert-xml</a> and
+	    <a class="gi" href="#elem-assert-xml-ref">assert-xml-ref</a>.  Remove?</p>
+                           <p>Within the <a class="gi" href="#elem-result">result</a> element for a grammar test,
+	    there is no useful distinction between this element and
+	    <a class="gi" href="#elem-assert-not-a-grammar">assert-not-a-grammar</a>; in that context, the two
+	    should in practice be treated as interchangeable.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-assert-xml">
+                     <h3 class="spec-label element">assert-xml</h3>
+                     <div class="spec-content">
+                        <div class="desc">signals that the test input is a sentence in the
+	  language described by the grammar indicated and contains an
+	  acceptable XML representation of one parse of the
+	  sentence.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                           <p>For ambiguous sentences, more than one parse is
+	    correct, and this element may occur more than once.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-assert-xml-ref">
+                     <h3 class="spec-label element">assert-xml-ref</h3>
+                     <div class="spec-content">
+                        <div class="desc">signals that the test input is a sentence in the
+	  language described by the grammar indicated and give a URI
+	  for the prescribed XML representation of one parse of the
+	  sentence.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                           <p>For ambiguous sentences, more than one parse is
+	    correct, and this element may occur more than once.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-catalog-date">
+                     <h3 class="spec-label element">catalog-date</h3>
+                     <div class="spec-content">
+                        <div class="desc">gives the release date of the test catalog describing the tests
+	  whose results are included in a test report.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Occurs as a child of <a class="gi" href="#elem-metadata">metadata</a> at the top of
+	    the test report.</p>
+                           <p>The <a class="gi" href="#elem-catalog-date">catalog-date</a> will normally just repeat the
+	    information given in the <a class="att" href="#att-release-date">release-date</a> attribute
+	    on the <a class="gi" href="#elem-test-catalog">test-catalog</a> element.  The purpose of
+	    including it in the test report is to help document which
+	    version of the test catalog was used, if the test catalog
+	    is revised.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-catalog-uri">
+                     <h3 class="spec-label element">catalog-uri</h3>
+                     <div class="spec-content">
+                        <div class="desc">gives the URI of the test catalog describing the tests
+	  whose results are included in a test report.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Occurs as a child of <a class="gi" href="#elem-metadata">metadata</a> at the top of
+	    the test report.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-code">
+                     <h3 class="spec-label element">code</h3>
+                     <div class="spec-content">
+                        <div class="desc">marks inline code fragments in prose.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Typical typographic treatment is to display in a
+	    monospaced font.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-created">
+                     <h3 class="spec-label element">created</h3>
+                     <div class="spec-content">
+                        <div class="desc">a metadata element containing information about
+	  the creation of a test catalog, test set, or test case.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-who">
+                              <p>
+                                 <span class="attname">who</span>
+                              </p>
+                              <div class="desc">specifies who created the item.</div>
+                           </div>
+                           <div class="attDef" id="att-when">
+                              <p>
+                                 <span class="attname">when</span>
+                              </p>
+                              <div class="desc">specifies the date the item was created.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>The element is allowed but optional on individual test
+	    cases and grammar tests.  If no creation date is given for
+	    an individual test case, it is assumed to have been
+	    created at the same time as the test set as a whole; if it
+	    was added later, it can (and ideally should) have its date
+	    of creation and revision history noted.  When a test suite
+	    is changed over time, it can be helpful if every test case
+	    has a complete revision history.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-description">
+                     <h3 class="spec-label element">description</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains a sequence of paragraphs containing a
+	  natural-language description of a test catalog, test set, or
+	  test case.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Ideally, the <a class="gi" href="#elem-description">description</a> element should be
+	    able to contain prose tagged in XHTML, or in the XML
+	    vocabulary of the author's choice.  Currently this is not
+	    the case.  </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-doc">
+                     <h3 class="spec-label element">doc</h3>
+                     <div class="spec-content">
+                        <div class="desc">refers to external documentation for the test catalog,
+	  test set, or test case, if there is any.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-href">
+                              <p>
+                                 <span class="attname">href</span>
+                              </p>
+                              <div class="desc">contains a URI at which the external documentation
+	      can be found.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>If a test case exhibits a particularly tricky situation
+	    which has been extensively discussed or analysed by
+	    the community group (or anyone else), for example, it's
+	    helpful to be able to provide pointers instead of having
+	    to reproduce the discussion inside the test catalog,
+	    or omitting it entirely.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-emph">
+                     <h3 class="spec-label element">emph</h3>
+                     <div class="spec-content">
+                        <div class="desc">marks emphasized text in prose.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>This element is intended to mark rhetorical emphasis or
+	    stress, not arbitrary special typographic treatment.  (If
+	    we turn out to need markup for arbitrary typographic
+	    treatment, we'll want to introduce <span class="gi">hi</span> for
+	    typographic highlighting, or <span class="gi">seg</span> or <span class="gi">span</span>
+	    with a <span class="att">style</span> or <span class="att">rendering</span>
+	    element.)</p>
+                           <p>
+                              <em class="hi">Note:  if we turn out to need markup for arbitrary
+	    typographic treatment, we would do better to specify that
+	    the prose should be marked up in XHTML.</em>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-grammar-result">
+                     <h3 class="spec-label element">grammar-result</h3>
+                     <div class="spec-content">
+                        <div class="desc">provides the result, in a test report, of running a
+	  given <a class="gi" href="#elem-grammar-test">grammar-test</a> in the test catalog.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-result">
+                              <p>
+                                 <span class="attname">result</span>
+                              </p>
+                              <div class="desc">Summarizes the result of running the test; the
+	      value is one of:
+	      <ul>
+                                    <li>
+                                       <code class="code">pass</code>, indicating that the reported
+		result agrees with the expected result</li>
+                                    <li>
+                                       <code class="code">fail</code>, indicating that the test was
+		run and the reported result did not agree with the
+		expected result</li>
+                                    <li>
+                                       <code class="code">not-run</code>, indicating that the
+		grammar test was not run, for whatever reason
+		(the reason can be given in a <a class="gi" href="#elem-description">description</a>
+		element)</li>
+                                    <li>
+                                       <code class="code">other</code>, indicating that none of the
+		other values apply (an explanation can be given in a
+		<a class="gi" href="#elem-description">description</a> or <a class="gi" href="#elem-app-info">app-info</a>
+		element)</li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>A child of <a class="gi" href="#elem-test-set-results">test-set-results</a>.</p>
+                           <p>The results of the grammar test can be given in greater
+	    or lesser detail.  The minimum <a class="gi" href="#elem-grammar-result">grammar-result</a>
+	    element gives the result of the test.  If desired,
+	    however, the test result can also contain or point to the
+	    grammar tested, the expected result, and the reported
+	    result.</p>
+                           <p>For convenience, the schema allows the
+	    <a class="gi" href="#elem-grammar-result">grammar-result</a> element to be the root element of
+	    a document.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-grammar-test">
+                     <h3 class="spec-label element">grammar-test</h3>
+                     <div class="spec-content">
+                        <div class="desc">indicates that the grammar associated with a given
+	  test set should be treated as a test case and checked for
+	  conformance; contains a <a class="gi" href="#elem-result">result</a> element indicating
+	  expected result of the test.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>A child of <a class="gi" href="#elem-test-set">test-set</a>.</p>
+                           <p>If the grammar is given in an <a class="gi" href="#elem-ixml-grammar">ixml-grammar</a>
+	    element or pointed to with an <a class="gi" href="#elem-ixml-grammar-ref">ixml-grammar-ref</a>
+	    element, the grammar should be parsed with the grammar for
+	    ixml and the result compared with the expected result.
+	    The extra-grammatical constraints imposed by the spec
+	    should also be checked.  If the grammar given is in XML
+	    (using the <a class="gi" href="#elem-vxml-grammar">vxml-grammar</a> or
+	    <a class="gi" href="#elem-vxml-grammar-ref">vxml-grammar-ref</a> elements), the processor should
+	    check it for structural correctness (the spec requires
+	    that the XML grammar <span class="q">“can be derived from an ixml
+	    grammar in ixml form by parsing as described in this
+	    specification”</span>) and for conformance to the
+	    extra-grammatical or non-structural constraints in the
+	    ixml specification.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-ixml-grammar">
+                     <h3 class="spec-label element">ixml-grammar</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains a grammar in ixml form.</div>
+                        <div class="exemplum">
+                           <p>The following example shows an ixml grammar for
+	    arithmetic expressions.
+	    </p>
+                           <div class="eg">
+                              <pre>     &lt;ixml-grammar&gt;
 { Grammar for simple arithmetic expressions, 
   for testing of test-case generation and
   grammar-manipulation tools.
@@ -543,123 +762,288 @@ mulop: s*, ["*/×÷"], s*.
 digit: ['0'-'9'].
 s: #20; #9; #a.       
      &lt;/ixml-grammar&gt;
-</pre></div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Appears as a child of <a class="gi" href=
-"#elem-test-set">test-set</a> and gives the grammar for the test
-cases of the set.</p>
-<p>This is one of several elements that can be used to specify a
-grammar; grammars may be given in ixml or XML form, inline or
-externally.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-ixml-grammar-ref">
-<h3 class="spec-label element">ixml-grammar-ref</h3>
-<div class="spec-content">
-<div class="block gloss">(i.e. reference to an external grammar in
-ixml form)</div>
-<div class="desc">points to an external resource containing an ixml
-grammar.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-href">
-<p><span class="attname">href</span></p>
-<div class="desc">contains a URI at which the external grammar can
-be found.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Appears as a child of <a class="gi" href=
-"#elem-test-set">test-set</a> and gives the grammar for the test
-cases of the set.</p>
-<p>This is one of several elements that can be used to specify a
-grammar; grammars may be given in ixml or XML form, inline or
-externally.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-modified">
-<h3 class="spec-label element">modified</h3>
-<div class="spec-content">
-<div class="desc">contains an entry in the change log for a test
-case or test set describing a modification.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-change">
-<p><span class="attname">change</span></p>
-<div class="desc">describes the change.</div>
-</div>
-<div class="attDef" id="att-who">
-<p><span class="attname">who</span></p>
-<div class="desc">specifies who made the change.</div>
-</div>
-<div class="attDef" id="att-when">
-<p><span class="attname">when</span></p>
-<div class="desc">specifies the date the change was made.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-p">
-<h3 class="spec-label element">p</h3>
-<div class="spec-content">
-<div class="desc">a paragraph of natural-language prose.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>A very small number of phrase-level elements are provided for
-the markup of the prose; if the set proves inconveniently small, it
-can easily be grown.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-result">
-<h3 class="spec-label element">result</h3>
-<div class="spec-content">
-<div class="desc">specifies the expected result of a test, using
-the <a class="gi" href="#elem-assert-xml">assert-xml</a>, <a class=
-"gi" href="#elem-assert-xml-ref">assert-xml-ref</a> or the
-<a class="gi" href=
-"#elem-assert-not-a-sentence">assert-not-a-sentence</a> elements
-depending on what is to be asserted and how.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>The current design does not deal well with test cases for which
-multiple correct results are possible; see <a class="ref" href=
-"#ambiguity">above</a>.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-test-case">
-<h3 class="spec-label element">test-case</h3>
-<div class="spec-content">
-<div class="desc">contains input and expected result for one test
-case.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-name">
-<p><span class="attname">name</span></p>
-<div class="desc">a name by which the test case can be referred to;
-should be unique within the test set</div>
-</div>
-</div>
-<div class="exemplum">
-<p>The following example shows a test case for the grammar
-<code class="code">S: {nil}.</code> (not shown, because it's
-specified earlier in the catalog). The input is the empty string,
-as specified here by the <a class="gi" href=
-"#elem-test-string">test-string</a> element. The expected output is
-an empty <span class="gi">S</span> element, as specified here by
-the <a class="gi" href="#elem-assert-xml">assert-xml</a> element
-within <a class="gi" href="#elem-result">result</a>.</p>
-<div class="eg">
-<pre>&lt;test-case xml:id="S-1" name="S1"&gt;
+</pre>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as a child of <a class="gi" href="#elem-test-set">test-set</a> and gives
+	    the grammar for the test cases of the set.</p>
+                           <p>This is one of several elements that can be used to
+	    specify a grammar; grammars may be given in ixml or XML
+	    form, inline or externally.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-ixml-grammar-ref">
+                     <h3 class="spec-label element">ixml-grammar-ref</h3>
+                     <div class="spec-content">
+                        <div class="block gloss">(i.e. reference to an external grammar in ixml form)</div>
+                        <div class="desc">points to an external resource containing
+	  an ixml grammar.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-href">
+                              <p>
+                                 <span class="attname">href</span>
+                              </p>
+                              <div class="desc">contains a URI at which the external grammar
+	      can be found.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as a child of <a class="gi" href="#elem-test-set">test-set</a> and gives
+	    the grammar for the test cases of the set.</p>
+                           <p>This is one of several elements that can be used to
+	    specify a grammar; grammars may be given in ixml or XML
+	    form, inline or externally.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-metadata">
+                     <h3 class="spec-label element">metadata</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains a short sequence of metadata elements describing
+	  the contents of a test report.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Children include <a class="gi" href="#elem-name">name</a> (of the report),
+	    <a class="gi" href="#elem-report-date">report-date</a>,
+	    <a class="gi" href="#elem-processor">processor</a>,
+	    <a class="gi" href="#elem-processor-version">processor-version</a>,
+	    <a class="gi" href="#elem-catalog-uri">catalog-uri</a>, and
+	    <a class="gi" href="#elem-catalog-date">catalog-date</a>.
+	    </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-modified">
+                     <h3 class="spec-label element">modified</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains an entry in the change log for a test case
+	  or test set describing a modification.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-change">
+                              <p>
+                                 <span class="attname">change</span>
+                              </p>
+                              <div class="desc">describes the change.</div>
+                           </div>
+                           <div class="attDef" id="att-who">
+                              <p>
+                                 <span class="attname">who</span>
+                              </p>
+                              <div class="desc">specifies who made the change.</div>
+                           </div>
+                           <div class="attDef" id="att-when">
+                              <p>
+                                 <span class="attname">when</span>
+                              </p>
+                              <div class="desc">specifies the date the change was made.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p/>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-name">
+                     <h3 class="spec-label element">name</h3>
+                     <div class="spec-content">
+                        <div class="desc">gives the name assigned to a test report.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Occurs as a child of <a class="gi" href="#elem-metadata">metadata</a> at the top of
+	    the test report.</p>
+                           <p>The analogous name of a test catalog is given as
+	    an attribute on <a class="gi" href="#elem-test-catalog">test-catalog</a>, not as an
+	    element.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-p">
+                     <h3 class="spec-label element">p</h3>
+                     <div class="spec-content">
+                        <div class="desc">a paragraph of natural-language prose.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>A very small number of phrase-level elements
+	    are provided for the markup of the prose; if the
+	    set proves inconveniently small, it can easily be
+	    grown.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-processor">
+                     <h3 class="spec-label element">processor</h3>
+                     <div class="spec-content">
+                        <div class="desc">indicates the processor used in the testing described
+	  in a a test report.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Occurs as a child of <a class="gi" href="#elem-metadata">metadata</a> at the top of
+	    the test report.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-processor-version">
+                     <h3 class="spec-label element">processor-version</h3>
+                     <div class="spec-content">
+                        <div class="desc">gives the version number or identifier, if any, of
+	  the processor for which a test report was prepared.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Occurs as a child of <a class="gi" href="#elem-metadata">metadata</a> at the top of
+	    the test report.  Optional.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-report-date">
+                     <h3 class="spec-label element">report-date</h3>
+                     <div class="spec-content">
+                        <div class="desc">gives the date on which a test report was prepared.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Occurs as a child of <a class="gi" href="#elem-metadata">metadata</a> at the top of
+	    the test report.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-reported-not-a-grammar">
+                     <h3 class="spec-label element">reported-not-a-grammar</h3>
+                     <div class="spec-content">
+                        <div class="desc">in a test report, signals that the processor reported
+	  that the grammar supplied for a test is not a conforming
+	  ixml grammar (and thus cannot be used to parse the test
+	  input).</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-reported-not-a-sentence">
+                     <h3 class="spec-label element">reported-not-a-sentence</h3>
+                     <div class="spec-content">
+                        <div class="desc">in a test report, signals that the test input is not a
+	  sentence in the language described by the grammar supplied for the test.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-reported-xml">
+                     <h3 class="spec-label element">reported-xml</h3>
+                     <div class="spec-content">
+                        <div class="desc">in a test report, signals that the processor parsed
+	  the test input as a sentence in the language described by
+	  the grammar supplied; contains the XML element produced as
+	  output.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                           <p>For ambiguous sentences, more than one parse is
+	    correct, and this element may occur more than once.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-reported-xml-ref">
+                     <h3 class="spec-label element">reported-xml-ref</h3>
+                     <div class="spec-content">
+                        <div class="desc">in a test report, signals that the processor parsed
+	  the test input as a sentence in the language described by
+	  the grammar supplied; gives a URI for the XML output
+	  produced by the processor.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Appears as child of <a class="gi" href="#elem-result">result</a>.</p>
+                           <p>For ambiguous sentences, more than one parse is
+	    correct, and this element may occur more than once.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-result">
+                     <h3 class="spec-label element">result</h3>
+                     <div class="spec-content">
+                        <div class="desc">in a test catalog specifies the expected result of a
+	  test, using the <a class="gi" href="#elem-assert-xml">assert-xml</a>, <a class="gi" href="#elem-assert-xml-ref">assert-xml-ref</a>
+	  or the <a class="gi" href="#elem-assert-not-a-sentence">assert-not-a-sentence</a> elements depending on
+	  what is to be asserted and how; in a test report may
+	  optionally recapitulate the expected result and may give the
+	  output reported by the processor.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Unlike a test catalog, which is required to specify the
+	    expected result exactly once, a test report may give the
+	    expected result in multiple forms (i.e. both inline and by
+	    reference to an external document).  The same holds true
+	    for the reported result.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-case">
+                     <h3 class="spec-label element">test-case</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains input and expected result for one test
+	  case.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-name">
+                              <p>
+                                 <span class="attname">name</span>
+                              </p>
+                              <div class="desc">a name by which the test case can be referred
+	      to; should be unique within the test set</div>
+                           </div>
+                        </div>
+                        <div class="exemplum">
+                           <p>The following example shows a test case for the grammar
+	    <code class="code">S: {nil}.</code> (not shown, because it's specified
+	    earlier in the catalog).  The input is the empty string,
+	    as specified here by the <a class="gi" href="#elem-test-string">test-string</a> element.
+	    The expected output is an empty <span class="gi">S</span> element, as
+	    specified here by the <a class="gi" href="#elem-assert-xml">assert-xml</a> element within
+	    <a class="gi" href="#elem-result">result</a>.</p>
+                           <div class="eg">
+                              <pre>&lt;test-case xml:id="S-1" name="S1"&gt;
    &lt;created by="Gingersnap (CMSMcQ)" 
             on="2021-01-26"/&gt;
    &lt;test-string/&gt;
@@ -668,225 +1052,357 @@ within <a class="gi" href="#elem-result">result</a>.</p>
          &lt;S/&gt;
       &lt;/assert-xml&gt;
    &lt;/result&gt;
-&lt;/test-case&gt;</pre></div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>A processor being tested should parse the specified input using
-the grammar supplied by a containing <a class="gi" href=
-"#elem-test-set">test-set</a> element. The processor passes the
-test if the processor's output matches the expected result
-(specified in the <a class="gi" href="#elem-result">result</a>
-element).</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-test-catalog">
-<h3 class="spec-label element">test-catalog</h3>
-<div class="spec-content">
-<div class="desc">contains a collection of test cases organized
-into one or more test sets and released at the same time.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-name">
-<p><span class="attname">name</span></p>
-<div class="desc">a name by which the collection of tests can be
-referred to</div>
-</div>
-<div class="attDef" id="att-release-date">
-<p><span class="attname">release-date</span></p>
-<div class="desc">date of the test suite described by this catalog;
-more specifically, date of its release or official
-publication</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>When a suite of related tests is published, it may happen that
-there are different test-catalog files (and <a class="gi" href=
-"#elem-test-catalog">test-catalog</a> elements) for different
-groups of tests within the larger collection. It is a good idea for
-there to be one test catalog that includes all of the others, so as
-to provide a single point of entry for processing the entire
-collection of tests. The <a class="gi" href=
-"#elem-test-set-ref">test-set-ref</a> element is used to include
-other test-catalog files.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-test-set">
-<h3 class="spec-label element">test-set</h3>
-<div class="spec-content">
-<div class="desc">a set of test cases, nested test sets, or
-both.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-name">
-<p><span class="attname">name</span></p>
-<div class="desc">a name by which the test set can be referred to;
-should be unique within the test catalog</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>The grammar for a test set may be given in any of several
-ways:</p>
-<ul>
-<li>
-<p>in ixml form inline, using an <a class="gi" href=
-"#elem-ixml-grammar">ixml-grammar</a> element, or</p>
-</li>
-<li>
-<p>in ixml form in an external resource, using an <a class="gi"
-href="#elem-ixml-grammar-ref">ixml-grammar-ref</a> element, or</p>
-</li>
-<li>
-<p>in XML form inline, using the <a class="gi" href=
-"#elem-vxml-grammar">vxml-grammar</a> element, or</p>
-</li>
-<li>
-<p>in XML form in an external resource, using the <a class="gi"
-href="#elem-vxml-grammar-ref">vxml-grammar-ref</a> element.</p>
-</li>
-</ul>
-Here, <span class="mentioned">vxml</span> is short for <span class=
-"gloss">‘visible XML’</span>, as distinct from <span class=
-"gloss">‘invisible XML’</span>.
-<p>The <a class="gi" href="#elem-grammar-test">grammar-test</a>
-element can be used to specify that the grammar itself is to be
-treated as a test case and parsed or checked against the grammar
-for ixml grammars. In this case, the test set need not contain any
-test cases.</p>
-<p>Test sets can be nested to reflect any desired structure for the
-test suite. Nested test sets can take the form of child <a class=
-"gi" href="#elem-test-set">test-set</a> elements or of child
-<a class="gi" href="#elem-test-set-ref">test-set-ref</a> elements,
-which give the URI of a subordinate test set. (In practice the test
-set reference is usually to an XML document rooted in <a class="gi"
-href="#elem-test-catalog">test-catalog</a>, rather than <a class=
-"gi" href="#elem-test-set">test-set</a>, but the effect is the
-same: all test sets in the external resource are logically
-subordinate to the parent of the <a class="gi" href=
-"#elem-test-set-ref">test-set-ref</a> element.)</p>
-<p>If a grammar is specified by a <a class="gi" href=
-"#elem-test-set">test-set</a> element or by one of its ancestor
-<a class="gi" href="#elem-test-set">test-set</a> elements, then the
-test set can contain any number of test cases. A grammar specified
-on a descendant overrides any grammar specified on an ancestor; the
-first grammar found, when ascending from the test case, is the one
-used.</p>
-<p>Note that grammars are not inherited across references to
-external test sets.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-test-set-ref">
-<h3 class="spec-label element">test-set-ref</h3>
-<div class="spec-content">
-<div class="block gloss">(i.e. reference to an external test
-set)</div>
-<div class="desc">points to an external resource with a set of test
-cases.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-href">
-<p><span class="attname">href</span></p>
-<div class="desc">contains a URI at which the external test set can
-be found.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Despite the name of the element, the usual target of a <a class=
-"gi" href="#elem-test-set-ref">test-set-ref</a> element will be a
-document rooted in a <a class="gi" href=
-"#elem-test-catalog">test-catalog</a> element.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-test-string">
-<h3 class="spec-label element">test-string</h3>
-<div class="spec-content">
-<div class="desc">contains a string to be used as input in a test
-case.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>If the string is long or otherwise inconvenient to include
-literally in the test catalog, the <a class="gi" href=
-"#elem-test-string-ref">test-string-ref</a> element may be used
-instead.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-test-string-ref">
-<h3 class="spec-label element">test-string-ref</h3>
-<div class="spec-content">
-<div class="desc">points to a string to be used as input in a test
-case.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-href">
-<p><span class="attname">href</span></p>
-<div class="desc">contains a URI at which the external input can be
-found.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>If the string is short and simple, it may be more convenient to
-include it directly in the test catalog; when this is so, the
-<a class="gi" href="#elem-test-string">test-string</a> element may
-be used instead of the <a class="gi" href=
-"#elem-test-string-ref">test-string-ref</a> element.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-vxml-grammar">
-<h3 class="spec-label element">vxml-grammar</h3>
-<div class="spec-content">
-<div class="block gloss">(i.e. reference to grammar in visible-XML
-form)</div>
-<div class="desc">contains a grammar in XML form.</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>Note that the schema for test catalogs does not constrain the
-XML used in the content of this element; in cases where the purpose
-of the test is to check the behavior of a processor when given XML
-input which is not a valid XML representation of an ixml grammar,
-the XML content of the <a class="gi" href=
-"#elem-vxml-grammar">vxml-grammar</a> element will not in fact
-conform to the schema for the XML form of ixml grammars.</p>
-<p>This is one of several elements that can be used to specify a
-grammar; grammars may be given in ixml or XML form, inline or
-externally.</p>
-</div>
-</div>
-</div>
-<div class="elementSpec" id="elem-vxml-grammar-ref">
-<h3 class="spec-label element">vxml-grammar-ref</h3>
-<div class="spec-content">
-<div class="block gloss">(i.e. reference to grammar in visible-XML
-form)</div>
-<div class="desc">points to a grammar in XML form.</div>
-<div class="attList">
-<p><b>Attributes</b></p>
-<div class="attDef" id="att-href">
-<p><span class="attname">href</span></p>
-<div class="desc">contains a URI at which the external grammar can
-be found.</div>
-</div>
-</div>
-<div class="remarks">
-<p><b>Remarks</b></p>
-<p>This is one of several elements that can be used to specify a
-grammar; grammars may be given in ixml or XML form, inline or
-externally.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
+&lt;/test-case&gt;</pre>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>A processor being tested should parse the specified
+	    input using the grammar supplied by a containing
+	    <a class="gi" href="#elem-test-set">test-set</a> element.  The processor passes the test
+	    if the processor's output matches the expected result
+	    (specified in the <a class="gi" href="#elem-result">result</a> element).</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-catalog">
+                     <h3 class="spec-label element">test-catalog</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains a collection of test cases organized into one
+	  or more test sets and released at the same time.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-name">
+                              <p>
+                                 <span class="attname">name</span>
+                              </p>
+                              <div class="desc">a name by which the collection of tests can be
+	      referred to</div>
+                           </div>
+                           <div class="attDef" id="att-release-date">
+                              <p>
+                                 <span class="attname">release-date</span>
+                              </p>
+                              <div class="desc">date of the test suite described by this
+	      catalog; more specifically, date of its release
+	      or official publication</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>When a suite of related tests is published, it may
+	    happen that there are different test-catalog files (and
+	    <a class="gi" href="#elem-test-catalog">test-catalog</a> elements) for different groups of
+	    tests within the larger collection.  It is a good idea for
+	    there to be one test catalog that includes all of the
+	    others, so as to provide a single point of entry for
+	    processing the entire collection of tests.  The
+	    <a class="gi" href="#elem-test-set-ref">test-set-ref</a> element is used to include other
+	    test-catalog files.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-report">
+                     <h3 class="spec-label element">test-report</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains a collection of test-case results derived by
+	  running the tests from a given test catalog through a
+	  particular processor.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>The overall structure of the test report mirrors the
+	    structure of the test catalog: for each <a class="gi" href="#elem-test-set">test-set</a>
+	    in the catalog, there will normally be a
+	    <a class="gi" href="#elem-test-set-results">test-set-results</a> element in the report, for each
+	    <a class="gi" href="#elem-grammar-test">grammar-test</a> a <a class="gi" href="#elem-grammar-result">grammar-result</a>, and for
+	    each <a class="gi" href="#elem-test-case">test-case</a> and <a class="gi" href="#elem-test-result">test-result</a>.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-result">
+                     <h3 class="spec-label element">test-result</h3>
+                     <div class="spec-content">
+                        <div class="desc">provides the result, in a test report, of running a
+	  given <a class="gi" href="#elem-test-case">test-case</a> in the test catalog.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-name">
+                              <p>
+                                 <span class="attname">name</span>
+                              </p>
+                              <div class="desc">The name of the test case.</div>
+                           </div>
+                           <div class="attDef" id="att-result">
+                              <p>
+                                 <span class="attname">result</span>
+                              </p>
+                              <div class="desc">Summarizes the result of running the test; the
+	      value is one of:
+	      <ul>
+                                    <li>
+                                       <code class="code">pass</code>, indicating that the reported
+		result agrees with the expected result</li>
+                                    <li>
+                                       <code class="code">fail</code>, indicating that the test was
+		run and the reported result did not agree with the
+		expected result</li>
+                                    <li>
+                                       <code class="code">not-run</code>, indicating that the
+		grammar test was not run, for whatever reason
+		(the reason can be given in a <a class="gi" href="#elem-description">description</a>
+		element)</li>
+                                    <li>
+                                       <code class="code">other</code>, indicating that none of the
+		other values apply (an explanation can be given in a
+		<a class="gi" href="#elem-description">description</a> or <a class="gi" href="#elem-app-info">app-info</a>
+		element)</li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>A child of <a class="gi" href="#elem-test-set-results">test-set-results</a>.</p>
+                           <p>The results of the test case can be given in greater or
+	    lesser detail.  The minimum <a class="gi" href="#elem-test-result">test-result</a> element
+	    gives the name of the test case and the result.  If
+	    desired, however, the test result can also contain or
+	    point to the grammar used for the test, the input string,
+	    the expected result, and the reported result.</p>
+                           <p>For convenience, the schema allows the
+	    <a class="gi" href="#elem-test-result">test-result</a> element to be the root element of a
+	    document.  It may be desired, for example, that a test
+	    harness produce a full test report for a given test
+	    catalog with only summary information on each test, and
+	    that a detailed report be written out for each failing
+	    test case as a separate document.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-set">
+                     <h3 class="spec-label element">test-set</h3>
+                     <div class="spec-content">
+                        <div class="desc">a set of test cases, nested test sets, or both.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-name">
+                              <p>
+                                 <span class="attname">name</span>
+                              </p>
+                              <div class="desc">a name by which the test set can be referred
+	      to; should be unique within the test catalog</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>The grammar for a test set may be given in any of
+	    several ways:</p>
+	    <ul>
+                                 <li>
+                                    <p>in ixml form inline, using an <a class="gi" href="#elem-ixml-grammar">ixml-grammar</a>
+		element, or</p>
+                                 </li>
+                                 <li>
+                                    <p>in ixml form in an external resource, using an
+		<a class="gi" href="#elem-ixml-grammar-ref">ixml-grammar-ref</a> element, or</p>
+                                 </li>
+                                 <li>
+                                    <p>in XML form inline, using the <a class="gi" href="#elem-vxml-grammar">vxml-grammar</a>
+		element, or</p>
+                                 </li>
+                                 <li>
+                                    <p>in XML form in an external resource, using the
+		<a class="gi" href="#elem-vxml-grammar-ref">vxml-grammar-ref</a> element.</p>
+                                 </li>
+                              </ul>
+	    <p>Here, <span class="mentioned">vxml</span> is short for
+	    <span class="gloss">‘visible XML’</span>, as distinct from
+	    <span class="gloss">‘invisible XML’</span>.</p>
+                           <p>The <a class="gi" href="#elem-grammar-test">grammar-test</a> element can be used to
+	    specify that the grammar itself is to be treated as a test
+	    case and parsed or checked against the grammar for ixml
+	    grammars.  In this case, the test set need not contain any
+	    test cases.</p>
+                           <p>Test sets can be nested to reflect any desired
+	    structure for the test suite.  Nested test sets can take
+	    the form of child <a class="gi" href="#elem-test-set">test-set</a> elements or of child
+	    <a class="gi" href="#elem-test-set-ref">test-set-ref</a> elements, which give the URI of a
+	    subordinate test set.  (In practice the test set reference
+	    is usually to an XML document rooted in
+	    <a class="gi" href="#elem-test-catalog">test-catalog</a>, rather than <a class="gi" href="#elem-test-set">test-set</a>, but
+	    the effect is the same: all test sets in the external
+	    resource are logically subordinate to the parent of the
+	    <a class="gi" href="#elem-test-set-ref">test-set-ref</a> element.)</p>
+                           <p>If a grammar is specified by a <a class="gi" href="#elem-test-set">test-set</a>
+	    element or by one of its ancestor <a class="gi" href="#elem-test-set">test-set</a>
+	    elements, then the test set can contain any number of test
+	    cases.  A grammar specified on a descendant overrides any
+	    grammar specified on an ancestor; the first grammar found,
+	    when ascending from the test case, is the one used.</p>
+                           <p>Note that grammars are not inherited across references
+	    to external test sets.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-set-ref">
+                     <h3 class="spec-label element">test-set-ref</h3>
+                     <div class="spec-content">
+                        <div class="block gloss">(i.e. reference to an external test set)</div>
+                        <div class="desc">points to an external resource with a set of test
+	  cases.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-href">
+                              <p>
+                                 <span class="attname">href</span>
+                              </p>
+                              <div class="desc">contains a URI at which the external test set
+	      can be found.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Despite the name of the element, the usual target of a
+	    <a class="gi" href="#elem-test-set-ref">test-set-ref</a> element will be a document rooted in
+	    a <a class="gi" href="#elem-test-catalog">test-catalog</a> element.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-set-results">
+                     <h3 class="spec-label element">test-set-results</h3>
+                     <div class="spec-content">
+                        <div class="desc">a collection of test results for a <a class="gi" href="#elem-test-set">test-set</a>
+	  in a test catalog.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-name">
+                              <p>
+                                 <span class="attname">name</span>
+                              </p>
+                              <div class="desc">the name of the source test set</div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-string">
+                     <h3 class="spec-label element">test-string</h3>
+                     <div class="spec-content">
+                        <div class="desc">contains a string to be used as input in a test
+	  case.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>If the string is long or otherwise inconvenient
+	    to include literally in the test catalog,
+	    the <a class="gi" href="#elem-test-string-ref">test-string-ref</a> element may be
+	    used instead.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-test-string-ref">
+                     <h3 class="spec-label element">test-string-ref</h3>
+                     <div class="spec-content">
+                        <div class="desc">points to a string to be used as input in a test
+	  case.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-href">
+                              <p>
+                                 <span class="attname">href</span>
+                              </p>
+                              <div class="desc">contains a URI at which the external input
+	      can be found.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>If the string is short and simple, it may be more
+	    convenient to include it directly in the test catalog;
+	    when this is so, the <a class="gi" href="#elem-test-string">test-string</a> element may be
+	    used instead of the <a class="gi" href="#elem-test-string-ref">test-string-ref</a> element.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-vxml-grammar">
+                     <h3 class="spec-label element">vxml-grammar</h3>
+                     <div class="spec-content">
+                        <div class="block gloss">(i.e. reference to grammar in visible-XML form)</div>
+                        <div class="desc">contains a grammar in XML form.</div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>Note that the schema for test catalogs does not
+	    constrain the XML used in the content of this element; in
+	    cases where the purpose of the test is to check the
+	    behavior of a processor when given XML input which is not
+	    a valid XML representation of an ixml grammar, the XML
+	    content of the <a class="gi" href="#elem-vxml-grammar">vxml-grammar</a> element will not in
+	    fact conform to the schema for the XML form of ixml
+	    grammars.</p>
+                           <p>This is one of several elements that can be used to
+	    specify a grammar; grammars may be given in ixml or XML
+	    form, inline or externally.</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="elementSpec" id="elem-vxml-grammar-ref">
+                     <h3 class="spec-label element">vxml-grammar-ref</h3>
+                     <div class="spec-content">
+                        <div class="block gloss">(i.e. reference to grammar in visible-XML form)</div>
+                        <div class="desc">points to a grammar in XML form.</div>
+                        <div class="attList">
+                           <p>
+                              <b>Attributes</b>
+                           </p>
+                           <div class="attDef" id="att-href">
+                              <p>
+                                 <span class="attname">href</span>
+                              </p>
+                              <div class="desc">contains a URI at which the external grammar
+	      can be found.</div>
+                           </div>
+                        </div>
+                        <div class="remarks">
+                           <p>
+                              <b>Remarks</b>
+                           </p>
+                           <p>This is one of several elements that can be used to
+	    specify a grammar; grammars may be given in ixml or XML
+	    form, inline or externally.</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
 </html>

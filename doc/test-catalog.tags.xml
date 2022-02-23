@@ -18,6 +18,9 @@
     <revisionDesc>
       <list>
 	<item>
+	  <p>2022-02-22 : CMSMcQ : add skeletal entries for test-report elements.</p>
+	</item>
+	<item>
 	  <p>2021-12-22 : CMSMcQ : copy edits.</p>
 	</item>
 	<item>
@@ -38,7 +41,7 @@
 	  <titlePart>XML elements for ixml test catalogs</titlePart>
 	</docTitle>
 	<docAuthor>C. M. Sperberg-McQueen</docAuthor>
-	<docDate>7 November 2021, last rev. 22 December 2021</docDate>
+	<docDate>7 November 2021, last rev. 22 February 2022</docDate>
       </titlePage>
     </front>
     <body>
@@ -303,6 +306,30 @@
 	    correct, and this element may occur more than once.</p>
 	  </remarks>
 	</elementSpec>
+	
+	<elementSpec ident="catalog-date">
+	  <desc>gives the release date of the test catalog describing the tests
+	  whose results are included in a test report.</desc>
+	  <remarks>
+	    <p>Occurs as a child of <gi>metadata</gi> at the top of
+	    the test report.</p>
+	    <p>The <gi>catalog-date</gi> will normally just repeat the
+	    information given in the <att>release-date</att> attribute
+	    on the <gi>test-catalog</gi> element.  The purpose of
+	    including it in the test report is to help document which
+	    version of the test catalog was used, if the test catalog
+	    is revised.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="catalog-uri">
+	  <desc>gives the URI of the test catalog describing the tests
+	  whose results are included in a test report.</desc>
+	  <remarks>
+	    <p>Occurs as a child of <gi>metadata</gi> at the top of
+	    the test report.</p>
+	  </remarks>
+	</elementSpec>
 
 	<elementSpec ident="code">
 	  <desc>marks inline code fragments in prose.</desc>
@@ -384,6 +411,46 @@
 	  </remarks>
 	</elementSpec>
 	
+	<elementSpec ident="grammar-result">
+	  <desc>provides the result, in a test report, of running a
+	  given <gi>grammar-test</gi> in the test catalog.</desc>
+	  <attList>
+	    <attDef ident="result">
+	      <desc>Summarizes the result of running the test; the
+	      value is one of:
+	      <list>
+		<item><code>pass</code>, indicating that the reported
+		result agrees with the expected result</item>
+		<item><code>fail</code>, indicating that the test was
+		run and the reported result did not agree with the
+		expected result</item>
+		<item><code>not-run</code>, indicating that the
+		grammar test was not run, for whatever reason
+		(the reason can be given in a <gi>description</gi>
+		element)</item>
+		<item><code>other</code>, indicating that none of the
+		other values apply (an explanation can be given in a
+		<gi>description</gi> or <gi>app-info</gi>
+		element)</item>
+	      </list>
+	      </desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>A child of <gi>test-set-results</gi>.</p>
+	    <p>The results of the grammar test can be given in greater
+	    or lesser detail.  The minimum <gi>grammar-result</gi>
+	    element gives the result of the test.  If desired,
+	    however, the test result can also contain or point to the
+	    grammar tested, the expected result, and the reported
+	    result.</p>
+	    <p>For convenience, the schema allows the
+	    <gi>grammar-result</gi> element to be the root element of
+	    a document.</p>
+	  </remarks>
+	</elementSpec>
+
+	
 	<elementSpec ident="grammar-test">
 	  <desc>indicates that the grammar associated with a given
 	  test set should be treated as a test case and checked for
@@ -464,6 +531,21 @@ s: #20; #9; #a.
 	    form, inline or externally.</p>
 	  </remarks>
 	</elementSpec>
+	
+	<elementSpec ident="metadata">
+	  <desc>contains a short sequence of metadata elements describing
+	  the contents of a test report.</desc>
+	  <remarks>
+	    <p>Children include <gi>name</gi> (of the report),
+	    <gi>report-date</gi>,
+	    <gi>processor</gi>,
+	    <gi>processor-version</gi>,
+	    <gi>catalog-uri</gi>, and
+	    <gi>catalog-date</gi>.
+	    </p>
+	  </remarks>
+	</elementSpec>
+	
 	<elementSpec ident="modified">
 	  <desc>contains an entry in the change log for a test case
 	  or test set describing a modification.</desc>
@@ -482,6 +564,18 @@ s: #20; #9; #a.
 	    <p></p>
 	  </remarks>
 	</elementSpec>
+	
+	<elementSpec ident="name">
+	  <desc>gives the name assigned to a test report.</desc>
+	  <remarks>
+	    <p>Occurs as a child of <gi>metadata</gi> at the top of
+	    the test report.</p>
+	    <p>The analogous name of a test catalog is given as
+	    an attribute on <gi>test-catalog</gi>, not as an
+	    element.</p>
+	  </remarks>
+	</elementSpec>
+	
 	<elementSpec ident="p">
 	  <desc>a paragraph of natural-language prose.</desc>
 	  <remarks>
@@ -491,15 +585,88 @@ s: #20; #9; #a.
 	    grown.</p>
 	  </remarks>
 	</elementSpec>
-	<elementSpec ident="result">
-	  <desc>specifies the expected result of a test,
-	  using the <gi>assert-xml</gi>, <gi>assert-xml-ref</gi>
-	  or the <gi>assert-not-a-sentence</gi> elements
-	  depending on what is to be asserted and how.</desc>
+	
+	<elementSpec ident="processor">
+	  <desc>indicates the processor used in the testing described
+	  in a a test report.</desc>
 	  <remarks>
-	    <p>The current design does not deal well with
-	    test cases for which multiple correct results are
-	    possible; see <ref target="#ambiguity">above</ref>.</p>
+	    <p>Occurs as a child of <gi>metadata</gi> at the top of
+	    the test report.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="processor-version">
+	  <desc>gives the version number or identifier, if any, of
+	  the processor for which a test report was prepared.</desc>
+	  <remarks>
+	    <p>Occurs as a child of <gi>metadata</gi> at the top of
+	    the test report.  Optional.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="report-date">
+	  <desc>gives the date on which a test report was prepared.</desc>
+	  <remarks>
+	    <p>Occurs as a child of <gi>metadata</gi> at the top of
+	    the test report.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="reported-not-a-grammar">
+	  <desc>in a test report, signals that the processor reported
+	  that the grammar supplied for a test is not a conforming
+	  ixml grammar (and thus cannot be used to parse the test
+	  input).</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="reported-not-a-sentence">
+	  <desc>in a test report, signals that the test input is not a
+	  sentence in the language described by the grammar supplied for the test.</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	  </remarks>
+	</elementSpec>
+
+	<elementSpec ident="reported-xml">
+	  <desc>in a test report, signals that the processor parsed
+	  the test input as a sentence in the language described by
+	  the grammar supplied; contains the XML element produced as
+	  output.</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	    <p>For ambiguous sentences, more than one parse is
+	    correct, and this element may occur more than once.</p>
+	  </remarks>
+	</elementSpec>
+
+	<elementSpec ident="reported-xml-ref">
+	  <desc>in a test report, signals that the processor parsed
+	  the test input as a sentence in the language described by
+	  the grammar supplied; gives a URI for the XML output
+	  produced by the processor.</desc>
+	  <remarks>
+	    <p>Appears as child of <gi>result</gi>.</p>
+	    <p>For ambiguous sentences, more than one parse is
+	    correct, and this element may occur more than once.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="result">
+	  <desc>in a test catalog specifies the expected result of a
+	  test, using the <gi>assert-xml</gi>, <gi>assert-xml-ref</gi>
+	  or the <gi>assert-not-a-sentence</gi> elements depending on
+	  what is to be asserted and how; in a test report may
+	  optionally recapitulate the expected result and may give the
+	  output reported by the processor.</desc>
+	  <remarks>
+	    <p>Unlike a test catalog, which is required to specify the
+	    expected result exactly once, a test report may give the
+	    expected result in multiple forms (i.e. both inline and by
+	    reference to an external document).  The same holds true
+	    for the reported result.</p>
 	  </remarks>
 	</elementSpec>
 	
@@ -580,6 +747,66 @@ s: #20; #9; #a.
 	  </remarks>
 	</elementSpec>
 	
+	<elementSpec ident="test-report">
+	  <desc>contains a collection of test-case results derived by
+	  running the tests from a given test catalog through a
+	  particular processor.</desc>
+	  <remarks>
+	    <p>The overall structure of the test report mirrors the
+	    structure of the test catalog: for each <gi>test-set</gi>
+	    in the catalog, there will normally be a
+	    <gi>test-set-results</gi> element in the report, for each
+	    <gi>grammar-test</gi> a <gi>grammar-result</gi>, and for
+	    each <gi>test-case</gi> and <gi>test-result</gi>.</p>
+	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-result">
+	  <desc>provides the result, in a test report, of running a
+	  given <gi>test-case</gi> in the test catalog.</desc>
+	  <attList>
+	    <attDef ident="name">
+	      <desc>The name of the test case.</desc>
+	    </attDef>
+	    <attDef ident="result">
+	      <desc>Summarizes the result of running the test; the
+	      value is one of:
+	      <list>
+		<item><code>pass</code>, indicating that the reported
+		result agrees with the expected result</item>
+		<item><code>fail</code>, indicating that the test was
+		run and the reported result did not agree with the
+		expected result</item>
+		<item><code>not-run</code>, indicating that the
+		grammar test was not run, for whatever reason
+		(the reason can be given in a <gi>description</gi>
+		element)</item>
+		<item><code>other</code>, indicating that none of the
+		other values apply (an explanation can be given in a
+		<gi>description</gi> or <gi>app-info</gi>
+		element)</item>
+	      </list>
+	      </desc>
+	    </attDef>
+	  </attList>
+	  <remarks>
+	    <p>A child of <gi>test-set-results</gi>.</p>
+	    <p>The results of the test case can be given in greater or
+	    lesser detail.  The minimum <gi>test-result</gi> element
+	    gives the name of the test case and the result.  If
+	    desired, however, the test result can also contain or
+	    point to the grammar used for the test, the input string,
+	    the expected result, and the reported result.</p>
+	    <p>For convenience, the schema allows the
+	    <gi>test-result</gi> element to be the root element of a
+	    document.  It may be desired, for example, that a test
+	    harness produce a full test report for a given test
+	    catalog with only summary information on each test, and
+	    that a detailed report be written out for each failing
+	    test case as a separate document.</p>
+	  </remarks>
+	</elementSpec>
+	
 	<elementSpec ident="test-set">
 	  <desc>a set of test cases, nested test sets, or both.</desc>
 	  <attList>
@@ -656,6 +883,16 @@ s: #20; #9; #a.
 	    <gi>test-set-ref</gi> element will be a document rooted in
 	    a <gi>test-catalog</gi> element.</p>
 	  </remarks>
+	</elementSpec>
+	
+	<elementSpec ident="test-set-results">
+	  <desc>a collection of test results for a <gi>test-set</gi>
+	  in a test catalog.</desc>
+	  <attList>
+	    <attDef ident="name" usage="req">
+	      <desc>the name of the source test set</desc>
+	    </attDef>
+	  </attList>	  
 	</elementSpec>
 	
 	<elementSpec ident="test-string">
