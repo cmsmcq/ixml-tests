@@ -16,41 +16,45 @@
          <p>Test selection: unroll + dnf + parsetree-generation.</p>
       </description>
       <vxml-grammar>
-         <ixml>
-            <comment> g112:  a small ixml grammar:  112
-
-  One of a series (initially for test case construction).
-
-  This one is an FSA with 1 nonfinal state, 1 final state, 2 arcs.
-  (I'm not counting the nil arc marking A as final.)
-
-  L is the set containing strings of one or more 'a' and
-  nothing else.
-
-</comment>
-            <comment> Revisions:
-  2021-01-17 : CMSMcQ : made ixml 
-</comment>
-            <rule name="S">:  <alt>
-                  <literal sstring="a"/>
-                  <nonterminal name="A"/>
-               </alt>. 
-</rule>
-            <rule name="A">:  <alt>
-                  <literal sstring="a"/>
-                  <nonterminal name="A"/>
-               </alt>
-               <alt/>.</rule>
+         <ixml xmlns="">
+           <comment>
+	     g112:  a small ixml grammar:  112
+	     
+	     One of a series (initially for test case construction).
+	     
+	     This one is an FSA with 1 nonfinal state, 1 final state, 2 arcs.
+	     (I'm not counting the nil arc marking A as final.)
+	     
+	     L is the set containing strings of one or more 'a' and
+	     nothing else.
+	     
+	   </comment>
+            <comment> 
+	      Revisions:
+	      2021-01-17 : CMSMcQ : made ixml 
+	    </comment>
+	    <rule name="S">
+	      <alt>
+                <literal sstring="a"/>
+                <nonterminal name="A"/>
+	      </alt>
+	    </rule>
+            <rule name="A">
+	      <alt>
+		<literal sstring="a"/>
+		<nonterminal name="A"/>
+              </alt>
+              <alt/>
+	    </rule>
          </ixml>
       </vxml-grammar>
+
       <test-case xml:id="S-1" name="S1">
          <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
          <test-string>aa</test-string>
          <result>
             <assert-xml>
-               <S>a<A>a<A/>
-                  </A>
-               </S>
+               <S xmlns="">a<A>a<A/></A></S>
             </assert-xml>
          </result>
          <app-info>
@@ -79,9 +83,7 @@
          <test-string>aa</test-string>
          <result>
             <assert-xml>
-               <S>a<A>a<A/>
-                  </A>
-               </S>
+               <S xmlns="">a<A>a<A/></A></S>
             </assert-xml>
          </result>
          <app-info>

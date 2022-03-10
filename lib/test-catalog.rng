@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar ns="https://github.com/cmsmcq/ixml-tests" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar ns="https://github.com/cmsmcq/ixml-tests"
+	 xmlns="http://relaxng.org/ns/structure/1.0"
+	 datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
     RNC grammar for test catalog.
     
     Revisions:
+    2022-02-06 : CMSMcQ : Add a quick and dirty report format.
     2021-12-22 : CMSMcQ : Make 'created' optional on individual tests;
                           notionally, let it be inherited from test set.
     2021-11-11 : CMSMcQ : Revamp result to allow multiple results
@@ -31,10 +34,22 @@
     (Exception:  element test-set has two definitions, test-set-0
     and test-set-1.)
   -->
+  <!--
+    The normal starting points are test-catalog and test-report.
+    But to allow individual test sets and tests to be reported
+    separately, we also allow lower-level result elements as the
+    start symbol.
+  -->
   <start>
-    <ref name="test-catalog"/>
+    <choice>
+      <ref name="test-catalog"/>
+      <ref name="test-report"/>
+      <ref name="test-set-results"/>
+      <ref name="grammar-result"/>
+      <ref name="test-result"/>
+    </choice>
   </start>
-  <!-- test-catalog -->
+  <!-- test-catalog, test-report -->
   <!--
     A test catalog is a collection of test sets, with common
     metadata.
@@ -53,6 +68,53 @@
             <ref name="test-set-0"/>
             <ref name="test-set-ref"/>
           </choice>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <!--
+    A test report is a collection of test set reports, with common
+    metadata.
+  -->
+  <define name="test-report">
+    <element name="test-report">
+      <element name="metadata">
+        <interleave>
+          <group>
+            <element name="name">
+              <text/>
+            </element>
+            <element name="report-date">
+              <choice>
+                <data type="date"/>
+                <data type="dateTime"/>
+              </choice>
+            </element>
+            <element name="processor">
+              <text/>
+            </element>
+            <optional>
+              <element name="processor-version">
+                <text/>
+              </element>
+            </optional>
+            <element name="catalog-uri">
+              <text/>
+            </element>
+            <optional>
+              <element name="catalog-date">
+                <text/>
+              </element>
+            </optional>
+          </group>
+          <ref name="Metadata"/>
+        </interleave>
+      </element>
+      <ref name="external-atts"/>
+      <interleave>
+        <ref name="Metadata"/>
+        <zeroOrMore>
+          <ref name="test-set-results"/>
         </zeroOrMore>
       </interleave>
     </element>
@@ -97,12 +159,13 @@
       </attribute>
     </element>
   </define>
-  <!-- test-set -->
+  <!-- test-set, test-set-results -->
   <!--
     A test set is a collection of tests (or possibly subordinate
     test sets, or both) with common metadata and a common
     grammar.
   -->
+  <!-- Test cases are allowed only after a grammar is specified. -->
   <!--
     We keep track of whether an ancestor has specified a grammar
     by having two nonterminals for test sets:  test-set-0 is used
@@ -145,7 +208,7 @@
     </element>
   </define>
   <!--
-    If an ancestor has specified a grammar, test cases are allows
+    If an ancestor has specified a grammar, test cases are allowed
     in this test set even if there is no grammar at this level.
   -->
   <define name="test-set-1">
@@ -170,20 +233,56 @@
       </interleave>
     </element>
   </define>
+  <define name="test-set-results">
+    <element name="test-set-results">
+      <attribute name="name"/>
+      <ref name="external-atts"/>
+      <interleave>
+        <ref name="Metadata"/>
+        <group>
+          <optional>
+            <ref name="Grammar-results"/>
+          </optional>
+          <zeroOrMore>
+            <choice>
+              <ref name="test-set-results"/>
+              <ref name="test-result"/>
+            </choice>
+          </zeroOrMore>
+        </group>
+      </interleave>
+    </element>
+  </define>
   <!--
     Grammars can be in invisible XML or in visible XML.
     They can be inline or external.  They can be marked
     as a grammar test or not.
   -->
-  <define name="Grammar-spec">
+  <define name="Grammar-data">
     <choice>
       <ref name="ixml-grammar"/>
       <ref name="vxml-grammar"/>
       <ref name="ixml-grammar-ref"/>
       <ref name="vxml-grammar-ref"/>
     </choice>
+  </define>
+  <define name="Grammar-spec">
+    <ref name="Grammar-data"/>
     <optional>
       <ref name="grammar-test"/>
+    </optional>
+  </define>
+  <!--
+    In the results file, we may omit the grammar, or include
+    it, possibly both reproducing the reference and giving
+    the grammar inline. 
+  -->
+  <define name="Grammar-results">
+    <zeroOrMore>
+      <ref name="Grammar-data"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="grammar-result"/>
     </optional>
   </define>
   <!--
@@ -267,6 +366,20 @@
       </interleave>
     </element>
   </define>
+  <define name="grammar-result">
+    <element name="grammar-result">
+      <attribute name="result">
+        <ref name="result-type"/>
+      </attribute>
+      <ref name="external-atts"/>
+      <interleave>
+        <ref name="Metadata"/>
+        <optional>
+          <ref name="result-report"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
   <!-- test-case -->
   <!--
     test-case:  describes one test case, with metadata, history,
@@ -287,6 +400,37 @@
         </group>
       </interleave>
     </element>
+  </define>
+  <define name="test-result">
+    <element name="test-result">
+      <attribute name="name"/>
+      <attribute name="result">
+        <ref name="result-type"/>
+      </attribute>
+      <ref name="external-atts"/>
+      <interleave>
+        <ref name="Metadata"/>
+        <group>
+          <zeroOrMore>
+            <ref name="Grammar-data"/>
+          </zeroOrMore>
+          <zeroOrMore>
+            <ref name="Test-string"/>
+          </zeroOrMore>
+          <optional>
+            <ref name="result-report"/>
+          </optional>
+        </group>
+      </interleave>
+    </element>
+  </define>
+  <define name="result-type">
+    <choice>
+      <value>pass</value>
+      <value>fail</value>
+      <value>not-run</value>
+      <value>other</value>
+    </choice>
   </define>
   <!-- Test-string:  in-line or external -->
   <define name="Test-string">
@@ -318,6 +462,17 @@
     <element name="result">
       <ref name="external-atts"/>
       <ref name="Assertion"/>
+    </element>
+  </define>
+  <define name="result-report">
+    <element name="result">
+      <ref name="external-atts"/>
+      <optional>
+        <ref name="Assertion"/>
+      </optional>
+      <optional>
+        <ref name="Observation"/>
+      </optional>
     </element>
   </define>
   <!-- Test assertions -->
@@ -380,6 +535,46 @@
   </define>
   <define name="assert-not-a-grammar">
     <element name="assert-not-a-grammar">
+      <ref name="external-atts"/>
+      <ref name="Metadata"/>
+    </element>
+  </define>
+  <define name="Observation">
+    <choice>
+      <oneOrMore>
+        <choice>
+          <ref name="reported-xml-ref"/>
+          <ref name="reported-xml"/>
+        </choice>
+      </oneOrMore>
+      <ref name="reported-not-a-sentence"/>
+      <ref name="reported-not-a-grammar"/>
+    </choice>
+  </define>
+  <define name="reported-xml-ref">
+    <element name="reported-xml-ref">
+      <ref name="external-atts"/>
+      <attribute name="href">
+        <data type="anyURI"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="reported-xml">
+    <element name="reported-xml">
+      <ref name="external-atts"/>
+      <oneOrMore>
+        <ref name="any-element"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="reported-not-a-sentence">
+    <element name="reported-not-a-sentence">
+      <ref name="external-atts"/>
+      <ref name="Metadata"/>
+    </element>
+  </define>
+  <define name="reported-not-a-grammar">
+    <element name="reported-not-a-grammar">
       <ref name="external-atts"/>
       <ref name="Metadata"/>
     </element>

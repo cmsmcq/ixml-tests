@@ -484,10 +484,19 @@
       <test-case xml:id="arc-neg-m-S_1˃1"
                  gt:polarity="negative"
                  gt:trace="S_0 . 1 / m-S_1 + m-S_1˃1 + error" name="G022-neg-049">
-         <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
+        <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
+	<modified by="CMSMcQ" on="2022-03-10" change="change expectation"/>
+	<description>
+	  <p>Not clear how this got produced as a negative example
+	  (other than the obvious:  bug in the test generator).
+	  It's clearly grammatical, so I'm changing the result.</p>
+	</description>
          <test-string gt:hex="#61 #62">ab</test-string>
          <result>
-            <assert-not-a-sentence/>
+	   <!-- <assert-not-a-sentence/> -->
+	   <assert-xml>
+             <S xmlns="">a<A>b<S/></A></S>
+	   </assert-xml>
          </result>
       </test-case>
       <test-case xml:id="arc-neg-m-S_1˃1"
@@ -656,9 +665,18 @@
                  gt:polarity="negative"
                  gt:trace="S_0 . 1 / m-S_1 . 1 / m-A·S·_1 . 1 / m-S·A·S·_1 . 1 / m-A·S·A·S·_1 . 1 / m-S·A·S·A·S·_1 + m-S·A·S·A·S·_1˃1 + error" name="G022-neg-068">
          <created by="Gingersnap (CMSMcQ)" on="2021-01-26"/>
+	 <modified by="CMSMcQ" on="2022-03-10" change="change expectation"/>
+	 <description>
+	   <p>Not clear how this got produced as a negative example
+	   (other than the obvious:  bug in the test generator).
+	   It's clearly grammatical, so I'm changing the result.</p>
+	 </description>
          <test-string gt:hex="#61 #62 #61 #62 #61 #62">ababab</test-string>
          <result>
-            <assert-not-a-sentence/>
+           <!-- <assert-not-a-sentence/> -->
+	   <assert-xml>
+	     <S xmlns="">a<A>b<S>a<A>b<S>a<A>b<S/></A></S></A></S></A></S>
+	   </assert-xml>
          </result>
       </test-case>
       <test-case xml:id="arc-neg-m-A·S·A·S·A·S·_1˃1"
