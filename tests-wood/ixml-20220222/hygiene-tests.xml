@@ -1,5 +1,6 @@
 <tc:test-catalog xmlns:tc="https://github.com/cmsmcq/ixml-tests"
 		 xmlns:ap="http://blackmesatech.com/2019/iXML/Aparecium"
+                 xmlns:ixml="http://invisiblexml.org/NS"
 		 release-date="2022-03-12"
 		 name="Improper grammars">
   <tc:description>
@@ -116,8 +117,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:multiple-definitions="warning"/>
-	<ap:options ap:multiple-definitions="silence"/>
+	<tc:options ap:multiple-definitions="warning"/>
+	<tc:options ap:multiple-definitions="silence"/>
 	<tc:assert-not-a-sentence/>
       </tc:app-info>
     </tc:test-case>
@@ -128,8 +129,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:multiple-definitions="warning"/>
-	<ap:options ap:multiple-definitions="silence"/>
+	<tc:options ap:multiple-definitions="warning"/>
+	<tc:options ap:multiple-definitions="silence"/>
 	<tc:assert-xml>
 	  <S>a</S>
 	</tc:assert-xml>
@@ -142,8 +143,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:multiple-definitions="warning"/>
-	<ap:options ap:multiple-definitions="silence"/>
+	<tc:options ap:multiple-definitions="warning"/>
+	<tc:options ap:multiple-definitions="silence"/>
 	<tc:assert-xml>
 	  <S>b</S>
 	</tc:assert-xml>
@@ -182,8 +183,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>
 	<tc:assert-xml>
 	  <ixml
 	    ><rule name="S"
@@ -240,8 +241,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>
 	<tc:assert-not-a-sentence/>
       </tc:app-info>
     </tc:test-case>
@@ -252,8 +253,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>
 	<tc:assert-xml>
 	  <S><A>a</A></S>
 	</tc:assert-xml>
@@ -266,20 +267,20 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>	
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>	
 	<tc:assert-xml>
-	  <S><B>b</B></S>
+	  <S ixml:state="ambiguous"><B>b</B></S>
 	</tc:assert-xml><tc:assert-xml>
-	  <S><B><B>b</B></B></S>
+	  <S ixml:state="ambiguous"><B><B>b</B></B></S>
 	</tc:assert-xml><tc:assert-xml>
-	  <S><B><B><B>b</B></B></B></S>
+	  <S ixml:state="ambiguous"><B><B><B>b</B></B></B></S>
 	</tc:assert-xml><tc:assert-xml>
-	  <S><B><B><B><B>b</B></B></B></B></S>
+	  <S ixml:state="ambiguous"><B><B><B><B>b</B></B></B></B></S>
 	</tc:assert-xml><tc:assert-xml>
-	  <S><B><B><B><B><B>b</B></B></B></B></B></S>
+	  <S ixml:state="ambiguous"><B><B><B><B><B>b</B></B></B></B></B></S>
 	</tc:assert-xml><tc:assert-xml>
-	  <S><B><B><B><B><B><B>b</B></B></B></B></B></B></S>
+	  <S ixml:state="ambiguous"><B><B><B><B><B><B>b</B></B></B></B></B></B></S>
 	</tc:assert-xml>
       </tc:app-info>
     </tc:test-case>
@@ -290,10 +291,10 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>
 	<tc:assert-xml>
-	  <S>(<S>a</S>)</S>
+	  <S>(<S><A>a</A></S>)</S>
 	</tc:assert-xml>
       </tc:app-info>
     </tc:test-case>
@@ -304,10 +305,10 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>
 	<tc:assert-xml>
-	  <S>(<S>(<S>a</S>)</S>)</S>
+	  <S>(<S>(<S><A>a</A></S>)</S>)</S>
 	</tc:assert-xml>
       </tc:app-info>
     </tc:test-case>
@@ -318,8 +319,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<ap:options ap:undefined-nonterminals="warning"/>
-	<ap:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-nonterminals="warning"/>
+	<tc:options ap:undefined-nonterminals="silence"/>
 	<tc:assert-not-a-sentence/>
       </tc:app-info>
     </tc:test-case>
