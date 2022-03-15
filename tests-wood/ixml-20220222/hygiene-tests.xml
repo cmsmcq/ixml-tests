@@ -32,9 +32,9 @@
     specified are in the ap:* namespace; these have the local names
      
       'multiple-definitions', 
-      'undefined-nonterminals',
-      'unreachable-rules', and 
-      'unproductive-nonterminals', 
+      'undefined-symbols',
+      'unreachable-symbols', and 
+      'unproductive-symbols', 
 
     with meanings which I hope are obvious.  In all cases, the
     possible values are "error", "warning", and "silence".  In
@@ -46,9 +46,9 @@
     <tc:p>For strict ixml conformance, the prescribed values are
     
       ap:multiple-definitions = "error", 
-      ap:undefined-nonterminals = "error",
-      ap:unreachable-rules = "warning" or "silence", and 
-      ap:unproductive-nonterminals = "warning" or "silence".
+      ap:undefined-symbols = "error",
+      ap:unreachable-symbols = "warning" or "silence", and 
+      ap:unproductive-symbols = "warning" or "silence".
       
     </tc:p>    
     
@@ -183,8 +183,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>
 	<tc:assert-xml>
 	  <ixml
 	    ><rule name="S"
@@ -241,8 +241,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>
 	<tc:assert-not-a-sentence/>
       </tc:app-info>
     </tc:test-case>
@@ -253,8 +253,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>
 	<tc:assert-xml>
 	  <S><A>a</A></S>
 	</tc:assert-xml>
@@ -267,8 +267,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>	
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>	
 	<tc:assert-xml>
 	  <S ixml:state="ambiguous"><B>b</B></S>
 	</tc:assert-xml><tc:assert-xml>
@@ -291,8 +291,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>
 	<tc:assert-xml>
 	  <S>(<S><A>a</A></S>)</S>
 	</tc:assert-xml>
@@ -305,8 +305,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>
 	<tc:assert-xml>
 	  <S>(<S>(<S><A>a</A></S>)</S>)</S>
 	</tc:assert-xml>
@@ -319,8 +319,8 @@
 	<tc:assert-not-a-grammar/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:undefined-nonterminals="warning"/>
-	<tc:options ap:undefined-nonterminals="silence"/>
+	<tc:options ap:undefined-symbols="warning"/>
+	<tc:options ap:undefined-symbols="silence"/>
 	<tc:assert-not-a-sentence/>
       </tc:app-info>
     </tc:test-case>
@@ -355,7 +355,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:grammar-test>
@@ -365,7 +365,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -377,7 +377,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -387,7 +387,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -443,7 +443,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:grammar-test>
@@ -453,7 +453,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -465,7 +465,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -475,7 +475,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unreachable-rules="error"/>
+	<tc:options ap:unreachable-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -516,7 +516,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:grammar-test>
@@ -526,7 +526,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -536,7 +536,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -548,7 +548,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -597,7 +597,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:grammar-test>
@@ -607,7 +607,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -617,7 +617,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -629,7 +629,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -674,7 +674,7 @@
 	</tc:assert-xml>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>      
     </tc:grammar-test>
@@ -684,7 +684,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -694,7 +694,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
@@ -704,7 +704,7 @@
 	<tc:assert-not-a-sentence/>
       </tc:result>
       <tc:app-info>
-	<tc:options ap:unproductive-nonterminals="error"/>
+	<tc:options ap:unproductive-symbols="error"/>
 	<tc:assert-not-a-grammar/>
       </tc:app-info>
     </tc:test-case>
