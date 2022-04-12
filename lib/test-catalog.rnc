@@ -6,6 +6,8 @@ grammar {
 	# RNC grammar for test catalog.
 	#
 	# Revisions:
+	# 2022-04-11 : CMSMcQ : Add dynamic-error as expected result
+	# 2022-02-14 : CMSMcQ : Move metadata from attributes to elements
 	# 2022-02-06 : CMSMcQ : Add a quick and dirty report format.
 	# 2021-12-22 : CMSMcQ : Make 'created' optional on individual tests;
 	#                       notionally, let it be inherited from test set.
@@ -283,19 +285,28 @@ grammar {
 # Test assertions
 
         # Several kinds of result are possible.
+	#
 	# - In the common case we will have one expected XML result.  We
 	#   specify it with assert-xml or assert-xml-ref (inline or
 	#   external).
+	#
 	# - For ambiguous sentences, we may and should specify several 
 	#   XML results, any of which is acceptable.  So the XML
 	#   assertions can repeat, with an implicit OR as their meaning.
+	#
 	# - In the case of infinite ambiguity, we can and should specify
 	#   a finite subset of the expected results, which we add to as
 	#   needed.
+	#
 	# - If the input is not be a sentence in the language defined
 	#   by the grammar, we use assert-not-a-sentence.
+	#
 	# - If the grammar specified is not a conforming ixml grammar, 
-	#   then, we use assert-not-a-grammar.
+	#   then we use assert-not-a-grammar.
+	#
+	# - If the particular grammar + input pair would produce 
+	#   ill-formed output if the normal rules were followed, then
+	#   we use assert-dynamic-error.
 	#
 	# Logically speaking, in the case of a grammar-test, there is no
 	# useful distinction between assert-not-a-sentence and
@@ -303,10 +314,20 @@ grammar {
 	# more sense, but in practice they should be treated as
 	# equivalent.  They are usefully different only for normal
 	# test cases.
+	#
+	# Since dynamic errors are allowed to be caught statically,
+	# some processors may return assert-not-a-grammar when the test
+	# catalog expects assert-dynamic-error.
+	#
+	# Errors in the grammar and dynamic errors may be associated
+	# with error codes.  For the moment, these are optional.
 
         Assertion = ((assert-xml-ref | assert-xml)+
 	            | assert-not-a-sentence
-	            | assert-not-a-grammar)
+	            | assert-not-a-grammar
+		    | assert-dynamic-error)
+
+        Error-Code = attribute error-code { text }?
 
         assert-xml-ref = element assert-xml-ref {
 	    external-atts,
@@ -321,13 +342,20 @@ grammar {
 	    Metadata
 	}
         assert-not-a-grammar = element assert-not-a-grammar {
+	    Error-Code,
+	    external-atts,
+	    Metadata
+	}
+        assert-dynamic-error = element assert-dynamic-error {
+	    Error-Code,
 	    external-atts,
 	    Metadata
 	}
 
         Observation = ((reported-xml-ref | reported-xml)+
 	            | reported-not-a-sentence
-	            | reported-not-a-grammar)
+	            | reported-not-a-grammar
+		    | reported-dynamic-error)
 		    
         reported-xml-ref = element reported-xml-ref {
 	    external-atts,
@@ -342,6 +370,12 @@ grammar {
 	    Metadata
 	}
         reported-not-a-grammar = element reported-not-a-grammar {
+	    Error-Code,
+	    external-atts,
+	    Metadata
+	}
+        reported-dynamic-error = element reported-dynamic-error {
+	    Error-Code,
 	    external-atts,
 	    Metadata
 	}

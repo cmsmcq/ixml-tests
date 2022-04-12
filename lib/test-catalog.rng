@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar ns="https://github.com/cmsmcq/ixml-tests"
-	 xmlns="http://relaxng.org/ns/structure/1.0"
-	 datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar ns="https://github.com/cmsmcq/ixml-tests" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <!--
     RNC grammar for test catalog.
     
     Revisions:
+    2022-04-11 : CMSMcQ : Add dynamic-error as expected result
+    2022-02-14 : CMSMcQ : Move metadata from attributes to elements
     2022-02-06 : CMSMcQ : Add a quick and dirty report format.
     2021-12-22 : CMSMcQ : Make 'created' optional on individual tests;
                           notionally, let it be inherited from test set.
@@ -478,19 +478,28 @@
   <!-- Test assertions -->
   <!--
     Several kinds of result are possible.
+    
     - In the common case we will have one expected XML result.  We
       specify it with assert-xml or assert-xml-ref (inline or
       external).
+    
     - For ambiguous sentences, we may and should specify several 
       XML results, any of which is acceptable.  So the XML
       assertions can repeat, with an implicit OR as their meaning.
+    
     - In the case of infinite ambiguity, we can and should specify
       a finite subset of the expected results, which we add to as
       needed.
+    
     - If the input is not be a sentence in the language defined
       by the grammar, we use assert-not-a-sentence.
+    
     - If the grammar specified is not a conforming ixml grammar, 
-      then, we use assert-not-a-grammar.
+      then we use assert-not-a-grammar.
+    
+    - If the particular grammar + input pair would produce 
+      ill-formed output if the normal rules were followed, then
+      we use assert-dynamic-error.
     
     Logically speaking, in the case of a grammar-test, there is no
     useful distinction between assert-not-a-sentence and
@@ -498,6 +507,13 @@
     more sense, but in practice they should be treated as
     equivalent.  They are usefully different only for normal
     test cases.
+    
+    Since dynamic errors are allowed to be caught statically,
+    some processors may return assert-not-a-grammar when the test
+    catalog expects assert-dynamic-error.
+    
+    Errors in the grammar and dynamic errors may be associated
+    with error codes.  For the moment, these are optional.
   -->
   <define name="Assertion">
     <choice>
@@ -509,7 +525,13 @@
       </oneOrMore>
       <ref name="assert-not-a-sentence"/>
       <ref name="assert-not-a-grammar"/>
+      <ref name="assert-dynamic-error"/>
     </choice>
+  </define>
+  <define name="Error-Code">
+    <optional>
+      <attribute name="error-code"/>
+    </optional>
   </define>
   <define name="assert-xml-ref">
     <element name="assert-xml-ref">
@@ -535,6 +557,14 @@
   </define>
   <define name="assert-not-a-grammar">
     <element name="assert-not-a-grammar">
+      <ref name="Error-Code"/>
+      <ref name="external-atts"/>
+      <ref name="Metadata"/>
+    </element>
+  </define>
+  <define name="assert-dynamic-error">
+    <element name="assert-dynamic-error">
+      <ref name="Error-Code"/>
       <ref name="external-atts"/>
       <ref name="Metadata"/>
     </element>
@@ -549,6 +579,7 @@
       </oneOrMore>
       <ref name="reported-not-a-sentence"/>
       <ref name="reported-not-a-grammar"/>
+      <ref name="reported-dynamic-error"/>
     </choice>
   </define>
   <define name="reported-xml-ref">
@@ -575,6 +606,14 @@
   </define>
   <define name="reported-not-a-grammar">
     <element name="reported-not-a-grammar">
+      <ref name="Error-Code"/>
+      <ref name="external-atts"/>
+      <ref name="Metadata"/>
+    </element>
+  </define>
+  <define name="reported-dynamic-error">
+    <element name="reported-dynamic-error">
+      <ref name="Error-Code"/>
       <ref name="external-atts"/>
       <ref name="Metadata"/>
     </element>
